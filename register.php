@@ -1,5 +1,209 @@
+<?php
+
+$Utilizador = $Email = $pass = $veriPass = "";
+$dateCurrent = 0;
+$erro = "";
+$RegisterArrayErr = [];
+
+$login = "root"; $pagina="index.html"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+  
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  if (empty($_POST["Utilizador"])) {
+    $RegisterArrayErr['UtilizadorErr'] = "Insira o nome do utilizador";
+
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+  } else {
+    
+    $Utilizador = register_input($_POST["Utilizador"]);
+
+    if (!preg_match('/^[A-Z-a-z]{3,}+$/',$Utilizador)) {
+      $RegisterArrayErr['UtilizadorErr'] = "Insira o nome do utilizador";
+
+      $d = strtotime("now");
+      $dateCurrent = date("Y-m-d h:i:sa", $d);
+    }
+  }
+
+
+  if (empty($_POST["Email"])) {
+    $RegisterArrayErr['EmailErr'] = "Insira o email do utilizador";
+
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+  } else {
+
+    $Email = register_input($_POST["Email"]);
+
+    if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+      $EmailErr = "Formato de email inválido";
+      $RegisterArrayErr['EmailErr'] = $EmailErr;
+
+      $d = strtotime("now");
+      $dateCurrent = date("Y-m-d h:i:sa", $d);
+    }
+
+    $queryEmailExists = mysqli_query($conn, "SELECT * FROM users WHERE email = '$Email'");
+
+    if(mysqli_num_rows($queryEmailExists) > 0){
+      $EmailErr = "Email inválido";
+      $RegisterArrayErr['EmailErr'] = $EmailErr;
+
+      $d = strtotime("now");
+      $dateCurrent = date("Y-m-d h:i:sa", $d);
+    }
+  }
+  //verificaçao de email
+  $Email = filter_var($Email, FILTER_SANITIZE_EMAIL);
+	if (filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+	  //echo('Email válido!!!');
+
+	} else {
+
+	  $EmailErr = 'Email não valido';
+    $RegisterArrayErr['EmailErr'] = $EmailErr;
+
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+}
+
+  
+  if (empty($_POST["Password"])) {
+    $RegisterArrayErr['$PassErr'] = "Insira uma password";
+
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+  } else {
+    $pass = register_input($_POST["Password"]);
+
+
+    if (!preg_match("/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,20}$/",$pass)) {
+      $RegisterArrayErr['$PassErr'] = "A password inserida não é segura";
+
+      $d = strtotime("now");
+      $dateCurrent = date("Y-m-d h:i:sa", $d);
+    }
+  }
+    
+  if (empty($_POST["VeriPassword"])) {
+    $RegisterArrayErr['PassVeriErr'] = "Insira uma repetição da password";
+
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+  } else {
+    $veriPass = register_input($_POST["VeriPassword"]);
+
+    if (!strcasecmp($pass, $veriPass) == 0 ) {
+      $RegisterArrayErr['PassVeriErr'] = "A password inserida não é igual a anterior";
+
+      $d = strtotime("now");
+      $dateCurrent = date("Y-m-d h:i:sa", $d);
+    }
+  }
+
+
+    if(isset($_POST['submit'])){
+      if(!empty($_POST['checkArr'])){
+        foreach($_POST['checkArr'] as $checked){
+          echo $checked, "</br>";
+        }
+      }
+    }
+}
+
+
+function register_input($data) {
+  if(is_array($data)) {
+      return array_map('register_input', $data);
+  }
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+
+
+/* echo "----------------------------ERROS-------------------------------------";
+echo "<br>";
+echo $Email;
+echo $Utilizador;
+echo $pass; */
+
+
+if (empty($RegisterArrayErr)){
+
+    
+    //converter password em md5
+    $pass = md5($pass);
+
+    // sql para inserir registos
+    $sql = "INSERT INTO users (email, name, pass) VALUES ('$Email', '$Utilizador', '$pass')";
+
+    if ($conn->query($sql) === TRUE) 
+        header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
+        //echo "Novo registo criado com sucesso";
+    else echo "Erro: " . $sql . "<br>" . $conn->error;
+
+    echo "Sucesso!" ;
+
+
+    $erro = "Novo registo criado com sucesso";
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+    $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'register', '$erro')";
+
+    //LIGAR TABELA LOGS
+    if ($conn->query($logs) === TRUE)
+    echo "Novo log criado com sucesso";
+    else echo "Erro: " . $logs . "<br>" . $conn->error;
+
+
+  } else {
+
+    echo "Erro: ";
+
+
+
+    foreach($RegisterArrayErr as $registererro => $erro) {
+      echo  $erro . "; ";
+
+      $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'register', '$erro')";
+
+
+      //LIGAR TABELA LOGS
+      if ($conn->query($logs) === TRUE){
+
+        //echo "Novo log criado com sucesso!!! ";
+        
+      } else {
+
+         echo "Erro: " . $logs . "<br>" . $conn->error;
+      }
+    }
+
+
+    //MOSTRA
+    /* foreach($RegisterArrayErr as $registererro => $valorregister_erro) {
+       echo  $valorregister_erro, "; ";
+    } */
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -63,8 +267,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">MAIS PÁGINAS</a>
                             <div class="dropdown-menu">
-                                <a href="wishlist.html" class="dropdown-item active">LISTA DE DESEJOS</a>
-                                <a href="login.html" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
+                                <a href="wishlist.html" class="dropdown-item">LISTA DE DESEJOS</a>
                                 <a href="contact.html" class="dropdown-item">CONTACTE-NOS</a>
                             </div>
                         </div>
@@ -73,8 +276,8 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
+                                <a href="login.html" class="dropdown-item">Iniciar Sessão</a>
+                                <a href="register.html" class="dropdown-item">Criar Conta</a>
                             </div>
                         </div>
                     </div>
@@ -123,130 +326,72 @@
         <div class="container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
-                <li class="breadcrumb-item active">LISTA DE DESEJOS</li>
+                <li class="breadcrumb-item active">CRIAR CONTA</li>
             </ul>
         </div>
     </div>
     <!-- Breadcrumb End -->
 
-    <!-- Wishlist Start -->
-    <div class="wishlist-page">
+    <!-- Login Start -->
+    <!-- Login Start -->
+    <form class="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="container-fluid">
-            <div class="wishlist-page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Produto</th>
-                                        <th>Preço</th>
-                                        <th>Quantidade</th>
-                                        <th>Adicionar ao Carrinho de Compras</th>
-                                        <th>Eliminar</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="align-middle">
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-6.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-7.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-8.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-9.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-10.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="row">
+                <div class="col-12">
+                    <div class="register-form">
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Nome</label>
+                                <input class="form-control" type="text" placeholder="Nome" name="Utilizador">
+                            </div>
+                            <div class="col-6">
+                                <label>E-mail</label>
+                                <input class="form-control" type="email" placeholder="E-mail" name="Email">
+                            </div>
+                            <div class="col-6">
+                                <label>Palavra Passe</label>
+                                <input class="form-control" type="password" placeholder="Palavra Passe" name="Password">
+                            </div>
+                            <div class="col-6">
+                                <label>Repetir a Palavra Passe</label>
+                                <input class="form-control" type="password" placeholder="Palavra Passe" name="VeriPassword">
+                            </div>
+                            
+                            <div class="col-6">
+                                <input class="form-control" type="hidden" name="pagina" value="<?php echo basename($_SERVER['PHP_SELF']);?>">
+                            </div>
+
+
+                            <div class="col-12">
+                                <button class="btn" name="submit" type="submit">Criar Conta</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+            
+        </div>
+    </form>
+</div>
+    <!-- Login End -->
+    <!-- Login End -->
+
+    <!-- INVISIBLE -->
+    <div class="login invisible">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="login-form">
+                        <div class="row">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Wishlist End -->
+    <!-- Login End -->
 
     <!-- Footer Start -->
     <div class="footer">
@@ -349,5 +494,8 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-
 </html>
+
+<?php
+} 
+?>

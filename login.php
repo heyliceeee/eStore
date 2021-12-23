@@ -1,3 +1,117 @@
+<?php
+
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+    if (!isset($_SESSION)) session_start();
+    if(isset($_POST['email']) && isset($_POST['pass'])) {
+
+    $email=""; $pass=""; $pagina="index.html"; $LoginArrayErr=[];
+
+    //email verificações
+    if (empty($_POST["email"])) {
+
+        $LoginArrayErr['emailErr'] = "Insira o email do utilizador";
+        
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+    } else {
+
+        if (isset($_POST['email'])) {
+
+            $email = $_POST['email'];
+            $pass = $_POST['pass'];
+            $pass = md5($pass);
+            //$pagina=$_POST['pagina'];
+
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+                $emailErr = "Formato de email inválido";
+                $LoginArrayErr['emailErr'] = $emailErr;
+
+                $d = strtotime("now");
+                $dateCurrent = date("Y-m-d h:i:sa", $d);
+            }
+        }
+    }
+
+
+    //pass verificações
+    if (empty($_POST["pass"])) {
+
+        $LoginArrayErr['passErr'] = "Insira uma password";
+
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
+    }
+
+
+    
+
+
+      $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
+      $result = $conn->query($sql);
+
+      //$conn->close();
+
+      if ($result->num_rows == 1) {
+           $_SESSION['email'] = $email;
+           $_SESSION['pass'] = $pass;
+           
+
+           //echo "<h1>Utilizador Válido!!!</h1> ";
+
+            $erro = "Utilizador Válido!!!";
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+            $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
+
+            //LIGAR TABELA LOGS
+            if ($conn->query($logs) === TRUE)
+            header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
+            //echo "Novo log criado com sucesso!!! ";
+            else echo "Erro: " . $logs . "<br>" . $conn->error;
+
+           
+      } else {
+
+        echo "Erro: ";
+
+        $LoginArrayErr['passErr'] = "Utilizador Inválido";
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
+        //echo "<h1>ERRO - Utilizador Inválido!!!</h1>";
+            
+
+            
+        foreach($LoginArrayErr as $loginerro => $erro) {
+            echo  $erro . "; ";
+
+            $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
+
+
+            //LIGAR TABELA LOGS
+            if ($conn->query($logs) === TRUE){
+
+                echo "Novo log criado com sucesso!!! ";
+                    
+            } else {
+
+                echo "Erro: " . $logs . "<br>" . $conn->error;
+            }
+        }
+    }
+} else {
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +178,6 @@
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">MAIS PÁGINAS</a>
                             <div class="dropdown-menu">
                                 <a href="wishlist.html" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="login.html" class="dropdown-item active">INICIAR SESSÃO & CRIAR CONTA</a>
                                 <a href="contact.html" class="dropdown-item">CONTACTE-NOS</a>
                             </div>
                         </div>
@@ -73,8 +186,8 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
+                                <a href="login.html" class="dropdown-item">Iniciar Sessão</a>
+                                <a href="register.html" class="dropdown-item">Criar Conta</a>
                             </div>
                         </div>
                     </div>
@@ -122,69 +235,61 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
-                <li class="breadcrumb-item active">INICIAR SESSÃO & CRIAR CONTA</li>
+                <li class="breadcrumb-item"><a href="index.html">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item active">INICIAR SESSÃO</li>
             </ul>
         </div>
     </div>
     <!-- Breadcrumb End -->
 
     <!-- Login Start -->
-    <div class="login">
+    <form class="login" method="post">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="register-form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Primeiro Nome</label>
-                                <input class="form-control" type="text" placeholder="Primeiro Nome">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Último Nome</label>
-                                <input class="form-control" type="text" placeholder="Último Nome">
-                            </div>
-                            <div class="col-md-6">
-                                <label>E-mail</label>
-                                <input class="form-control" type="text" placeholder="E-mail">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Nº Telemóvel</label>
-                                <input class="form-control" type="text" placeholder="Nº Telemóvel">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Palavra Passe</label>
-                                <input class="form-control" type="text" placeholder="Palavra Passe">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Repetir a Palavra Passe</label>
-                                <input class="form-control" type="text" placeholder="Palavra Passe">
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn">Enviar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="login-form">
                         <div class="row">
-                            <div class="col-md-6">
-                                <label>E-mail / Username</label>
-                                <input class="form-control" type="text" placeholder="E-mail / Username">
+                            <div class="col-6">
+                                <label>E-mail</label>
+                                <input class="form-control" type="email" placeholder="E-mail" name="email">
                             </div>
-                            <div class="col-md-6">
+
+
+                            <div class="col-6">
                                 <label>Palavra Passe</label>
-                                <input class="form-control" type="text" placeholder="Palavra Passe">
+                                <input class="form-control" type="password" placeholder="Palavra Passe" name="pass">
                             </div>
-                            <div class="col-md-12">
+
+                            <div class="col-6">
+                                <input class="form-control" type="hidden" name="pagina" value="<?php echo basename($_SERVER['PHP_SELF']);?>">
+                            </div>
+
+
+                            <div class="col-12">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="newaccount">
                                     <label class="custom-control-label" for="newaccount">Mantenha-me conectado</label>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-12">
+                                <button class="btn" name="Submit" type="submit">Iniciar Sessão</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+    <!-- Login End -->
+
+    <!-- INVISIBLE -->
+    <div class="login invisible">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="login-form">
+                        <div class="row">
+                            <div class="col-12">
                                 <button class="btn">Enviar</button>
                             </div>
                         </div>
@@ -296,5 +401,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-
 </html>
+<?php
+}
+?>
