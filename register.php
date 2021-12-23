@@ -1,6 +1,6 @@
 <?php
 
-$Utilizador = $Email = $pass = $veriPass = "";
+/* $Utilizador = $Email = $pass = $veriPass = "";
 $dateCurrent = 0;
 $erro = "";
 $RegisterArrayErr = [];
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $RegisterArrayErr['PassVeriErr'] = "Insira uma repetição da password";
 
     $d = strtotime("now");
-    $dateCurrent = date("Y-m-d h:i:sa", $d);
+    $dateCurrent = date("Y-sm-d h:i:sa", $d);
 
   } else {
     $veriPass = register_input($_POST["VeriPassword"]);
@@ -131,7 +131,7 @@ function register_input($data) {
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
-}
+} */
 
 
 
@@ -142,7 +142,7 @@ echo $Utilizador;
 echo $pass; */
 
 
-if (empty($RegisterArrayErr)){
+/* if (empty($RegisterArrayErr)){
 
     
     //converter password em md5
@@ -152,8 +152,8 @@ if (empty($RegisterArrayErr)){
     $sql = "INSERT INTO users (email, name, pass) VALUES ('$Email', '$Utilizador', '$pass')";
 
     if ($conn->query($sql) === TRUE) 
-        header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
-        //echo "Novo registo criado com sucesso";
+        //header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
+        echo "Novo registo criado com sucesso";
     else echo "Erro: " . $sql . "<br>" . $conn->error;
 
     echo "Sucesso!" ;
@@ -496,5 +496,5 @@ if (empty($RegisterArrayErr)){
 </html>
 
 <?php
-} 
+//} 
 ?>
