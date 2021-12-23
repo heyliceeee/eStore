@@ -38,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["Email"])) {
     $RegisterArrayErr['EmailErr'] = "Insira o email do utilizador";
-
     $d = strtotime("now");
     $dateCurrent = date("Y-m-d h:i:sa", $d);
 

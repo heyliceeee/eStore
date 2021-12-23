@@ -1,6 +1,7 @@
 <?php
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost"; 
+$email=""; $pass=""; $pagina="index.html"; $LoginArrayErr=[]; $back="login.php";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -10,8 +11,6 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
     if (!isset($_SESSION)) session_start();
     if(isset($_POST['email']) && isset($_POST['pass'])) {
-
-    $email=""; $pass=""; $pagina="index.html"; $LoginArrayErr=[];
 
     //email verificações
     if (empty($_POST["email"])) {
@@ -28,7 +27,6 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
             $email = $_POST['email'];
             $pass = $_POST['pass'];
             $pass = md5($pass);
-            //$pagina=$_POST['pagina'];
 
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -52,8 +50,6 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
         $dateCurrent = date("Y-m-d h:i:sa", $d);
     }
 
-
-    
 
 
       $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
@@ -79,6 +75,8 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
             header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
             //echo "Novo log criado com sucesso!!! ";
             else echo "Erro: " . $logs . "<br>" . $conn->error;
+            //header("Location: $login"); //no caso de quererem redirecionar a página para outro sitio
+
 
            
       } else {
@@ -89,7 +87,8 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
         //echo "<h1>ERRO - Utilizador Inválido!!!</h1>";
-            
+        
+        //header("Location: $login"); //no caso de quererem redirecionar a página para outro sitio
 
             
         foreach($LoginArrayErr as $loginerro => $erro) {
@@ -243,7 +242,7 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
     <!-- Breadcrumb End -->
 
     <!-- Login Start -->
-    <form class="login" method="post">
+    <form class="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
