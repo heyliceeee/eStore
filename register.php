@@ -1,6 +1,6 @@
 <?php
 
-/* $Utilizador = $Email = $pass = $veriPass = "";
+$Utilizador = $Email = $pass = $veriPass = "";
 $dateCurrent = 0;
 $erro = "";
 $RegisterArrayErr = [];
@@ -131,7 +131,7 @@ function register_input($data) {
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
-} */
+}
 
 
 
@@ -142,7 +142,7 @@ echo $Utilizador;
 echo $pass; */
 
 
-/* if (empty($RegisterArrayErr)){
+if (empty($RegisterArrayErr)){
 
     
     //converter password em md5
@@ -496,5 +496,5 @@ echo $pass; */
 </html>
 
 <?php
-//} 
+} 
 ?>
