@@ -54,18 +54,18 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.html" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.html" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.html" class="nav-item nav-link">DETALHE DO PRODUTO</a>
-                        <a href="cart.html" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.html" class="nav-item nav-link">CHECKOUT</a>
-                        <a href=" my-account.html" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
+                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">MAIS PÁGINAS</a>
                             <div class="dropdown-menu">
-                                <a href="wishlist.html" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="login.html" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
-                                <a href="contact.html" class="dropdown-item active">CONTACTE-NOS</a>
+                                <a href="wishlist.php" class="dropdown-item active">LISTA DE DESEJOS</a>
+                                <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
+                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -103,11 +103,11 @@
                 </div>
                 <div class="col-md-3">
                     <div class="user">
-                        <a href="wishlist.html" class="btn wishlist">
+                        <a href="wishlist.php" class="btn wishlist">
                             <i class="fa fa-heart"></i>
                             <span>(0)</span>
                         </a>
-                        <a href="cart.html" class="btn cart">
+                        <a href="cart.php" class="btn cart">
                             <i class="fa fa-shopping-cart"></i>
                             <span>(0)</span>
                         </a>
@@ -122,81 +122,131 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
-                <li class="breadcrumb-item active">Contacto</li>
+                <li class="breadcrumb-item active">LISTA DE DESEJOS</li>
             </ul>
         </div>
     </div>
     <!-- Breadcrumb End -->
 
-    <!-- Contact Start -->
-    <div class="contact">
+    <!-- Wishlist Start -->
+    <div class="wishlist-page">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="contact-info">
-                        <h2>Nosso Escritório</h2>
-                        <h3><i class="fa fa-map-marker"></i>123 Escritório, Felgueiras, Portugal</h3>
-                        <h3><i class="fa fa-envelope"></i>escritorio@example.com</h3>
-                        <h3><i class="fa fa-phone"></i>+351-961-678</h3>
-                        <div class="social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href=""><i class="fab fa-youtube"></i></a>
+            <div class="wishlist-page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Preço</th>
+                                        <th>Quantidade</th>
+                                        <th>Adicionar ao Carrinho de Compras</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-middle">
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <a href="#"><img src="img/product-6.jpg" alt="Image"></a>
+                                                <p>Nome do Produto</p>
+                                            </div>
+                                        </td>
+                                        <td>€99</td>
+                                        <td>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input type="text" value="1">
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
+                                        <td><button><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <a href="#"><img src="img/product-7.jpg" alt="Image"></a>
+                                                <p>Nome do Produto</p>
+                                            </div>
+                                        </td>
+                                        <td>€99</td>
+                                        <td>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input type="text" value="1">
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
+                                        <td><button><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <a href="#"><img src="img/product-8.jpg" alt="Image"></a>
+                                                <p>Nome do Produto</p>
+                                            </div>
+                                        </td>
+                                        <td>€99</td>
+                                        <td>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input type="text" value="1">
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
+                                        <td><button><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <a href="#"><img src="img/product-9.jpg" alt="Image"></a>
+                                                <p>Nome do Produto</p>
+                                            </div>
+                                        </td>
+                                        <td>€99</td>
+                                        <td>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input type="text" value="1">
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
+                                        <td><button><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <a href="#"><img src="img/product-10.jpg" alt="Image"></a>
+                                                <p>Nome do Produto</p>
+                                            </div>
+                                        </td>
+                                        <td>€99</td>
+                                        <td>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input type="text" value="1">
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
+                                        <td><button><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="contact-info">
-                        <h2>Nossa Loja</h2>
-                        <h3><i class="fa fa-map-marker"></i>123 E Store, Santo Tirso, Porto, Portugal</h3>
-                        <h3><i class="fa fa-envelope"></i>loja@example.com</h3>
-                        <h3><i class="fa fa-phone"></i>+351-961-678</h3>
-                        <div class="social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href=""><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="contact-form">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Seu Nome" />
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Seu Email" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Assunto" />
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control" rows="5" placeholder="Mensagem"></textarea>
-                            </div>
-                            <div><button class="btn" type="submit">Enviar Mensagem</button></div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="contact-map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.733248043701!2d-118.24532098539802!3d34.05071312525937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c648fa1d4803%3A0xdec27bf11f9fd336!2s123%20S%20Los%20Angeles%20St%2C%20Los%20Angeles%2C%20CA%2090012%2C%20USA!5e0!3m2!1sen!2sbd!4v1585634930544!5m2!1sen!2sbd"
-                            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-                            tabindex="0"></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Contact End -->
+    <!-- Wishlist End -->
 
     <!-- Footer Start -->
     <div class="footer">

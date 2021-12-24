@@ -1,12 +1,14 @@
 <?php
 
 $login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost"; 
-$email = $pass =""; $pagina="index.html"; $LoginArrayErr=[];
+$email = $pass =""; $pagina="index.php"; $LoginArrayErr=[];
 $dateCurrent = 0;
 $erro = "";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
+
+if (!isset($_SESSION)) session_start();
 
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
@@ -78,6 +80,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $conn->query($sql);
   
         if($result->num_rows == 1){
+
+            $_SESSION['email'] = $email;
+            $_SESSION['pass'] = $pass;
 
             header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
 
@@ -182,17 +187,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.html" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.html" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.html" class="nav-item nav-link">DETALHE DO PRODUTO</a>
-                        <a href="cart.html" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.html" class="nav-item nav-link">CHECKOUT</a>
-                        <a href=" my-account.html" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
+                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">MAIS PÁGINAS</a>
                             <div class="dropdown-menu">
-                                <a href="wishlist.html" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="contact.html" class="dropdown-item">CONTACTE-NOS</a>
+                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
+                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
                             </div>
                         </div>
                     </div>
@@ -200,8 +205,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
                             <div class="dropdown-menu">
-                                <a href="login.html" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="register.html" class="dropdown-item">Criar Conta</a>
+                                <a href="login.php" class="dropdown-item">Iniciar Sessão</a>
+                                <a href="register.php" class="dropdown-item">Criar Conta</a>
                             </div>
                         </div>
                     </div>
@@ -217,7 +222,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -230,11 +235,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="col-md-3">
                     <div class="user">
-                        <a href="wishlist.html" class="btn wishlist">
+                        <a href="wishlist.php" class="btn wishlist">
                             <i class="fa fa-heart"></i>
                             <span>(0)</span>
                         </a>
-                        <a href="cart.html" class="btn cart">
+                        <a href="cart.php" class="btn cart">
                             <i class="fa fa-shopping-cart"></i>
                             <span>(0)</span>
                         </a>
@@ -249,7 +254,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item active">INICIAR SESSÃO</li>
             </ul>
         </div>
@@ -257,7 +262,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Breadcrumb End -->
 
     <!-- Login Start -->
-    <form class="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <form class="login" method="post" action="login.php">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,18 +56,18 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.html" class="nav-item nav-link active">PÁGINA INICIAL</a>
-                        <a href="product-list.html" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.html" class="nav-item nav-link">DETALHE DO PRODUTO</a>
-                        <a href="cart.html" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.html" class="nav-item nav-link">CHECKOUT</a>
-                        <a href=" my-account.html" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="index.php" class="nav-item nav-link active">PÁGINA INICIAL</a>
+                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
+                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MAIS PÁGINAS</a>
                             <div class="dropdown-menu">
-                                <a href="wishlist.html" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="login.html" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
-                                <a href="contact.html" class="dropdown-item">CONTACTE-NOS</a>
+                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
+                                <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
+                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
                             </div>
                         </div>
                     </div>
@@ -90,7 +92,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -103,11 +105,11 @@
                 </div>
                 <div class="col-md-3">
                     <div class="user">
-                        <a href="wishlist.html" class="btn wishlist">
+                        <a href="wishlist.php" class="btn wishlist">
                             <i class="fa fa-heart"></i>
                             <span>(0)</span>
                         </a>
-                        <a href="cart.html" class="btn cart">
+                        <a href="cart.php" class="btn cart">
                             <i class="fa fa-shopping-cart"></i>
                             <span>(0)</span>
                         </a>
@@ -126,7 +128,7 @@
                     <nav class="navbar bg-light">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html"><i class="fa fa-PÁGINA INICIAL"></i>PÁGINA
+                                <a class="nav-link" href="index.php"><i class="fa fa-PÁGINA INICIAL"></i>PÁGINA
                                     INICIAL</a>
                             </li>
                             <li class="nav-item">
@@ -160,21 +162,21 @@
                             <img src="img/slider-1.jpg" alt="Slider Image" />
                             <div class="header-slider-caption">
                                 <p>Algum texto vai aqui que descreve a imagem</p>
-                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre agora</a>
+                                <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre agora</a>
                             </div>
                         </div>
                         <div class="header-slider-item">
                             <img src="img/slider-2.jpg" alt="Slider Image" />
                             <div class="header-slider-caption">
                                 <p>Algum texto vai aqui que descreve a imagem</p>
-                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre agora</a>
+                                <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre agora</a>
                             </div>
                         </div>
                         <div class="header-slider-item">
                             <img src="img/slider-3.jpg" alt="Slider Image" />
                             <div class="header-slider-caption">
                                 <p>Algum texto vai aqui que descreve a imagem</p>
-                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre agora</a>
+                                <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre agora</a>
                             </div>
                         </div>
                     </div>
@@ -223,36 +225,24 @@
                     <div class="feature-content">
                         <i class="fab fa-cc-mastercard"></i>
                         <h2>Pagamento seguro</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur elit
-                        </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 feature-col">
                     <div class="feature-content">
                         <i class="fa fa-truck"></i>
                         <h2>Entrega em todo o mundo</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur elit
-                        </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 feature-col">
                     <div class="feature-content">
                         <i class="fa fa-sync-alt"></i>
                         <h2>Retorno de 90 dias</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur elit
-                        </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 feature-col">
                     <div class="feature-content">
                         <i class="fa fa-comments"></i>
                         <h2>Suporte 24/7</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur elit
-                        </p>
                     </div>
                 </div>
             </div>
@@ -348,7 +338,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-1.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -359,7 +349,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -376,7 +366,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-2.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -387,7 +377,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -404,7 +394,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-3.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -415,7 +405,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -432,7 +422,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-4.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -443,7 +433,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -460,7 +450,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-5.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -471,7 +461,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -518,7 +508,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-6.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -529,7 +519,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -546,7 +536,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-7.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -557,7 +547,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -574,7 +564,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-8.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -585,7 +575,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -602,7 +592,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-9.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -613,7 +603,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -630,7 +620,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.html">
+                            <a href="product-detail.php">
                                 <img src="img/product-10.jpg" alt="Product Image">
                             </a>
                             <div class="product-action">
@@ -641,7 +631,7 @@
                         </div>
                         <div class="product-price">
                             <h3><span>€</span>99</h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -660,8 +650,7 @@
                             <img src="img/review-1.jpg" alt="Image">
                         </div>
                         <div class="review-text">
-                            <h2>Nome do Cliente</h2>
-                            <h3>Profissão</h3>
+                            <h2>Maria Rita</h2>
                             <div class="ratting">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -670,8 +659,7 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo
-                                finibus luctus et vitae lorem
+                                Espetacular! Comprei uma TV de boa qualidade. SUPER RECOMENDO !!
                             </p>
                         </div>
                     </div>
@@ -682,8 +670,7 @@
                             <img src="img/review-2.jpg" alt="Image">
                         </div>
                         <div class="review-text">
-                            <h2>Nome do Cliente</h2>
-                            <h3>Profissão</h3>
+                            <h2>João Afonso</h2>
                             <div class="ratting">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -692,8 +679,7 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo
-                                finibus luctus et vitae lorem
+                                Espetacular! Comprei uma PS5 de boa qualidade. SUPER RECOMENDO !!
                             </p>
                         </div>
                     </div>
@@ -704,8 +690,7 @@
                             <img src="img/review-3.jpg" alt="Image">
                         </div>
                         <div class="review-text">
-                            <h2>Nome do Cliente</h2>
-                            <h3>Profissão</h3>
+                            <h2>Rosa Maria</h2>
                             <div class="ratting">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -714,8 +699,7 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo
-                                finibus luctus et vitae lorem
+                                Espetacular! Comprei uma carpete de boa qualidade. SUPER RECOMENDO !!
                             </p>
                         </div>
                     </div>

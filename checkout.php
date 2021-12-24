@@ -54,18 +54,18 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.html" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.html" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.html" class="nav-item nav-link">DETALHE DO PRODUTO</a>
-                        <a href="cart.html" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.html" class="nav-item nav-link active" k">CHECKOUT</a>
-                        <a href="my-account.html" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link active" k">CHECKOUT</a>
+                        <a href="my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MAIS PÁGINAS</a>
                             <div class="dropdown-menu">
-                                <a href="wishlist.html" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="login.html" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
-                                <a href="contact.html" class="dropdown-item">CONTACTE-NOS</a>
+                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
+                                <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
+                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -103,11 +103,11 @@
                 </div>
                 <div class="col-md-3">
                     <div class="user">
-                        <a href="wishlist.html" class="btn wishlist">
+                        <a href="wishlist.php" class="btn wishlist">
                             <i class="fa fa-heart"></i>
                             <span>(0)</span>
                         </a>
-                        <a href="cart.html" class="btn cart">
+                        <a href="cart.php" class="btn cart">
                             <i class="fa fa-shopping-cart"></i>
                             <span>(0)</span>
                         </a>
@@ -122,7 +122,7 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
                 <li class="breadcrumb-item active">Checkout</li>
             </ul>
