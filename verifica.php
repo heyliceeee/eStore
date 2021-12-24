@@ -20,13 +20,14 @@ $result = $conn->query($sql);
 
 //$conn->close();
 
-$nomeUtil = ""; $autenticado = false;
+$nomeUtil = ""; $idUtil = 0; $autenticado = false;
 
 
    if ($result->num_rows == 1) {
 
         $row = $result->fetch_assoc();
         $nomeUtil = $row["name"];
+        $idUtil = $row["id"];
         $autenticado = true;
 
    } else {

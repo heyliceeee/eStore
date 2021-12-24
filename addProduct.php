@@ -1,14 +1,35 @@
 <?php
+    include ("verifica.php"); //verificar a autenticacão
 
-$Utilizador = $Email = $pass = $veriPass = "";
+    if ($autenticado) {
+        //codigo a executar se o user estiver autenticado
+        //echo "Utilizador autenticado!!!<br />";
+        //echo "Nome: $nomeUtil";
+        //echo "ID USER: $idUtil";
+
+        //linha de exemplo
+        //include ("logout.php");
+
+    } else {
+        //codigo a executar se o user não estiver autenticado
+
+        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
+
+        //linha de exemplo
+        //include ("login.php");
+}
+?>
+
+<?php
+    
+$foto = $titulo = $marca = $categoria = $estado = $descricao = $localizacao = "";
+$preco = 0.00;
 $dateCurrent = 0;
 $erro = "";
-$RegisterArrayErr = [];
+$ProductArrayErr = [];
 
-$login = "root"; 
-//$pagina="index.php"; 
-$password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
-  
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
 
@@ -17,186 +38,155 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if (empty($_POST["Utilizador"])) {
-      $RegisterArrayErr['UtilizadorErr'] = "Insira o nome do utilizador";
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
-    } else {
-      
-      $Utilizador = register_input($_POST["Utilizador"]);
-  
-      if (!preg_match('/^[A-Z-a-z]{3,}+$/',$Utilizador)) {
-        $RegisterArrayErr['UtilizadorErr'] = "Insira o nome do utilizador";
-  
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
-    }
-  
-  
-    if (empty($_POST["Email"])) {
+    if(empty($_POST["foto"])){
 
-      $RegisterArrayErr['EmailErr'] = "Insira o email do utilizador";
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
-    } else {
-  
-      $Email = register_input($_POST["Email"]);
-  
-      if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+        $ProductArrayErr['fotoErr'] = "Insira a foto do produto";
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
 
-        $EmailErr = "Formato de email inválido";
-        $RegisterArrayErr['EmailErr'] = $EmailErr;
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
-  
-      $queryEmailExists = mysqli_query($conn, "SELECT * FROM users WHERE email = '$Email'");
-  
-      if(mysqli_num_rows($queryEmailExists) > 0){
-        $EmailErr = "Email já usado";
-        $RegisterArrayErr['EmailErr'] = $EmailErr;
-  
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
-    }
-    //verificaçao de email
-    $Email = filter_var($Email, FILTER_SANITIZE_EMAIL);
-      if (filter_var($Email, FILTER_VALIDATE_EMAIL)) {
-        //echo('Email válido!!!');
-  
-      } else {
-  
-        $EmailErr = 'Email não válido';
-      $RegisterArrayErr['EmailErr'] = $EmailErr;
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  }
-  
-    
-    if (empty($_POST["Password"])) {
-      $RegisterArrayErr['$PassErr'] = "Insira uma password";
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
     } else {
-      $pass = register_input($_POST["Password"]);
-  
-  
-      if (!preg_match("/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,20}$/",$pass)) {
-        $RegisterArrayErr['$PassErr'] = "A password inserida não é segura";
-  
+
+        $foto = product_input($_POST["foto"]);
+    }
+
+
+    if(empty($_POST["titulo"])){
+
+        $ProductArrayErr['tituloErr'] = "Insira o titulo do produto";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
-    }
-      
-    if (empty($_POST["VeriPassword"])) {
-      $RegisterArrayErr['PassVeriErr'] = "Insira a repetição da password";
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
+
     } else {
-      $veriPass = register_input($_POST["VeriPassword"]);
-  
-      if (!strcasecmp($pass, $veriPass) == 0 ) {
-        $RegisterArrayErr['PassVeriErr'] = "A password inserida não é igual a anterior";
-  
+
+        $titulo = product_input($_POST["titulo"]);
+    }
+
+
+    if(empty($_POST["preco"])){
+
+        $ProductArrayErr['precoErr'] = "Insira o preço do produto";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
+
+    } else {
+
+        $preco = product_input($_POST["preco"]);
     }
-  
-  
-      if(isset($_POST['submit'])){
+
+
+    if(empty($_POST["marca"])){
+
+    } else {
+
+        $marca = product_input($_POST["marca"]);
+    }
+
+
+    if(empty($_POST["categoria"])){
+
+    } else {
+
+        $categoria = product_input($_POST["categoria"]);
+    }
+
+
+    if(empty($_POST["estado"])){
+
+    } else {
+
+        $estado = product_input($_POST["estado"]);
+    }
+
+
+    if(empty($_POST["descricao"])){
+
+    } else {
+
+        $descricao = product_input($_POST["descricao"]);
+    }
+
+
+    if(empty($_POST["localizacao"])){
+
+    } else {
+
+        $localizacao = product_input($_POST["localizacao"]);
+    }
+
+
+    if(isset($_POST['submit'])){
         if(!empty($_POST['checkArr'])){
           foreach($_POST['checkArr'] as $checked){
             echo $checked, "</br>";
           }
         }
-      }
-  }
-  
-  
-  function register_input($data) {
-    if(is_array($data)) {
-        return array_map('register_input', $data);
     }
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
+}
+
+
+    function product_input($data) {
+        if(is_array($data)) {
+            return array_map('product_input', $data);
+        }
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 
 
 
-  if (empty($RegisterArrayErr)){
-  
-      
-      //converter password em md5
-      $pass = md5($pass);
-  
-      // sql para inserir registos
-      $sql = "INSERT INTO users (email, name, pass) VALUES ('$Email', '$Utilizador', '$pass')";
-  
-      if ($conn->query($sql) === TRUE) 
+    if(empty($ProductArrayErr)){
+
+        // sql para inserir registos
+        $sql = "INSERT INTO products (iduser, nameuser, foto, titulo, preco, marca, categoria, estado, descricao, localizacao) 
+        VALUES ($idUtil, $nomeUtil, '$foto', '$titulo', '$preco', '$marca', '$categoria', '$estado', '$descricao', '$localizacao')";
+
+
+        if ($conn->query($sql) === TRUE) 
         //header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
-        echo "Novo registo criado com sucesso";
-      else echo "Erro: " . $sql . "<br>" . $conn->error;
-  
-      //echo "Sucesso" ;
-      echo "";
-  
-  
-      $erro = "Novo registo criado com sucesso";
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
-      $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'register', '$erro')";
-  
-      //LIGAR TABELA LOGS
-      if ($conn->query($logs) === TRUE)
+        echo "Novo produto criado com sucesso";
+        else echo "Erro: " . $sql . "<br>" . $conn->error;
+
         echo "";
-        //echo "Novo log criado com sucesso";
-      else echo "Erro: " . $logs . "<br>" . $conn->error;
+
+
+        $erro = "Novo produto criado com sucesso";
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
   
-  
-    } else {
-  
-      echo "Erro: ";
-  
-  
-  
-      foreach($RegisterArrayErr as $registererro => $erro) {
-        echo  $erro, "; ";
-  
-        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'register', '$erro')";
-  
+        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'add_product', '$erro')";
   
         //LIGAR TABELA LOGS
-        if ($conn->query($logs) === TRUE){
-  
-            //echo "Novo log criado com sucesso!!! ";
+        if ($conn->query($logs) === TRUE)
             echo "";
-            
-          } else {
+            //echo "Novo log criado com sucesso";
+        else echo "Erro: " . $logs . "<br>" . $conn->error;
     
-             echo "Erro: " . $logs . "<br>" . $conn->error;
-          }
-      }
-  
-  
-      //MOSTRA
-      /* foreach($RegisterArrayErr as $registererro => $valorregister_erro) {
-         echo  $valorregister_erro, "; ";
-      } */
-    } 
+    } else {
+
+        echo "Erro: ";
+
+
+        foreach($ProductArrayErr as $producterro => $erro){
+
+            echo $erro, "; ";
+
+            $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'add_product', '$erro')";
+
+
+            //LIGAR TABELA LOGS
+            if ($conn->query($logs) === TRUE){
+    
+                //echo "Novo log criado com sucesso!!! ";
+                echo "";
+                
+            } else {
+        
+                echo "Erro: " . $logs . "<br>" . $conn->error;
+            }
+        }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -255,19 +245,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="addProduct.php" class="nav-item nav-link active">ADICIONAR PRODUTO</a>
+                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
-                    </div>
-                    <div class="navbar-nav ml-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link active dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
-                            <div class="dropdown-menu">
-                                <a href="login.php" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="register.php" class="dropdown-item">Criar Conta</a>
-                            </div>
-                        </div>
+                        <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
                 </div>
             </nav>
@@ -281,26 +266,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.php">
+                        <a href="indexLogin.php">
                             <img src="img/logo.png" alt="Logo">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="search">
-                        <input type="text" placeholder="Pesquisar">
-                        <button><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="user">
-                        <a href="wishlist.php" class="btn wishlist">
-                            <i class="fa fa-heart"></i>
-                            <span>(0)</span>
-                        </a>
-                        <a href="cart.php" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
                         </a>
                     </div>
                 </div>
@@ -313,8 +280,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item active">CRIAR CONTA</li>
+                <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item active">ADICIONAR PRODUTO</li>
             </ul>
         </div>
     </div>
@@ -328,21 +295,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-12">
                     <div class="register-form">
                         <div class="row">
-                            <div class="col-6">
-                                <label>Nome</label>
-                                <input class="form-control" type="text" placeholder="Nome" name="Utilizador">
+                            <div class="col-12">
+                                <label>Fotos</label>
+                                <input class="form-control" type="file" placeholder="Selecione as fotos do produto" name="foto">
                             </div>
-                            <div class="col-6">
-                                <label>E-mail</label>
-                                <input class="form-control" type="email" placeholder="E-mail" name="Email">
+
+                            <div class="col-12">
+                                <label>Título</label>
+                                <input class="form-control" type="text" placeholder="Introduza o Título do produto" name="titulo">
                             </div>
+
                             <div class="col-6">
-                                <label>Palavra Passe</label>
-                                <input class="form-control" type="password" placeholder="Palavra Passe" name="Password">
+                                <label>Preço</label>
+                                <input class="form-control" type="text" placeholder="Introduza o Preço do produto" name="preco">
                             </div>
+
                             <div class="col-6">
-                                <label>Repetir a Palavra Passe</label>
-                                <input class="form-control" type="password" placeholder="Palavra Passe" name="VeriPassword">
+                                <label>Marca</label>
+                                <input class="form-control" type="text" placeholder="Introduza a Marca do produto" name="marca">
+                            </div>
+
+                            <div class="col-6">
+                                <label for="inputTipo">Categoria</label>
+                                <select id="inputTipo" class="form-control" name="tipo">
+                                    <option selected>Escolha...</option>
+                                    <option>Moda & Beleza</option>
+                                    <option>Roupas Criança & Bebé</option>
+                                    <option>Roupas Homem & Mulher</option>
+                                    <option>Gadgets & Acessórios</option>
+                                    <option>Eletrônicos & Acessórios</option>
+                                    <option>Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="inputEstado">Estado do Produto</label>
+                                <select id="inputEstado" class="form-control" name="estado">
+                                    <option selected>Escolha...</option>
+                                    <option>Novo</option>
+                                    <option>Semi-Novo</option>
+                                    <option>Usado</option>
+                                    <option>Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label>Localização</label>
+                                <input class="form-control" type="text" placeholder="Introduza a Localização lidade do produto" name="localizacao">
+                            </div>
+
+                            <div class="col-12">
+                                <label for="exampleFormControlTextarea1">Descrição</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descricao"></textarea>
                             </div>
                             
                             <div class="col-6">
@@ -351,7 +355,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                             <div class="col-12">
-                                <button class="btn" name="submit" type="submit">Criar Conta</button>
+                                <button class="btn" name="submit" type="submit">Criar Produto</button>
                             </div>
                         </div>
                     </div>
