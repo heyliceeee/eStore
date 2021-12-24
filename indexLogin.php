@@ -75,11 +75,23 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link active">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="indexLogin.php" class="nav-item nav-link active">PÁGINA INICIAL</a>
+                        <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
+                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
+                        <!-- <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MAIS PÁGINAS</a>
+                             <div class="dropdown-menu">
+                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
+                                 <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a> 
+                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
+                            </div>
+                        </div> -->
                     </div>
-                    <div class="navbar-nav ml-auto">
+                    <!-- <div class="navbar-nav ml-auto">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
                             <div class="dropdown-menu">
@@ -87,7 +99,7 @@
                                 <a href="register.php" class="dropdown-item">Criar Conta</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
         </div>
@@ -100,7 +112,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.php">
+                        <a href="indexLogin.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -109,6 +121,18 @@
                     <div class="search">
                         <input type="text" placeholder="Pesquisar">
                         <button><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="user">
+                        <a href="wishlist.php" class="btn wishlist">
+                            <i class="fa fa-heart"></i>
+                            <span>(0)</span>
+                        </a>
+                        <a href="cart.php" class="btn cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>(0)</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -124,7 +148,7 @@
                     <nav class="navbar bg-light">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.php"><i class="fa fa-PÁGINA INICIAL"></i>PÁGINA
+                                <a class="nav-link" href="indexLogin.php"><i class="fa fa-PÁGINA INICIAL"></i>PÁGINA
                                     INICIAL</a>
                             </li>
                             <li class="nav-item">

@@ -1,4 +1,22 @@
 <?php
+    include ("verifica.php"); //verificar a autenticacão
+
+    if ($autenticado) {
+        //codigo a executar se o user estiver autenticado
+        //echo "Utilizador autenticado!!!<br />";
+        //echo "Nome: $nomeUtil";
+
+        //linha de exemplo
+        include ("logout.php");
+
+    } else {
+        //codigo a executar se o user não estiver autenticado
+
+        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
+
+        //linha de exemplo
+        //include ("login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,18 +75,13 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link active">DETALHE DO PRODUTO</a>
-                    </div>
-                    <div class="navbar-nav ml-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
-                            <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
-                            </div>
-                        </div>
+                    <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detailLogin.php" class="nav-item nav-link active">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
+                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
                 </div>
             </nav>
@@ -91,6 +104,18 @@
                     <div class="search">
                         <input type="text" placeholder="Pesquisar">
                         <button><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="user">
+                        <a href="wishlist.php" class="btn wishlist">
+                            <i class="fa fa-heart"></i>
+                            <span>(0)</span>
+                        </a>
+                        <a href="cart.php" class="btn cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>(0)</span>
+                        </a>
                     </div>
                 </div>
             </div>

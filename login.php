@@ -1,7 +1,7 @@
 <?php
 
 $login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost"; 
-$email = $pass =""; $pagina="index.php"; $LoginArrayErr=[];
+$email = $pass =""; $pagina="indexLogin.php"; $LoginArrayErr=[];
 $dateCurrent = 0;
 $erro = "";
 
@@ -190,20 +190,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
-                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">MAIS PÁGINAS</a>
-                            <div class="dropdown-menu">
-                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
-                            </div>
-                        </div>
                     </div>
                     <div class="navbar-nav ml-auto">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
+                            <a href="#" class="nav-link active dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
                             <div class="dropdown-menu">
                                 <a href="login.php" class="dropdown-item">Iniciar Sessão</a>
                                 <a href="register.php" class="dropdown-item">Criar Conta</a>

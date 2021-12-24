@@ -1,3 +1,24 @@
+<?php
+    include ("verifica.php"); //verificar a autenticacão
+
+    if ($autenticado) {
+        //codigo a executar se o user estiver autenticado
+        //echo "Utilizador autenticado!!!<br />";
+        //echo "Nome: $nomeUtil";
+
+        //linha de exemplo
+        include ("logout.php");
+
+    } else {
+        //codigo a executar se o user não estiver autenticado
+
+        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
+
+        //linha de exemplo
+        //include ("login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,29 +75,13 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                    <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link active">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MAIS PÁGINAS</a>
-                            <div class="dropdown-menu">
-                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
-                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="navbar-nav ml-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
-                            <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
-                            </div>
-                        </div>
+                        <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
                 </div>
             </nav>
@@ -90,7 +95,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.php">
+                        <a href="indexLogin.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -122,9 +127,9 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
-                <li class="breadcrumb-item active">CARRINHO DE COMPRAS</li>
+                <!-- <li class="breadcrumb-item active">CARRINHO DE COMPRAS</li> -->
             </ul>
         </div>
     </div>
@@ -255,7 +260,7 @@
                             <div class="col-md-12">
                                 <div class="cart-summary">
                                     <div class="cart-content">
-                                        <h1>Resumo do CARRINHO DE COMPRAS</h1>
+                                        <!-- <h1>Resumo do CARRINHO DE COMPRAS</h1> -->
                                         <p>Sub Total<span>€99</span></p>
                                         <p>Portes de Envio<span>€1</span></p>
                                         <h2>Total<span>€100</span></h2>

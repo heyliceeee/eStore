@@ -1,3 +1,25 @@
+<?php
+    include ("verifica.php"); //verificar a autenticacão
+
+    if ($autenticado) {
+        //codigo a executar se o user estiver autenticado
+        //echo "Utilizador autenticado!!!<br />";
+        //echo "Nome: $nomeUtil";
+
+        //linha de exemplo
+        include ("logout.php");
+
+    } else {
+        //codigo a executar se o user não estiver autenticado
+
+        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
+
+        //linha de exemplo
+        //include ("login.php");
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,29 +76,13 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                    <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.php" class="nav-item nav-link active" k">CHECKOUT</a>
-                        <a href="my-account.php" class="nav-item nav-link">MINHA CONTA</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MAIS PÁGINAS</a>
-                            <div class="dropdown-menu">
-                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
-                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="navbar-nav ml-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
-                            <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
-                            </div>
-                        </div>
+                        <a href="checkout.php" class="nav-item nav-link active">CHECKOUT</a>
+                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
                 </div>
             </nav>
@@ -90,7 +96,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.php">
+                        <a href="indexLogin.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -122,7 +128,7 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
                 <li class="breadcrumb-item active">Checkout</li>
             </ul>
@@ -137,15 +143,11 @@
                 <div class="col-lg-8">
                     <div class="checkout-inner">
                         <div class="billing-address">
-                            <h2>Morada de Faturação</h2>
+                            <h2>Morada</h2>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Primeiro Nome</label>
-                                    <input class="form-control" type="text" placeholder="Primeiro Nome">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Último Nome</label>
-                                    <input class="form-control" type="text" placeholder="Último Nome">
+                                    <label>Nome</label>
+                                    <input class="form-control" type="text" placeholder="Nome">
                                 </div>
                                 <div class="col-md-6">
                                     <label>E-mail</label>
@@ -162,70 +164,8 @@
                                 <div class="col-md-6">
                                     <label>País</label>
                                     <select class="custom-select">
-                                        <option selected>Estados Unidos</option>
-                                        <option>Afeganistão</option>
-                                        <option>Albânia</option>
-                                        <option>Argélia</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Cidade</label>
-                                    <input class="form-control" type="text" placeholder="Cidade">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Estado</label>
-                                    <input class="form-control" type="text" placeholder="Estado">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Código Postal</label>
-                                    <input class="form-control" type="text" placeholder="Código Postal">
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="newaccount">
-                                        <label class="custom-control-label" for="newaccount">Criar Conta</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="shipto">
-                                        <label class="custom-control-label" for="shipto">Enviar para outra
-                                            Morada</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="shipping-address">
-                            <h2>Morada de Envio</h2>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Primeiro Nome</label>
-                                    <input class="form-control" type="text" placeholder="Primeiro Nome">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Último Nome"</label>
-                                    <input class="form-control" type="text" placeholder="Último Nome">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="E-mail">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Nº Telemóvel</label>
-                                    <input class="form-control" type="text" placeholder="Nº Telemóvel">
-                                </div>
-                                <div class="col-md-12">
-                                    <label>Morada</label>
-                                    <input class="form-control" type="text" placeholder="Morada">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>País</label>
-                                    <select class="custom-select">
-                                        <option selected>Estados Unidos</option>
-                                        <option>Afeganistão</option>
-                                        <option>Albânia</option>
-                                        <option>Argélia</option>
+                                        <option selected>Portugal</option>
+                                        <option>Espanha</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -262,35 +202,17 @@
                                         <input type="radio" class="custom-control-input" id="payment-1" name="payment">
                                         <label class="custom-control-label" for="payment-1">Paypal</label>
                                     </div>
-                                    <div class="payment-content" id="payment-1-show">
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci
-                                            ac eros volutpat maximus lacinia quis diam.
-                                        </p>
-                                    </div>
                                 </div>
                                 <div class="payment-method">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" id="payment-2" name="payment">
                                         <label class="custom-control-label" for="payment-2">Pagamento</label>
                                     </div>
-                                    <div class="payment-content" id="payment-2-show">
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci
-                                            ac eros volutpat maximus lacinia quis diam.
-                                        </p>
-                                    </div>
                                 </div>
                                 <div class="payment-method">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" id="payment-3" name="payment">
                                         <label class="custom-control-label" for="payment-3">Pagamento em Cheque</label>
-                                    </div>
-                                    <div class="payment-content" id="payment-3-show">
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci
-                                            ac eros volutpat maximus lacinia quis diam.
-                                        </p>
                                     </div>
                                 </div>
                                 <div class="payment-method">
@@ -299,23 +221,11 @@
                                         <label class="custom-control-label" for="payment-4">Transferência bancária
                                             direta</label>
                                     </div>
-                                    <div class="payment-content" id="payment-4-show">
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci
-                                            ac eros volutpat maximus lacinia quis diam.
-                                        </p>
-                                    </div>
                                 </div>
                                 <div class="payment-method">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" id="payment-5" name="payment">
                                         <label class="custom-control-label" for="payment-5">Dinheiro na Entrega</label>
-                                    </div>
-                                    <div class="payment-content" id="payment-5-show">
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci
-                                            ac eros volutpat maximus lacinia quis diam.
-                                        </p>
                                     </div>
                                 </div>
                             </div>

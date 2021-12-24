@@ -1,3 +1,24 @@
+<?php
+    include ("verifica.php"); //verificar a autenticacão
+
+    if ($autenticado) {
+        //codigo a executar se o user estiver autenticado
+        //echo "Utilizador autenticado!!!<br />";
+        //echo "Nome: $nomeUtil";
+
+        //linha de exemplo
+        include ("logout.php");
+
+    } else {
+        //codigo a executar se o user não estiver autenticado
+
+        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
+
+        //linha de exemplo
+        //include ("login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,29 +75,13 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                    <a href="indexLogin.php" class="nav-item nav-link ">PÁGINA INICIAL</a>
+                        <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link active">MINHA CONTA</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MAIS PÁGINAS</a>
-                            <div class="dropdown-menu">
-                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
-                                <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a>
-                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="navbar-nav ml-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
-                            <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
-                            </div>
-                        </div>
+                        <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
                 </div>
             </nav>
@@ -90,7 +95,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.php">
+                        <a href="indexLogin.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
@@ -122,7 +127,7 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
+                <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
                 <li class="breadcrumb-item active">MINHA CONTA</li>
             </ul>
@@ -140,13 +145,20 @@
                             role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
                         <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
                                 class="fa fa-shopping-bag"></i>Pedidos</a>
-                        <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i
-                                class="fa fa-credit-card"></i>Método de Pagamento</a>
                         <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i
                                 class="fa fa-map-marker-alt"></i>Morada</a>
                         <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i
                                 class="fa fa-user"></i>Detalhes da Conta</a>
-                        <a class="nav-link" href="index.php"><i class="fa fa-sign-out-alt"></i>Terminar Sessão</a>
+                    </div>
+
+                    <div class="nav flex-column nav-pills invisible" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab"
+                            role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
+                                class="fa fa-shopping-bag"></i>Pedidos</a>
+                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
+                                class="fa fa-shopping-bag"></i>Pedidos</a>
+                        <p></p>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -204,56 +216,18 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
-                            <h4>Método de Pagamento</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi
-                                viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor
-                                hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non.
-                                Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien
-                                eget arcu rhoncus scelerisque.
-                            </p>
-                        </div>
                         <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
                             <h4>Morada</h4>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h5>Morada de Pagamento</h5>
+                                <div class="col-md-12">
+                                    <h5>Morada</h5>
                                     <p>123 Rua da Casa, Santo Tirso, Porto</p>
-                                    <p>Telemóvel: +351 961 678</p>
-                                    <button class="btn">Editar Morada</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <h5>Morada de Envio</h5>
-                                    <p>123 Rua da Praia, Santo Tirso, Porto</p>
                                     <p>Telemóvel: +351 961 678</p>
                                     <button class="btn">Editar Morada</button>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
-                            <h4>Detalhes da Conta</h4>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Primeiro Nome">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Último Nome">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Telemóvel">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Email">
-                                </div>
-                                <div class="col-md-12">
-                                    <input class="form-control" type="text" placeholder="Morada">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn">Atualizar Conta</button>
-                                    <br><br>
-                                </div>
-                            </div>
                             <h4>Mudar Palavra Passe</h4>
                             <div class="row">
                                 <div class="col-md-12">
