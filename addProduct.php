@@ -139,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // sql para inserir registos
         $sql = "INSERT INTO products (iduser, nameuser, foto, titulo, preco, marca, categoria, estado, descricao, localizacao) 
-        VALUES ($idUtil, $nomeUtil, '$foto', '$titulo', '$preco', '$marca', '$categoria', '$estado', '$descricao', '$localizacao')";
+        VALUES ($idUtil, '$nomeUtil', '$foto', '$titulo', '$preco', '$marca', '$categoria', '$estado', '$descricao', '$localizacao')";
 
 
         if ($conn->query($sql) === TRUE) 
@@ -317,7 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <div class="col-6">
                                 <label for="inputTipo">Categoria</label>
-                                <select id="inputTipo" class="form-control" name="tipo">
+                                <select id="inputTipo" class="form-control" name="categoria">
                                     <option selected>Escolha...</option>
                                     <option>Moda & Beleza</option>
                                     <option>Roupas Criança & Bebé</option>
