@@ -243,6 +243,19 @@
                                     <button class="btn">Guardar alterações</button>
                                 </div>
                             </div>
+
+                            <br>
+                            <br>
+
+                            <h4>Mudar Foto</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input class="form-control" type="file" placeholder="Nova Foto">
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Guardar alterações</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
