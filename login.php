@@ -271,7 +271,7 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn" name="Submit" type="submit">Iniciar Sessão</button>
+                                <button class="btn" name="Submit" type="submit" value="submit_button">Iniciar Sessão</button>
                             </div>
                         </div>
                     </div>
