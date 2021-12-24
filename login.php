@@ -1,7 +1,9 @@
 <?php
 
 $login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost"; 
-$email=""; $pass=""; $pagina="index.html"; $LoginArrayErr=[]; $back="login.php";
+$email = $pass =""; $pagina="index.html"; $LoginArrayErr=[];
+$dateCurrent = 0;
+$erro = "";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -9,34 +11,25 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-    if (!isset($_SESSION)) session_start();
-    if(isset($_POST['email']) && isset($_POST['pass'])) {
+if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //email verificações
     if (empty($_POST["email"])) {
 
         $LoginArrayErr['emailErr'] = "Insira o email do utilizador";
-        
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
 
     } else {
 
-        if (isset($_POST['email'])) {
+        $email = login_input($_POST["email"]);
 
-            $email = $_POST['email'];
-            $pass = $_POST['pass'];
-            $pass = md5($pass);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-                $emailErr = "Formato de email inválido";
-                $LoginArrayErr['emailErr'] = $emailErr;
-
-                $d = strtotime("now");
-                $dateCurrent = date("Y-m-d h:i:sa", $d);
-            }
+            $emailErr = "Formato de email inválido";
+            $LoginArrayErr['emailErr'] = $emailErr;
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
         }
     }
 
@@ -45,70 +38,92 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
     if (empty($_POST["pass"])) {
 
         $LoginArrayErr['passErr'] = "Insira uma password";
-
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
+    
+    } else {
+
+        $pass = login_input($_POST["pass"]);
+    }
+
+
+    if(isset($_POST['submit'])){
+        if(!empty($_POST['checkArr'])){
+          foreach($_POST['checkArr'] as $checked){
+            echo $checked, "</br>";
+          }
+        }
+    }
+}
+
+    function login_input($data) {
+        if(is_array($data)) {
+            return array_map('login_input', $data);
+        }
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 
 
 
-      $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
-      $result = $conn->query($sql);
 
-      //$conn->close();
+    if(empty(($LoginArrayErr))){
 
-      if ($result->num_rows == 1) {
-           $_SESSION['email'] = $email;
-           $_SESSION['pass'] = $pass;
-           
+        //converter password em md5
+        $pass = md5($pass);
+  
+        // sql para inserir registos
+        $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
+        $result = $conn->query($sql);
+  
+        if($result->num_rows == 1){
 
-           //echo "<h1>Utilizador Válido!!!</h1> ";
+            header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
 
-            $erro = "Utilizador Válido!!!";
-            $d = strtotime("now");
-            $dateCurrent = date("Y-m-d h:i:sa", $d);
+            $erro = "Utilizador Válido";
 
             $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
 
             //LIGAR TABELA LOGS
             if ($conn->query($logs) === TRUE)
-            header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
-            //echo "Novo log criado com sucesso!!! ";
+                echo "";
+                //echo "Novo log criado com sucesso!!! ";
             else echo "Erro: " . $logs . "<br>" . $conn->error;
-            //header("Location: $login"); //no caso de quererem redirecionar a página para outro sitio
 
+        } else {
 
-           
-      } else {
-
-        echo "Erro: ";
-
-        $LoginArrayErr['passErr'] = "Utilizador Inválido";
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-        //echo "<h1>ERRO - Utilizador Inválido!!!</h1>";
-        
-        //header("Location: $login"); //no caso de quererem redirecionar a página para outro sitio
-
-            
-        foreach($LoginArrayErr as $loginerro => $erro) {
-            echo  $erro . "; ";
+            $erro = "Utilizador Inválido";
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
 
             $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
+        }
 
-
-            //LIGAR TABELA LOGS
-            if ($conn->query($logs) === TRUE){
-
-                echo "Novo log criado com sucesso!!! ";
-                    
-            } else {
-
-                echo "Erro: " . $logs . "<br>" . $conn->error;
-            }
+    } else {
+  
+        echo "Erro: ";
+    
+    
+    
+        foreach($LoginArrayErr as $loginerro => $erro) {
+          echo  $erro, "; ";
+    
+          $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
+    
+    
+          //LIGAR TABELA LOGS
+          if ($conn->query($logs) === TRUE){
+    
+            //echo "Novo log criado com sucesso!!! ";
+            echo "";
+            
+          } else {
+    
+             echo "Erro: " . $logs . "<br>" . $conn->error;
+          }
         }
     }
-} else {
 ?>
 
 <!DOCTYPE html>
@@ -271,7 +286,7 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn" name="Submit" type="submit" value="submit_button">Iniciar Sessão</button>
+                                <button class="btn" name="submit" type="submit" value="submit_button">Iniciar Sessão</button>
                             </div>
                         </div>
                     </div>
@@ -401,6 +416,3 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
     <script src="js/main.js"></script>
 </body>
 </html>
-<?php
-}
-?>
