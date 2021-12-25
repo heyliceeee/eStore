@@ -12,7 +12,7 @@
         ?>
         <form action="logout.php" method="post" name="logout">
 		<input name="pagina" type="hidden" value="<?php echo basename($_SERVER['PHP_SELF']);?>">
-                <button value="Logout" name="Submit" type="submit" title="logout">Terminar Sessão</button>
+          <button value="Logout" name="Submit" type="submit" title="logout">Terminar Sessão</button>
         </form>
         <?php
    }

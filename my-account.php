@@ -75,8 +75,9 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                    <a href="indexLogin.php" class="nav-item nav-link ">PÁGINA INICIAL</a>
+                        <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
@@ -128,7 +129,6 @@
         <div class="container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
                 <li class="breadcrumb-item active">MINHA CONTA</li>
             </ul>
         </div>

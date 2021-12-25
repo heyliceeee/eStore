@@ -16,13 +16,12 @@
 
         //linha de exemplo
         //include ("login.php");
-}
+    }
 ?>
-
 
 <?php
 
-$foto = $titulo = $marca = $categoria = $estado = $descricao = $localizacao = "";
+$foto = $titulo = "";
 $preco = 0.00;
 $dateCurrent = 0;
 $erro = "";
@@ -98,8 +97,9 @@ $result = $conn->query($sql);
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                    <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link active">PRODUTOS</a>
+                        <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
@@ -151,8 +151,7 @@ $result = $conn->query($sql);
         <div class="container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
-                <li class="breadcrumb-item active">LISTA DE PRODUTOS</li>
+                <li class="breadcrumb-item active">PRODUTOS</li>
             </ul>
         </div>
     </div>
@@ -164,48 +163,6 @@ $result = $conn->query($sql);
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="product-view-top">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="product-search">
-                                            <input type="email" value="Search">
-                                            <button><i class="fa fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="product-short">
-                                            <div class="dropdown">
-                                                <div class="dropdown-toggle" data-toggle="dropdown">Produto ordenado por
-                                                </div>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">O mais novo</a>
-                                                    <a href="#" class="dropdown-item">Popular</a>
-                                                    <a href="#" class="dropdown-item">Mais vendidos</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="product-price-range">
-                                            <div class="dropdown">
-                                                <div class="dropdown-toggle" data-toggle="dropdown">Faixa de preço do
-                                                    produto
-                                                </div>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">0€ - 100€</a>
-                                                    <a href="#" class="dropdown-item">101€ - 200€</a>
-                                                    <a href="#" class="dropdown-item">201€ - 300€</a>
-                                                    <a href="#" class="dropdown-item">301€ - 500€</a>
-                                                    <a href="#" class="dropdown-item">501€ - 600€</a>
-                                                    <a href="#" class="dropdown-item">601€ - ...</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <?php
 

@@ -83,24 +83,7 @@
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
-                        <!-- <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MAIS PÁGINAS</a>
-                             <div class="dropdown-menu">
-                                <a href="wishlist.php" class="dropdown-item">LISTA DE DESEJOS</a>
-                                 <a href="login.php" class="dropdown-item">INICIAR SESSÃO & CRIAR CONTA</a> 
-                                <a href="contact.php" class="dropdown-item">CONTACTE-NOS</a>
-                            </div>
-                        </div> -->
                     </div>
-                    <!-- <div class="navbar-nav ml-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
-                            <div class="dropdown-menu">
-                                <a href="login.php" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="register.php" class="dropdown-item">Criar Conta</a>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </nav>
         </div>

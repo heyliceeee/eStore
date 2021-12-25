@@ -103,7 +103,6 @@
         <div class="container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
                 <li class="breadcrumb-item active">DETALHE DO PRODUTO</li>
             </ul>
         </div>

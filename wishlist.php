@@ -128,7 +128,6 @@
         <div class="container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item"><a href="#">PRODUTOS</a></li>
                 <li class="breadcrumb-item active">LISTA DE DESEJOS</li>
             </ul>
         </div>
