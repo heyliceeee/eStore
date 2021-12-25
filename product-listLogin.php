@@ -180,7 +180,7 @@ $result = $conn->query($sql);
                                     <a href="#"><?php echo $titulo; ?></a>
                                 </div>
                                 <div class="product-image">
-                                    <a href="product-detail.php">
+                                    <a href="product-detailLogin.php">
                                         <img src="img/<?php echo $foto; ?>" alt="Product Image">
                                     </a>
                                     <div class="product-action">
