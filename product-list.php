@@ -12,6 +12,9 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 $sql = "SELECT * FROM products ORDER BY id DESC";
 $result = $conn->query($sql);
+?>
+
+<?php
 
 ?>
 
@@ -72,7 +75,7 @@ $result = $conn->query($sql);
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-listLogin.php" class="nav-item nav-link active">PRODUTOS</a>
+                        <a href="product-list.php" class="nav-item nav-link active">PRODUTOS</a>
                         <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                     </div>
                     <div class="navbar-nav ml-auto">
@@ -103,8 +106,8 @@ $result = $conn->query($sql);
                 </div>
                 <div class="col-md-6">
                     <div class="search">
-                        <input type="text" placeholder="Pesquisar">
-                        <button><i class="fa fa-search"></i></button>
+                        <input type="text" name="search" placeholder="Pesquisar">
+                        <button type="submit" name="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -135,6 +138,7 @@ $result = $conn->query($sql);
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
 
+                                $idProductClick = $row["id"];
                                 $foto = $row["foto"];
                                 $titulo = $row["titulo"];
                                 $preco = $row["preco"];
@@ -155,7 +159,7 @@ $result = $conn->query($sql);
                                 </div>
                                 <div class="product-price">
                                     <h3><?php echo $preco ?><span>€</span></h3>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                                    <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                                 </div>
                             </div>
                         </div>
