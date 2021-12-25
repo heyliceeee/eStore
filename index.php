@@ -19,6 +19,50 @@
 }
 ?>
 
+<?php
+
+$foto = $titulo = "";
+$preco = 0.00;
+
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$query3products = "SELECT * FROM products ORDER BY id DESC LIMIT 3";
+$resultQuery3products = $conn->query($query3products);
+
+$query2productsEletronicos = "SELECT * FROM products WHERE categoria='Eletrônicos &amp; Acessórios' ORDER BY id DESC LIMIT 2;";
+$resultQuery2productsEletronicos = $conn->query($query2productsEletronicos);
+
+$query1productModa = "SELECT * FROM products WHERE categoria='Moda &amp; Beleza' ORDER BY id DESC LIMIT 1;";
+$resultQuery1productModa = $conn->query($query1productModa);
+
+$query1productCrianca = "SELECT * FROM products WHERE categoria='Roupas Criança &amp; Bebé' ORDER BY id DESC LIMIT 1;";
+$resultQuery1productCrianca = $conn->query($query1productCrianca);
+
+$query1productHomem = "SELECT * FROM products WHERE categoria='Roupas Homem &amp; Mulher' ORDER BY id DESC LIMIT 1;";
+$resultQuery1productHomem = $conn->query($query1productHomem);
+
+$query1productGadgets = "SELECT * FROM products WHERE categoria='Gadgets &amp; Acessórios' ORDER BY id DESC LIMIT 1;";
+$resultQuery1productGadgets = $conn->query($query1productGadgets);
+
+$query1productEletronicos = "SELECT * FROM products WHERE categoria='Eletrônicos &amp; Acessórios' ORDER BY id DESC LIMIT 1;";
+$resultQuery1productEletronicos = $conn->query($query1productEletronicos);
+
+$query1productRecent = "SELECT * FROM products ORDER BY id DESC LIMIT 1;";
+$resultQuery1productRecent = $conn->query($query1productRecent);
+
+$queryproductsOld = "SELECT * FROM products ORDER BY id LIMIT 5";
+$resultQueryproductsOld = $conn->query($queryproductsOld);
+
+$queryproductsRecents = "SELECT * FROM products ORDER BY id DESC LIMIT 5";
+$resultQueryproductsRecents = $conn->query($queryproductsRecents);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -154,43 +198,64 @@
                 </div>
                 <div class="col-md-6">
                     <div class="header-slider normal-slider">
+
+                    <?php
+
+                        if($resultQuery3products->num_rows > 0){
+                            while($row = $resultQuery3products->fetch_assoc()){
+
+                            $foto = $row["foto"];
+                            $titulo = $row["titulo"];
+
+                    ?>
+
+
                         <div class="header-slider-item">
-                            <img src="img/slider-1.jpg" alt="Slider Image" />
+                            <img src="img/<?php echo $foto; ?>" alt="Slider Image" />
                             <div class="header-slider-caption">
-                                <p>Algum texto vai aqui que descreve a imagem</p>
+                                <p><?php echo $titulo; ?></p>
                                 <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre agora</a>
                             </div>
                         </div>
-                        <div class="header-slider-item">
-                            <img src="img/slider-2.jpg" alt="Slider Image" />
-                            <div class="header-slider-caption">
-                                <p>Algum texto vai aqui que descreve a imagem</p>
-                                <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre agora</a>
-                            </div>
-                        </div>
-                        <div class="header-slider-item">
-                            <img src="img/slider-3.jpg" alt="Slider Image" />
-                            <div class="header-slider-caption">
-                                <p>Algum texto vai aqui que descreve a imagem</p>
-                                <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre agora</a>
-                            </div>
-                        </div>
+
+                    <?php 
+                        }
+                        } else {
+
+                            echo "No products exist.";
+                        }
+                    ?>                        
+
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="header-img">
+                        
+                    <?php
+
+                        if($resultQuery2productsEletronicos->num_rows > 0){
+                            while($row = $resultQuery2productsEletronicos->fetch_assoc()){
+
+                            $foto = $row["foto"];
+                            $titulo = $row["titulo"];
+
+                        ?>
+
                         <div class="img-item">
-                            <img src="img/category-1.jpg" />
+                            <img src="img/<?php echo $foto; ?>" />
                             <a class="img-text" href="">
-                                <p>Algum texto vai aqui que descreve a imagem</p>
+                                <p><?php echo $titulo; ?></p>
                             </a>
                         </div>
-                        <div class="img-item">
-                            <img src="img/category-2.jpg" />
-                            <a class="img-text" href="">
-                                <p>Algum texto vai aqui que descreve a imagem</p>
-                            </a>
-                        </div>
+
+                        <?php 
+                            }
+                            } else {
+
+                                echo "No products exist.";
+                            }
+                    ?>  
+
                     </div>
                 </div>
             </div>
@@ -236,48 +301,168 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
+                <?php
+
+                    if($resultQuery1productModa->num_rows > 0){
+                        while($row = $resultQuery1productModa->fetch_assoc()){
+
+                        $foto = $row["foto"];
+                        $titulo = $row["titulo"];
+
+                    ?>
+
+
                     <div class="category-item ch-400">
-                        <img src="img/category-3.jpg" />
+                        <img src="img/<?php echo $foto; ?>" />
                         <a class="category-name" href="">
-                            <p>Algum texto vai aqui que descreve a imagem</p>
+                            <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
+
+                    <?php 
+                    }
+                        } else {
+
+                        echo "No products exist.";
+                    }
+                ?> 
                 </div>
                 <div class="col-md-3">
+                <?php
+
+                    if($resultQuery1productCrianca->num_rows > 0){
+                        while($row = $resultQuery1productCrianca->fetch_assoc()){
+
+                        $foto = $row["foto"];
+                        $titulo = $row["titulo"];
+
+                    ?>
+
+
                     <div class="category-item ch-250">
-                        <img src="img/category-4.jpg" />
+                        <img src="img/<?php echo $foto; ?>" />
                         <a class="category-name" href="">
-                            <p>Algum texto vai aqui que descreve a imagem</p>
+                            <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
-                    <div class="category-item ch-150">
-                        <img src="img/category-5.jpg" />
+
+                    <?php 
+                    }
+                        } else {
+
+                        echo "No products exist.";
+                    }
+                ?> 
+                <?php
+
+                if($resultQuery1productHomem->num_rows > 0){
+                    while($row = $resultQuery1productHomem->fetch_assoc()){
+
+                        $foto = $row["foto"];
+                        $titulo = $row["titulo"];
+
+                ?>
+
+                <div class="category-item ch-150">
+                    <img src="img/<?php echo $foto; ?>" />
                         <a class="category-name" href="">
-                            <p>Algum texto vai aqui que descreve a imagem</p>
+                            <p><?php echo $titulo; ?></p>
                         </a>
-                    </div>
+                </div>
+
+
+                <?php 
+                    }
+                    } else {
+
+                        echo "No products exist.";
+                    }
+                ?> 
                 </div>
                 <div class="col-md-3">
-                    <div class="category-item ch-150">
-                        <img src="img/category-6.jpg" />
-                        <a class="category-name" href="">
-                            <p>Algum texto vai aqui que descreve a imagem</p>
-                        </a>
-                    </div>
-                    <div class="category-item ch-250">
-                        <img src="img/category-7.jpg" />
-                        <a class="category-name" href="">
-                            <p>Algum texto vai aqui que descreve a imagem</p>
-                        </a>
-                    </div>
-                </div>
+                <?php
+
+                    if($resultQuery1productGadgets->num_rows > 0){
+                        while($row = $resultQuery1productGadgets->fetch_assoc()){
+
+                        $foto = $row["foto"];
+                        $titulo = $row["titulo"];
+
+                    ?>
+
+
+                        <div class="category-item ch-150">
+                            <img src="img/<?php echo $foto; ?>" />
+                            <a class="category-name" href="">
+                                <p><?php echo $titulo; ?></p>
+                            </a>
+                        </div>
+
+                        <?php 
+                        }
+                        } else {
+
+                            echo "No products exist.";
+                        }
+                ?> 
+                    <?php
+
+                        if($resultQuery1productEletronicos->num_rows > 0){
+                            while($row = $resultQuery1productEletronicos->fetch_assoc()){
+
+                            $foto = $row["foto"];
+                            $titulo = $row["titulo"];
+
+                        ?>
+
+
+                            <div class="category-item ch-250">
+                                <img src="img/<?php echo $foto; ?>" />
+                                <a class="category-name" href="">
+                                    <p><?php echo $titulo; ?></p>
+                                </a>
+                            </div>
+
+                            <?php 
+                            }
+                            } else {
+
+                                echo "No products exist.";
+                            }
+                        ?> 
+
+
+                </div>  
                 <div class="col-md-3">
-                    <div class="category-item ch-400">
-                        <img src="img/category-8.jpg" />
-                        <a class="category-name" href="">
-                            <p>Algum texto vai aqui que descreve a imagem</p>
-                        </a>
-                    </div>
+
+
+                <?php
+
+                    if($resultQuery1productRecent->num_rows > 0){
+                        while($row = $resultQuery1productRecent->fetch_assoc()){
+
+                        $foto = $row["foto"];
+                        $titulo = $row["titulo"];
+
+                    ?>
+
+
+                        <div class="category-item ch-400">
+                            <img src="img/<?php echo $foto; ?>" />
+                            <a class="category-name" href="">
+                                <p><?php echo $titulo; ?></p>
+                            </a>
+                        </div>
+
+                        <?php 
+                        }
+                        } else {
+
+                            echo "No products exist.";
+                        }
+                ?> 
+
+
                 </div>
             </div>
         </div>
@@ -306,21 +491,26 @@
                 <h1>Produto em destaque</h1>
             </div>
             <div class="row align-items-center product-slider product-slider-4">
+
+            <?php
+
+                if($resultQueryproductsOld->num_rows > 0){
+                    while($row = $resultQueryproductsOld->fetch_assoc()){
+
+                    $foto = $row["foto"];
+                    $titulo = $row["titulo"];
+                    $preco = $row["preco"];
+
+            ?>
+
                 <div class="col-lg-3">
                     <div class="product-item">
                         <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
+                            <a href="#"><?php echo $titulo; ?></a>
                         </div>
                         <div class="product-image">
                             <a href="product-detail.php">
-                                <img src="img/product-1.jpg" alt="Product Image">
+                                <img src="img/<?php echo $foto; ?>" alt="Product Image">
                             </a>
                             <div class="product-action">
                                 <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -329,123 +519,19 @@
                             </div>
                         </div>
                         <div class="product-price">
-                            <h3><span>€</span>99</h3>
+                            <h3><?php echo $preco; ?><span></span>€</h3>
                             <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-2.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-3.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-4.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-5.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
+
+                <?php 
+                    }
+                    } else {
+
+                        echo "No products exist.";
+                    }
+                ?> 
             </div>
         </div>
     </div>
@@ -476,21 +562,26 @@
                 <h1>Produto Recente</h1>
             </div>
             <div class="row align-items-center product-slider product-slider-4">
+
+            <?php
+
+                if($resultQueryproductsRecents->num_rows > 0){
+                    while($row = $resultQueryproductsRecents->fetch_assoc()){
+
+                    $foto = $row["foto"];
+                    $titulo = $row["titulo"];
+                    $preco = $row["preco"];
+
+            ?>
+
                 <div class="col-lg-3">
                     <div class="product-item">
                         <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
+                            <a href="#"><?php echo $titulo; ?></a>
                         </div>
                         <div class="product-image">
                             <a href="product-detail.php">
-                                <img src="img/product-6.jpg" alt="Product Image">
+                                <img src="img/<?php echo $foto; ?>" alt="Product Image">
                             </a>
                             <div class="product-action">
                                 <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -499,123 +590,19 @@
                             </div>
                         </div>
                         <div class="product-price">
-                            <h3><span>€</span>99</h3>
+                            <h3><?php echo $preco; ?><span></span>€</h3>
                             <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-7.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-8.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-9.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="#">Nome do Produto</a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="product-image">
-                            <a href="product-detail.php">
-                                <img src="img/product-10.jpg" alt="Product Image">
-                            </a>
-                            <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-price">
-                            <h3><span>€</span>99</h3>
-                            <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                        </div>
-                    </div>
-                </div>
+
+            <?php 
+                }
+                    } else {
+
+                        echo "No products exist.";
+                }
+            ?> 
             </div>
         </div>
     </div>
