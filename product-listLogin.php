@@ -36,7 +36,7 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products ORDER BY id DESC";
 $result = $conn->query($sql);
 
 ?>
