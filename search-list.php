@@ -10,7 +10,9 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products ORDER BY id DESC";
+$a = $_GET['search']; //get search url param
+
+$sql = "SELECT * FROM products  WHERE titulo LIKE '$a%' ORDER BY id DESC";
 $result = $conn->query($sql);
 
 if(isset($_POST['search'])){
@@ -83,7 +85,7 @@ if(isset($_POST['search'])){
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link active">PRODUTOS</a>
+                        <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                     </div>
                     <div class="navbar-nav ml-auto">
@@ -113,19 +115,9 @@ if(isset($_POST['search'])){
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <form name="form" class="search" action="search-list.php" method="get">
-
-                    <?php
-                    // Turn off all error reporting
-                    error_reporting(0);
-                    ?>
-
-                    <?php $search = $_GET['search']; ?>
-
-                        <input type="text" placeholder="Pesquisar" id="search" name="search">
-                        <a href="search-list.php?search=<?php echo $search; ?>">
-                            <button><i class="fa fa-search"></i></button>
-                        </a>
+                    <form class="search" action="" method="POST">
+                        <input type="text" name="search" value="" placeholder="Pesquisar">
+                        <button type="submit" name="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
             </div>

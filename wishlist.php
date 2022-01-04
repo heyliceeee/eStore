@@ -77,6 +77,7 @@
                     <div class="navbar-nav mr-auto">
                     <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
@@ -101,10 +102,20 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="search">
-                        <input type="text" placeholder="Pesquisar">
-                        <button><i class="fa fa-search"></i></button>
-                    </div>
+                    <form name="form" class="search" action="search-listLogin.php" method="get">
+
+                    <?php
+                    // Turn off all error reporting
+                    error_reporting(0);
+                    ?>
+
+                    <?php $search = $_GET['search']; ?>
+
+                        <input type="text" placeholder="Pesquisar" id="search" name="search">
+                        <a href="search-listLogin.php?search=<?php echo $search; ?>">
+                            <button><i class="fa fa-search"></i></button>
+                        </a>
+                    </form>
                 </div>
                 <div class="col-md-3">
                     <div class="user">

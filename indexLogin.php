@@ -146,10 +146,20 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="search">
-                        <input type="text" placeholder="Pesquisar">
-                        <button><i class="fa fa-search"></i></button>
-                    </div>
+                    <form name="form" class="search" action="search-listLogin.php" method="get">
+
+                    <?php
+                    // Turn off all error reporting
+                    error_reporting(0);
+                    ?>
+
+                    <?php $search = $_GET['search']; ?>
+
+                        <input type="text" placeholder="Pesquisar" id="search" name="search">
+                        <a href="search-listLogin.php?search=<?php echo $search; ?>">
+                            <button><i class="fa fa-search"></i></button>
+                        </a>
+                    </form>
                 </div>
                 <div class="col-md-3">
                     <div class="user">

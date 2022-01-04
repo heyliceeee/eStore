@@ -1,8 +1,33 @@
 <?php
-    
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
-$titulo = $foto = "";
+    include ("verifica.php"); //verificar a autenticacão
+
+    if ($autenticado) {
+        //codigo a executar se o user estiver autenticado
+        //echo "Utilizador autenticado!!!<br />";
+        //echo "Nome: $nomeUtil";
+
+        //linha de exemplo
+        include ("logout.php");
+
+    } else {
+        //codigo a executar se o user não estiver autenticado
+
+        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
+
+        //linha de exemplo
+        //include ("login.php");
+    }
+?>
+
+<?php
+
+$foto = $titulo = "";
 $preco = 0.00;
+$dateCurrent = 0;
+$erro = "";
+$ProductArrayErr = [];
+
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -10,21 +35,13 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products ORDER BY id DESC";
+$a = $_GET['search']; //get search url param
+
+$sql = "SELECT * FROM products  WHERE titulo LIKE '$a%' ORDER BY id DESC";
 $result = $conn->query($sql);
 
-if(isset($_POST['search'])){
-    $searchKey = $_POST['search'];
-    $querySearch = "SELECT * FROM products WHERE titulo LIKE '%searchKey%";
-
-}
-
-
 ?>
 
-<?php
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,18 +99,14 @@ if(isset($_POST['search'])){
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
-                        <a href="product-list.php" class="nav-item nav-link active">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
-                    </div>
-                    <div class="navbar-nav ml-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
-                            <div class="dropdown-menu">
-                                <a href="login.php" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
-                            </div>
-                        </div>
+                        <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
+                        <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
+                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
+                        <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
+                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
+                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
+                        <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
                 </div>
             </nav>
@@ -107,13 +120,13 @@ if(isset($_POST['search'])){
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="index.php">
+                        <a href="indexLogin.php">
                             <img src="img/logo.png" alt="Logo">
                         </a>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <form name="form" class="search" action="search-list.php" method="get">
+                    <form name="form" class="search" action="search-listLogin.php" method="get">
 
                     <?php
                     // Turn off all error reporting
@@ -123,28 +136,34 @@ if(isset($_POST['search'])){
                     <?php $search = $_GET['search']; ?>
 
                         <input type="text" placeholder="Pesquisar" id="search" name="search">
-                        <a href="search-list.php?search=<?php echo $search; ?>">
+                        <a href="search-listLogin.php?search=<?php echo $search; ?>">
                             <button><i class="fa fa-search"></i></button>
                         </a>
                     </form>
+                </div>
+                <div class="col-md-3">
+                    <div class="user">
+                        <a href="wishlist.php" class="btn wishlist">
+                            <i class="fa fa-heart"></i>
+                            <span>(0)</span>
+                        </a>
+                        <a href="cart.php" class="btn cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>(0)</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Bottom Bar End -->
 
-    <?php
-
-    
-
-    ?>
-
     <!-- Breadcrumb Start -->
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item active">PRODUTOS</li>
+                <li class="breadcrumb-item active">RESULTADO DA PESQUISA</li>
             </ul>
         </div>
     </div>
@@ -162,7 +181,6 @@ if(isset($_POST['search'])){
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
 
-                                $idProductClick = $row["id"];
                                 $foto = $row["foto"];
                                 $titulo = $row["titulo"];
                                 $preco = $row["preco"];
@@ -174,16 +192,18 @@ if(isset($_POST['search'])){
                                     <a href="#"><?php echo $titulo; ?></a>
                                 </div>
                                 <div class="product-image">
-                                    <a href="product-detail.php">
+                                    <a href="product-detailLogin.php">
                                         <img src="img/<?php echo $foto; ?>" alt="Product Image">
                                     </a>
                                     <div class="product-action">
+                                        <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                        <a href="#"><i class="fa fa-heart"></i></a>
                                         <a href="#"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="product-price">
                                     <h3><?php echo $preco ?><span>€</span></h3>
-                                    <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                                 </div>
                             </div>
                         </div>
@@ -196,6 +216,7 @@ if(isset($_POST['search'])){
                             }
                         ?>
 
+                        
                     </div>
 
                     <!-- Pagination Start -->
