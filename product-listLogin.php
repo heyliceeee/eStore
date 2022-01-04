@@ -100,7 +100,6 @@ $result = $conn->query($sql);
                         <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link active">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
-                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
@@ -160,7 +159,6 @@ $result = $conn->query($sql);
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item active">PRODUTOS</li>
             </ul>
         </div>
@@ -179,6 +177,7 @@ $result = $conn->query($sql);
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
 
+                                $id = $row["id"];
                                 $foto = $row["foto"];
                                 $titulo = $row["titulo"];
                                 $preco = $row["preco"];
@@ -196,12 +195,12 @@ $result = $conn->query($sql);
                                     <div class="product-action">
                                         <a href="#"><i class="fa fa-cart-plus"></i></a>
                                         <a href="#"><i class="fa fa-heart"></i></a>
-                                        <a href="#"><i class="fa fa-search"></i></a>
+                                        <a href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="product-price">
                                     <h3><?php echo $preco ?><span>€</span></h3>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                                    <a class="btn" href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                                 </div>
                             </div>
                         </div>

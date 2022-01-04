@@ -17,9 +17,9 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$idProductClick = 17;
+$a = $_GET['id']; //get id url param
 
-$query = "SELECT * FROM products WHERE id = '$idProductClick' ";
+$query = "SELECT * FROM products WHERE id = '$a' ";
 $resultQuery = $conn->query($query);
 
 ?>
@@ -82,7 +82,6 @@ $resultQuery = $conn->query($query);
                     <div class="navbar-nav mr-auto">
                         <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link active">DETALHE DO PRODUTO</a>
                     </div>
                     <div class="navbar-nav ml-auto">
                         <div class="nav-item dropdown">
@@ -119,8 +118,7 @@ $resultQuery = $conn->query($query);
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
-                <li class="breadcrumb-item active">DETALHE DO PRODUTO</li>
+            <li class="breadcrumb-item active">DETALHE DO PRODUTO</li>
             </ul>
         </div>
     </div>
@@ -255,7 +253,7 @@ $resultQuery = $conn->query($query);
                                                 <textarea placeholder="Opinião"></textarea>
                                             </div>
                                             <div class="col-sm-12">
-                                                <button>Comentar</button>
+                                                <a href="login.php"><button>Comentar</button></a>
                                             </div>
                                         </div>
                                     </div>

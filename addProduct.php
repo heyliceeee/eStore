@@ -248,7 +248,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link active">ADICIONAR PRODUTO</a>
-                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
@@ -280,7 +279,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item active">ADICIONAR PRODUTO</li>
             </ul>
         </div>

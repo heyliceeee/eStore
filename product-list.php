@@ -84,7 +84,6 @@ if(isset($_POST['search'])){
                     <div class="navbar-nav mr-auto">
                         <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-list.php" class="nav-item nav-link active">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                     </div>
                     <div class="navbar-nav ml-auto">
                         <div class="nav-item dropdown">
@@ -143,7 +142,6 @@ if(isset($_POST['search'])){
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item active">PRODUTOS</li>
             </ul>
         </div>
@@ -162,7 +160,7 @@ if(isset($_POST['search'])){
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
 
-                                $idProductClick = $row["id"];
+                                $id = $row["id"];
                                 $foto = $row["foto"];
                                 $titulo = $row["titulo"];
                                 $preco = $row["preco"];
@@ -178,12 +176,12 @@ if(isset($_POST['search'])){
                                         <img src="img/<?php echo $foto; ?>" alt="Product Image">
                                     </a>
                                     <div class="product-action">
-                                        <a href="#"><i class="fa fa-search"></i></a>
+                                        <a href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="product-price">
                                     <h3><?php echo $preco ?><span>€</span></h3>
-                                    <a class="btn" href="product-detail.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                                    <a class="btn" href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                                 </div>
                             </div>
                         </div>

@@ -257,8 +257,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="navbar-nav mr-auto">
                         <a href="index.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-list.php" class="nav-item nav-link">PRODUTOS</a>
-                        <a href="product-detail.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
-                        <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                     </div>
                     <div class="navbar-nav ml-auto">
                         <div class="nav-item dropdown">
@@ -295,7 +293,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item active">CRIAR CONTA</li>
             </ul>
         </div>

@@ -122,7 +122,6 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                         <a href="indexLogin.php" class="nav-item nav-link active">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
-                        <a href="product-detailLogin.php" class="nav-item nav-link">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
@@ -221,7 +220,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                             if($resultQuery3products->num_rows > 0){
                                 while($row = $resultQuery3products->fetch_assoc()){
-
+                                $id = $row["id"];
                                 $foto = $row["foto"];
                                 $titulo = $row["titulo"];
 
@@ -232,7 +231,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                             <img src="img/<?php echo $foto; ?>" alt="Slider Image" />
                             <div class="header-slider-caption">
                                 <p><?php echo $titulo; ?></p>
-                                <a class="btn" href="product-detailLogin.php"><i class="fa fa-shopping-cart"></i>Compre agora</a>
+                                <a class="btn" href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre agora</a>
                             </div>
                         </div>
 
@@ -254,6 +253,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                         if($resultQuery2productsEletronicos->num_rows > 0){
                             while($row = $resultQuery2productsEletronicos->fetch_assoc()){
 
+                            $id = $row["id"];
                             $foto = $row["foto"];
                             $titulo = $row["titulo"];
 
@@ -261,7 +261,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                         <div class="img-item">
                             <img src="img/<?php echo $foto; ?>" />
-                            <a class="img-text" href="">
+                            <a class="img-text" href="product-detailLogin.php?id=<?php echo $id; ?>">>
                                 <p><?php echo $titulo; ?></p>
                             </a>
                         </div>
@@ -325,7 +325,8 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     if($resultQuery1productModa->num_rows > 0){
                         while($row = $resultQuery1productModa->fetch_assoc()){
-
+                        
+                        $id = $row["id"];
                         $foto = $row["foto"];
                         $titulo = $row["titulo"];
 
@@ -334,7 +335,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-400">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="">
+                        <a class="category-name" href="product-detailLogin.php?id=<?php echo $id; ?>">>
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -357,6 +358,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                     if($resultQuery1productCrianca->num_rows > 0){
                         while($row = $resultQuery1productCrianca->fetch_assoc()){
 
+                        $id = $row["id"];
                         $foto = $row["foto"];
                         $titulo = $row["titulo"];
 
@@ -365,7 +367,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-250">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="">
+                        <a class="category-name" href="product-detailLogin.php?id=<?php echo $id; ?>">>
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -383,7 +385,8 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                 if($resultQuery1productHomem->num_rows > 0){
                     while($row = $resultQuery1productHomem->fetch_assoc()){
-
+                       
+                    $id = $row["id"];
                     $foto = $row["foto"];
                     $titulo = $row["titulo"];
 
@@ -391,7 +394,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-150">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="">
+                        <a class="category-name" href="product-detailLogin.php?id=<?php echo $id; ?>">>
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -415,7 +418,8 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                 if($resultQuery1productGadgets->num_rows > 0){
                     while($row = $resultQuery1productGadgets->fetch_assoc()){
-
+                        
+                    $id = $row["id"];
                     $foto = $row["foto"];
                     $titulo = $row["titulo"];
 
@@ -424,7 +428,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-150">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="">
+                        <a class="category-name" href="product-detailLogin.php?id=<?php echo $id; ?>">>
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -444,6 +448,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                 if($resultQuery1productEletronicos->num_rows > 0){
                     while($row = $resultQuery1productEletronicos->fetch_assoc()){
 
+                    $id = $row["id"];
                     $foto = $row["foto"];
                     $titulo = $row["titulo"];
 
@@ -452,7 +457,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-250">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="">
+                        <a class="category-name" href="product-detailLogin.php?id=<?php echo $id; ?>">>
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -475,6 +480,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                 if($resultQuery1productRecent->num_rows > 0){
                     while($row = $resultQuery1productRecent->fetch_assoc()){
 
+                    $id = $row["id"];
                     $foto = $row["foto"];
                     $titulo = $row["titulo"];
 
@@ -483,7 +489,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-400">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="">
+                        <a class="category-name" href="product-detailLogin.php?id=<?php echo $id; ?>">>
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -495,12 +501,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                         echo "No products exist.";
                     }
                 ?> 
-
-
                 </div>
-
-
-
             </div>
         </div>
     </div>
@@ -534,6 +535,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                 if($resultQueryproductsOld->num_rows > 0){
                     while($row = $resultQueryproductsOld->fetch_assoc()){
 
+                    $id = $row["id"];
                     $foto = $row["foto"];
                     $titulo = $row["titulo"];
                     $preco = $row["preco"];
@@ -552,12 +554,12 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                             <div class="product-action">
                                 <a href="#"><i class="fa fa-cart-plus"></i></a>
                                 <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
+                                <a href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="product-price">
                             <h3><?php echo $preco; ?><span></span>€</h3>
-                            <a class="btn" href="product-detailLogin.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -605,6 +607,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                 if($resultQueryproductsRecents->num_rows > 0){
                     while($row = $resultQueryproductsRecents->fetch_assoc()){
 
+                    $id = $row["id"];
                     $foto = $row["foto"];
                     $titulo = $row["titulo"];
                     $preco = $row["preco"];
@@ -623,12 +626,12 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                             <div class="product-action">
                                 <a href="#"><i class="fa fa-cart-plus"></i></a>
                                 <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
+                                <a href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="product-price">
                             <h3><?php echo $preco; ?><span></span>€</h3>
-                            <a class="btn" href="product-detailLogin.php"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>

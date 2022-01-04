@@ -19,6 +19,26 @@
 }
 ?>
 
+<?php
+
+$foto = $titulo = $marca = $categoria = $estado = $descricao = $nameuser = $localizacao = "";
+$preco = 0.00;
+
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$a = $_GET['id']; //get id url param
+
+$query = "SELECT * FROM products WHERE id = '$a' ";
+$resultQuery = $conn->query($query);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +98,6 @@
                     <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
-                        <a href="product-detailLogin.php" class="nav-item nav-link active">DETALHE DO PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
                         <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
@@ -110,7 +129,6 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="indexLogin.php">PÁGINA INICIAL</a></li>
                 <li class="breadcrumb-item active">DETALHE DO PRODUTO</li>
             </ul>
         </div>
@@ -122,58 +140,55 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-8">
+
+                <?php
+
+                    if($resultQuery->num_rows > 0){
+                        while($row = $resultQuery->fetch_assoc()){
+
+                            $foto = $row["foto"];
+                            $titulo = $row["titulo"];
+                            $preco = $row["preco"];
+                            $categoria = $row["categoria"];
+                            $marca = $row["marca"];
+                            $estado = $row["estado"];
+                            $descricao = $row["descricao"];
+                            $nameuser = $row["nameuser"];
+                            $localizacao = $row["localizacao"];
+                ?>
+
                     <div class="product-detail-top">
                         <div class="row align-items-center">
                             <div class="col-md-5">
                                 <div class="product-slider-single normal-slider">
-                                    <img src="img/product-1.jpg" alt="Product Image">
-                                    <img src="img/product-3.jpg" alt="Product Image">
-                                    <img src="img/product-5.jpg" alt="Product Image">
-                                    <img src="img/product-7.jpg" alt="Product Image">
-                                    <img src="img/product-9.jpg" alt="Product Image">
-                                    <img src="img/product-10.jpg" alt="Product Image">
-                                </div>
-                                <div class="product-slider-single-nav normal-slider">
-                                    <div class="slider-nav-img"><img src="img/product-1.jpg" alt="Product Image"></div>
-                                    <div class="slider-nav-img"><img src="img/product-3.jpg" alt="Product Image"></div>
-                                    <div class="slider-nav-img"><img src="img/product-5.jpg" alt="Product Image"></div>
-                                    <div class="slider-nav-img"><img src="img/product-7.jpg" alt="Product Image"></div>
-                                    <div class="slider-nav-img"><img src="img/product-9.jpg" alt="Product Image"></div>
-                                    <div class="slider-nav-img"><img src="img/product-10.jpg" alt="Product Image"></div>
+                                    <img src="img/<?php echo $foto; ?>" alt="Product Image">
                                 </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="product-content">
                                     <div class="title">
-                                        <h2>Display, ecrã, visor, lcd, vidro Iphone 4 5 6 6S 7 plus 8 X XS 11 12</h2>
-                                    </div>
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                        <h2><?php echo $titulo; ?></h2>
                                     </div>
                                     <div class="price">
                                         <h4>Preço:</h4>
-                                        <p>9,50€</p>
+                                        <p><?php echo $preco; ?>€</p>
                                     </div>
                                     <div class="p-color">
                                         <h4>Tipo:</h4>
                                         <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn">Películas</button>
+                                            <button type="button" class="btn"><?php echo $categoria; ?></button>
                                         </div>
                                     </div>
                                     <div class="p-color">
                                         <h4>Marca:</h4>
                                         <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn">Apple</button>
+                                            <button type="button" class="btn"><?php echo $marca; ?></button>
                                         </div>
                                     </div>
                                     <div class="p-color">
                                         <h4>Estado:</h4>
                                         <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn">Novo</button>
+                                            <button type="button" class="btn"><?php echo $estado; ?></button>
                                         </div>
                                     </div>
 
@@ -185,6 +200,14 @@
                                 </div>
                             </div>
                         </div>
+
+                        <?php 
+                        }
+                        } else {
+
+                            echo "No products exist.";
+                        }
+                    ?>  
                     </div>
 
                     <div class="row product-detail-bottom">
@@ -204,21 +227,7 @@
                             <div class="tab-content">
                                 <div id="description" class="container tab-pane active">
                                     <h4>Descrição do produto</h4>
-                                    <p>
-                                    Display ecra visor para iphone 4 4s 9,5€
-                                    Qualidade original A+
-                                    Disponível para todos os modelos iPhone 5 5s 6 6s 7 7plus 8 X XS xs max, 11, 11 pro consulte preço 12 e 12 pro consulte preço.
-
-                                    Módulo completo com garantia de qualidade! Disponível em branco e preto.
-
-                                    Qualidade e preço!
-                                    Garantia
-                                    Deve testar sempre antes de instalar o ecrã! Não tirar películas sem testar.
-
-                                    Envio para qualquer parte do país:
-                                    Portes de envio a cargo do comprador
-                                    Cobrança 6€(pagos adiantados), Mbway ou transferência 3€
-                                    </p>
+                                    <p><?php echo $descricao; ?></p>
                                 </div>
                                 <div id="reviews" class="container tab-pane fade">
                                     <div class="reviews-submitted">
@@ -263,17 +272,12 @@
 
                                 <div id="user" class="container tab-pane fade">
                                     <div class="reviews-submitted">
-                                        <div class="reviewer">Nuno Oliveira</div>
-                                        <p>
-                                            No E Store desde 26 janeiro de 2018
-                                        </p>
+                                        <div class="reviewer"><?php echo $nameuser; ?></div>
                                     </div>
 
                                     <div class="reviews-submitted">
                                         <div class="reviewer">Localização</div>
-                                        <p>
-                                            Porto, Porto
-                                        </p>
+                                        <p><?php echo $localizacao; ?></p>
                                     </div>
                                 </div>
                             </div>
