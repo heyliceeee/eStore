@@ -12,6 +12,14 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 $sql = "SELECT * FROM products ORDER BY id DESC";
 $result = $conn->query($sql);
+
+if(isset($_POST['search'])){
+    $searchKey = $_POST['search'];
+    $querySearch = "SELECT * FROM products WHERE titulo LIKE '%searchKey%";
+
+}
+
+
 ?>
 
 <?php
@@ -105,15 +113,21 @@ $result = $conn->query($sql);
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="search">
-                        <input type="text" name="search" placeholder="Pesquisar">
+                    <form class="search" action="" method="POST">
+                        <input type="text" name="search" value="" placeholder="Pesquisar">
                         <button type="submit" name="submit"><i class="fa fa-search"></i></button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- Bottom Bar End -->
+
+    <?php
+
+    
+
+    ?>
 
     <!-- Breadcrumb Start -->
     <div class="breadcrumb-wrap">
