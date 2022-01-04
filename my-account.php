@@ -5,6 +5,7 @@
         //codigo a executar se o user estiver autenticado
         //echo "Utilizador autenticado!!!<br />";
         //echo "Nome: $nomeUtil";
+        $idUser = $idUtil;
 
         //linha de exemplo
         include ("logout.php");
@@ -17,6 +18,27 @@
         //linha de exemplo
         //include ("login.php");
 }
+?>
+
+<?php
+
+$foto = $titulo = "";
+$preco = 0.00;
+$dateCurrent = 0;
+$erro = "";
+$ProductArrayErr = [];
+
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$sql = "SELECT * FROM products WHERE iduser = $idUser ORDER BY id DESC";
+$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -173,14 +195,54 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel"
                             aria-labelledby="dashboard-nav">
-                            <h4>Dashboard</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi
-                                viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor
-                                hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non.
-                                Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien
-                                eget arcu rhoncus scelerisque.
-                            </p>
+                            <h4>Meus produtos</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Categoria</th>
+                                            <th>Estado</th>
+                                            <th>Preço</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php
+
+                                    if($result->num_rows > 0){
+                                        while($row = $result->fetch_assoc()){
+
+                                        $id = $row["id"];
+                                        $titulo = $row["titulo"];
+                                        $categoria = $row["categoria"];
+                                        $estado = $row["estado"];
+                                        $preco = $row["preco"];
+                                ?>
+
+                                        <tr>
+                                            <td><?php echo $titulo ?></td>
+                                            <td><?php echo $categoria ?></td>
+                                            <td><?php echo $estado ?></td>
+                                            <td><?php echo $preco ?> €</td>
+                                            <td>
+                                                <a href="product-detailLogin.php?id=<?php echo $id; ?>">
+                                                    <button class="btn">Visualizar</button>
+                                                </a>
+                                        </td>
+                                        </tr>
+
+                                        <?php 
+                                            }
+                                            } else {
+
+                                                echo "No products exist.";
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
                             <div class="table-responsive">
