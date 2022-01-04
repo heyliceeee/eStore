@@ -87,6 +87,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
 
             $erro = "Utilizador Válido";
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
 
             $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
 
