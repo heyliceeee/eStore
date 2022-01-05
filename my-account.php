@@ -22,7 +22,6 @@
 
 <?php
 
-$foto = $titulo = "";
 $preco = 0.00;
 $dateCurrent = 0;
 $erro = "";
@@ -69,6 +68,109 @@ $result = $conn->query($sql);
 </head>
 
 <body>
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Produto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="updateproduct.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="update_id" id="update_id">
+
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input class="form-control" id="titulo" type="text" placeholder="Introduza o Título do produto" name="titulo">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Preço</label>
+                            <input class="form-control" id="preco" type="text" placeholder="Introduza o Preço do produto" name="preco">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input class="form-control" id="marca" type="text" placeholder="Introduza a Marca do produto" name="marca">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Categoria</label>
+
+                            <select id="categoria" class="form-control" name="categoria">
+                                    <option selected>Escolha...</option>
+                                    <option>Moda & Beleza</option>
+                                    <option>Roupas Criança & Bebé</option>
+                                    <option>Roupas Homem & Mulher</option>
+                                    <option>Gadgets & Acessórios</option>
+                                    <option>Eletrônicos & Acessórios</option>
+                                    <option>Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select id="estado" class="form-control" name="estado">
+                                <option selected>Escolha...</option>
+                                <option>Novo</option>
+                                <option>Semi-Novo</option>
+                                <option>Usado</option>
+                                <option>Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Localização</label>
+                            <input class="form-control" id="localizacao" type="text" placeholder="Introduza a Localização do produto" name="localizacao">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea class="form-control" id="descricao" rows="3" name="descricao"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn" name="updatedata">Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Produto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deleteproduct.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <h4>Tem a certeza que quer eliminar este produto?</h4>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Não</button>
+                        <button type="submit" class="btn" name="deletedata">Sim, elimina.</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -200,9 +302,13 @@ $result = $conn->query($sql);
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
+                                            <th>ID</th>
                                             <th>Produto</th>
                                             <th>Categoria</th>
+                                            <th>Marca</th>
+                                            <th>Descrição</th>
                                             <th>Estado</th>
+                                            <th>Localização</th>
                                             <th>Preço</th>
                                             <th>Ação</th>
                                         </tr>
@@ -217,19 +323,33 @@ $result = $conn->query($sql);
                                         $id = $row["id"];
                                         $titulo = $row["titulo"];
                                         $categoria = $row["categoria"];
+                                        $marca = $row["marca"];
+                                        $descricao = $row["descricao"];
                                         $estado = $row["estado"];
+                                        $localizacao = $row["localizacao"];
                                         $preco = $row["preco"];
-                                ?>
+                                    ?>
 
                                         <tr>
+                                        <td><?php echo $id ?></td>
                                             <td><?php echo $titulo ?></td>
                                             <td><?php echo $categoria ?></td>
+                                            <td><?php echo $marca ?></td>
+                                            <td><?php echo $descricao ?></td>
                                             <td><?php echo $estado ?></td>
+                                            <td><?php echo $localizacao ?></td>
                                             <td><?php echo $preco ?> €</td>
                                             <td>
+                                                <!-- visualizar produto -->
                                                 <a href="product-detailLogin.php?id=<?php echo $id; ?>">
-                                                    <button class="btn">Visualizar</button>
+                                                    <button class="btn"><i class="fa fa-search"></i></button>
                                                 </a>
+
+                                                <!-- editar produto -->
+                                                <button type="button" class="btn editbtn"><i class="fa fa-pen"></i></button>
+
+                                                <!-- eliminar produto -->
+                                                <button class="btn deletebtn"><i class="fa fa-trash"></i></button>
                                         </td>
                                         </tr>
 
@@ -434,6 +554,49 @@ $result = $conn->query($sql);
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        $(document).ready(function (){
+            $('.editbtn').on('click', function(){
+                $('#editmodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#update_id').val(data[0]);
+                $('#titulo').val(data[1]);
+                $('#categoria').val(data[2]);
+                $('#marca').val(data[3]);
+                $('#descricao').val(data[4]);
+                $('#estado').val(data[5]);
+                $('#localizacao').val(data[6]);
+                $('#preco').val(data[7]);
+            });
+        });
+    </script>
+
+<script>
+        $(document).ready(function (){
+            $('.deletebtn').on('click', function(){
+                $('#deletemodal').modal('show');
+
+               $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#delete_id').val(data[0]);
+            });
+        });
+    </script>
 </body>
 
 </html>

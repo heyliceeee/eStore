@@ -5,7 +5,7 @@
         //codigo a executar se o user estiver autenticado
         //echo "Utilizador autenticado!!!<br />";
         //echo "Nome: $nomeUtil";
-        //echo "ID USER: $idUtil";
+        $idUser = $idUtil;
 
         //linha de exemplo
         //include ("logout.php");
@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
   
-        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'add_product', '$erro')";
+        $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'add_product', '$erro', '$idUser')";
   
         //LIGAR TABELA LOGS
         if ($conn->query($logs) === TRUE)
@@ -171,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             echo $erro, "; ";
 
-            $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'add_product', '$erro')";
+            $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'add_product', '$erro', '$idUser')";
 
 
             //LIGAR TABELA LOGS
