@@ -339,7 +339,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <div class="col-12">
                                 <label>Localização</label>
-                                <input class="form-control" type="text" placeholder="Introduza a Localização do produto" name="localizacao">
+                                <input class="form-control" type="text" placeholder="Introduza a Localização lidade do produto" name="localizacao">
                             </div>
 
                             <div class="col-12">
