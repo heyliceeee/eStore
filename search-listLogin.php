@@ -40,29 +40,6 @@ $a = $_GET['search']; //get search url param
 
 $sql = "SELECT * FROM products  WHERE titulo LIKE '$a%' ORDER BY id DESC";
 $result = $conn->query($sql);
-
-
-if($result){
-
-    $erro = "Produto pesquisado: $a";
-    $d = strtotime("now");
-    $dateCurrent = date("Y-m-d h:i:sa", $d);
-    $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'search_list', '$erro', '$idUser')";
-
-    //LIGAR TABELA LOGS
-    if ($conn->query($logs) === TRUE)
-     echo "";
-    //echo "Novo log criado com sucesso";
-    else echo "Erro: " . $logs . "<br>" . $conn->error;
-
-} else {
-
-    $erro = "Produto pesquisado sem sucesso: $a";
-    $d = strtotime("now");
-    $dateCurrent = date("Y-m-d h:i:sa", $d);
-    $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'search_list', '$erro', '$idUser')";
-}
-
 ?>
 
 

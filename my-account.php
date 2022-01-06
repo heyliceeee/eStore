@@ -37,28 +37,6 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 $sql = "SELECT * FROM products WHERE iduser = $idUser ORDER BY id DESC";
 $result = $conn->query($sql);
-
-
-if($result){
-
-    $erro = "Acedeu a página";
-    $d = strtotime("now");
-    $dateCurrent = date("Y-m-d h:i:sa", $d);
-    $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'my_account', '$erro', '$idUser')";
-
-    //LIGAR TABELA LOGS
-    if ($conn->query($logs) === TRUE)
-     echo "";
-    //echo "Novo log criado com sucesso";
-    else echo "Erro: " . $logs . "<br>" . $conn->error;
-
-} else {
-
-    $erro = "Acedeu a página sem sucesso";
-    $d = strtotime("now");
-    $dateCurrent = date("Y-m-d h:i:sa", $d);
-    $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'my_account', '$erro', '$idUser')";
-}
 ?>
 
 <!DOCTYPE html>
