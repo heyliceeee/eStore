@@ -5,6 +5,7 @@
         //codigo a executar se o user estiver autenticado
         //echo "Utilizador autenticado!!!<br />";
         //echo "Nome: $nomeUtil";
+        $idUser = $idUtil;
 
         //linha de exemplo
         include ("logout.php");

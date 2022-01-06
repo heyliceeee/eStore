@@ -5,6 +5,7 @@
         //codigo a executar se o user estiver autenticado
         //echo "Utilizador autenticado!!!<br />";
         //echo "Nome: $nomeUtil";
+        $idUser = $idUtil;
 
         //linha de exemplo
         include ("logout.php");
@@ -37,6 +38,27 @@ $a = $_GET['id']; //get id url param
 $query = "SELECT * FROM products WHERE id = '$a' ";
 $resultQuery = $conn->query($query);
 
+
+if($result){
+
+    $erro = "Produto detalhado: ID: $a";
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+    $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'product_detail', '$erro', '$idUser')";
+
+    //LIGAR TABELA LOGS
+    if ($conn->query($logs) === TRUE)
+     echo "";
+    //echo "Novo log criado com sucesso";
+    else echo "Erro: " . $logs . "<br>" . $conn->error;
+
+} else {
+
+    $erro = "Produto detalhado sem sucesso: ID: $a";
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+    $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'product_detail', '$erro', '$idUser')";
+}
 ?>
 
 <!DOCTYPE html>
