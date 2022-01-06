@@ -301,7 +301,7 @@ $result = $conn->query($sql);
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>ID</th>
+                                            <th hidden>ID</th>
                                             <th>Produto</th>
                                             <th>Categoria</th>
                                             <th>Marca</th>
@@ -330,7 +330,7 @@ $result = $conn->query($sql);
                                     ?>
 
                                         <tr>
-                                        <td><?php echo $id ?></td>
+                                        <td hidden><?php echo $id ?></td>
                                             <td><?php echo $titulo ?></td>
                                             <td><?php echo $categoria ?></td>
                                             <td><?php echo $marca ?></td>

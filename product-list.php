@@ -16,10 +16,7 @@ $result = $conn->query($sql);
 if(isset($_POST['search'])){
     $searchKey = $_POST['search'];
     $querySearch = "SELECT * FROM products WHERE titulo LIKE '%searchKey%";
-
 }
-
-
 ?>
 
 <?php
