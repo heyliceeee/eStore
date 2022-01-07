@@ -25,7 +25,7 @@
 $foto = $titulo = $marca = $categoria = $estado = $descricao = $nameuser = $localizacao = "";
 $preco = 0.00;
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root"; $password = "dwdmsaw"; $bd = "bd"; $host = "localhost";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);

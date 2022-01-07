@@ -7,7 +7,7 @@ $RegisterArrayErr = [];
 
 $login = "root"; 
 //$pagina="index.php"; 
-$password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$password = "dwdmsaw"; $bd = "bd"; $host = "localhost";
   
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);

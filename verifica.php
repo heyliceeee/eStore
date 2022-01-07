@@ -1,6 +1,6 @@
 <?php
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost"; 
+$login = "root"; $password = "dwdmsaw"; $bd = "bd"; $host = "localhost"; 
 
 session_start();
 

@@ -1,6 +1,6 @@
 <?php
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost"; 
+$login = "root"; $password = "dwdmsaw"; $bd = "bd"; $host = "localhost"; 
 $email = $pass =""; $pagina="indexLogin.php"; $LoginArrayErr=[];
 $dateCurrent = 0;
 $erro = "";

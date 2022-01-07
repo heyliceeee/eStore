@@ -28,7 +28,7 @@ $dateCurrent = 0;
 $erro = "";
 $ProductArrayErr = [];
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root"; $password = "dwdmsaw"; $bd = "bd"; $host = "localhost";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);

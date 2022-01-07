@@ -1,6 +1,6 @@
 <?php
     
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root"; $password = "dwdmsaw"; $bd = "bd"; $host = "localhost";
 $titulo = $foto = "";
 $preco = 0.00;
 
