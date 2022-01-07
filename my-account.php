@@ -482,7 +482,7 @@ $resultUser = $conn->query($sqlUser);
                                         <td hidden><?php echo $id ?></td>
                                             <td><?php echo $email ?></td>
                                             <td><?php echo $name ?></td>
-                                            <td><?php echo $foto ?></td>
+                                            <td><img src="img/<?php echo $foto; ?>" alt="Product Image"></td>
                                             <td>
                                                 <!-- editar dados -->
                                                  <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>

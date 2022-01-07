@@ -38,7 +38,7 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 $a = $_GET['search']; //get search url param
 
-$sql = "SELECT * FROM products  WHERE titulo LIKE '$a%' ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE preco != 0 AND titulo LIKE '$a%' ORDER BY id DESC";
 $result = $conn->query($sql);
 ?>
 

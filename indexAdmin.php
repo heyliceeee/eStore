@@ -31,7 +31,7 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 $sql = "SELECT * FROM logs ORDER BY id DESC";
 $result = $conn->query($sql);
 
-$sqlUser = "SELECT * FROM users ORDER BY id DESC";
+$sqlUser = "SELECT * FROM users WHERE email != '' ORDER BY id DESC";
 $resultUser = $conn->query($sqlUser);
 ?>
 

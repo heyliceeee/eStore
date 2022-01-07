@@ -22,6 +22,8 @@ $a = $_GET['id']; //get id url param
 $query = "SELECT * FROM products WHERE id = '$a' ";
 $resultQuery = $conn->query($query);
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -259,9 +261,23 @@ $resultQuery = $conn->query($query);
                                     </div>
                                 </div>
 
+                                <?php
+
+                
+                                $queryFoto = "SELECT foto FROM users WHERE name = '$nameuser' ";
+                                $resultQueryFoto = $conn->query($queryFoto);
+
+                                if($resultQueryFoto->num_rows > 0){
+                                    while($row = $resultQueryFoto->fetch_assoc()){
+
+                                        $foto = $row["foto"];
+                            ?>
+
                                 <div id="user" class="container tab-pane fade">
                                     <div class="reviews-submitted">
-                                        <div class="reviewer"><?php echo $nameuser; ?></div>
+                                        <div class="reviewer">
+                                            <img src="img/<?php echo $foto; ?>" alt="Foto de perfil" style="width: 100px;"/>
+                                            <?php echo $nameuser; ?></div>
                                     </div>
 
                                     <div class="reviews-submitted">
@@ -269,6 +285,14 @@ $resultQuery = $conn->query($query);
                                         <p><?php echo $localizacao; ?></p>
                                     </div>
                                 </div>
+
+                                <?php 
+                        }
+                        } else {
+
+                            echo "Não tem foto.";
+                        }
+                    ?>  
                             </div>
                         </div>
                     </div>

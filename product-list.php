@@ -10,12 +10,12 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE preco != 0 ORDER BY id DESC";
 $result = $conn->query($sql);
 
 if(isset($_POST['search'])){
     $searchKey = $_POST['search'];
-    $querySearch = "SELECT * FROM products WHERE titulo LIKE '%searchKey%";
+    $querySearch = "SELECT * FROM products WHERE preco != 0 AND titulo LIKE '%searchKey%";
 }
 ?>
 
