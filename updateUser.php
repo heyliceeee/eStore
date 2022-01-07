@@ -5,10 +5,9 @@
 
         $idUser = $idUtil;
 
-} else {
+    } else {
 
 }
-
 ?>
 
 
@@ -28,14 +27,10 @@ if(isset($_POST['updateuserdata'])){
     $id = $_POST['updateuser_id'];
     $email = $_POST['email'];
     $name = $_POST['name'];
-
-    $pass = $_POST['pass'];
-    $pass = md5($pass);
-
     $foto = $_POST['foto'];
 
 
-    $sql = "UPDATE users SET email='$email', name='$name', pass='$pass', foto='$foto' WHERE id='$id' ";
+    $sql = "UPDATE users SET email='$email', name='$name', foto='$foto' WHERE id='$id' ";
     $result = $conn->query($sql);
 
 

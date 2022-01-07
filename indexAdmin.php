@@ -28,10 +28,10 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM logs";
+$sql = "SELECT * FROM logs ORDER BY id DESC";
 $result = $conn->query($sql);
 
-$sqlUser = "SELECT * FROM users";
+$sqlUser = "SELECT * FROM users ORDER BY id DESC";
 $resultUser = $conn->query($sqlUser);
 ?>
 

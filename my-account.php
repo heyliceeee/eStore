@@ -7,8 +7,7 @@
 
         include ("logout.php");
 
-} else {
-
+    } else {
 
 }
 
@@ -29,10 +28,10 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products WHERE iduser = $idUser ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE iduser = 143 ORDER BY id DESC";
 $result = $conn->query($sql);
 
-$sqlUser = "SELECT * FROM users WHERE id = 128";
+$sqlUser = "SELECT * FROM users WHERE id = 143";
 $resultUser = $conn->query($sqlUser);
 ?>
 
@@ -166,11 +165,11 @@ $resultUser = $conn->query($sqlUser);
         </div>
     </div>
 
-    <!-- <div class="modal fade" id="editusermodal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="editusermodal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Alterar dados</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Alterar Dados</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -182,22 +181,17 @@ $resultUser = $conn->query($sqlUser);
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control" id="email" type="text" placeholder="Introduza o seu Email" name="email">
+                            <input class="form-control" id="email" type="text" placeholder="Introduza o Email" name="email">
                         </div>
 
                         <div class="form-group">
                             <label>Nome</label>
-                            <input class="form-control" id="name" type="text" placeholder="Introduza o seu Nome" name="name">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input class="form-control" id="pass" type="text" placeholder="Introduza o seu Password" name="pass">
+                            <input class="form-control" id="name" type="text" placeholder="Introduza o Nome" name="name">
                         </div>
 
                         <div class="form-group">
                             <label>Foto</label>
-                            <input class="form-control" id="foto" name="foto" type="file" placeholder="Nova Foto">
+                            <input class="form-control" id="foto" type="file" placeholder="Introduza a Marca do produto" name="foto">
                         </div>
                     </div>
 
@@ -209,7 +203,7 @@ $resultUser = $conn->query($sqlUser);
                 </form>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- Top bar Start -->
     <div class="top-bar">
@@ -360,7 +354,7 @@ $resultUser = $conn->query($sqlUser);
                                     if($result->num_rows > 0){
                                         while($row = $result->fetch_assoc()){
 
-                                        $id = $row["id"];
+                                        $id = 143;
                                         $titulo = $row["titulo"];
                                         $categoria = $row["categoria"];
                                         $marca = $row["marca"];
@@ -390,7 +384,7 @@ $resultUser = $conn->query($sqlUser);
 
                                                 <!-- eliminar produto -->
                                                 <button class="btn deletebtn"><i class="fa fa-trash"></i></button>
-                                        </td>
+                                            </td>
                                         </tr>
 
                                         <?php 
@@ -460,44 +454,40 @@ $resultUser = $conn->query($sqlUser);
                         <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
                             <h4>Alterar dados</h4>
 
-                            <!-- <div class="table-responsive">
+                            <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th hidden>ID</th>
                                             <th>Email</th>
                                             <th>Nome</th>
-                                            <th>Password</th>
                                             <th>Foto</th>
                                             <th>Ação</th>
                                         </tr>
                                     </thead>
-                                    <tbody> -->
+                                    <tbody>
 
-                                    <!-- <?php
+                                    <?php
 
                                     if($resultUser->num_rows > 0){
                                         while($row = $resultUser->fetch_assoc()){
 
-                                        $id = 128;
+                                        $id = $row["id"];
                                         $email = $row["email"];
                                         $name = $row["name"];
-                                        $pass = $row["pass"];
                                         $foto = $row["foto"];
                                     ?>
- -->
-                                        <!-- <tr>
+
+                                        <tr>
                                         <td hidden><?php echo $id ?></td>
                                             <td><?php echo $email ?></td>
                                             <td><?php echo $name ?></td>
-                                            <td hidden><?php echo $pass ?></td>
-                                            <td></td>
                                             <td><?php echo $foto ?></td>
-                                            <td> -->
+                                            <td>
                                                 <!-- editar dados -->
-                                                <!-- <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>
+                                                 <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>
                                             </td>
-                                        </tr> -->
+                                        </tr>
 
                                         <?php 
                                             }
@@ -661,7 +651,7 @@ $resultUser = $conn->query($sqlUser);
         });
 </script>
 
-<!-- <script>
+<script>
         $(document).ready(function (){
             $('.edituserbtn').on('click', function(){
                 $('#editusermodal').modal('show');
@@ -681,10 +671,9 @@ $resultUser = $conn->query($sqlUser);
                 $('#updateuser_id').val(data[0]);
                 $('#email').val(data[1]);
                 $('#name').val(data[2]);
-                $('#pass').val(data[3]);
                 $('#foto').val(data[5]);
             });
         });
-    </script> -->
+    </script>
 </body>
 </html>
