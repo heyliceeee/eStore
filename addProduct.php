@@ -6,6 +6,7 @@
         //echo "Utilizador autenticado!!!<br />";
         //echo "Nome: $nomeUtil";
         $idUser = $idUtil;
+        $emailUser = $emailUser;
 
         //linha de exemplo
         //include ("logout.php");

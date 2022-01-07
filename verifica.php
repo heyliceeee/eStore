@@ -28,6 +28,7 @@ $nomeUtil = ""; $idUtil = 0; $autenticado = false;
         $row = $result->fetch_assoc();
         $nomeUtil = $row["name"];
         $idUtil = $row["id"];
+        $emailUtil = row["email"];
         
         $autenticado = true;
 
