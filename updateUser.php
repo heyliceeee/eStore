@@ -2,24 +2,10 @@
     include ("verifica.php"); //verificar a autenticacão
 
     if ($autenticado) {
+
         $idUser = $idUtil;
 
-?>
-    <script>
-       '<?php $a ?>' = localStorage.getItem('idUser');
-    </script>
-
-<?php
-
 } else {
-
-?>
-
-<script>
-    '<?php $a ?>' = localStorage.removeItem('idUser');
-</script>
-
-<?php
 
 }
 
@@ -39,19 +25,6 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 if(isset($_POST['updateuserdata'])){
 
-?>
-
-    <script>
-        '<?php $a ?>' = localStorage.getItem('idUser');
-        console.log('<?php echo $a ?>');
-    </script>
-
-    <script>
-         console.log("passou aqui");
-    </script>
-
-    <?php
-
     $id = $_POST['updateuser_id'];
     $email = $_POST['email'];
     $name = $_POST['name'];
@@ -62,7 +35,7 @@ if(isset($_POST['updateuserdata'])){
     $foto = $_POST['foto'];
 
 
-    $sql = "UPDATE users SET email='$email', name='$name', pass='$pass', foto='$foto' WHERE id='$a' ";
+    $sql = "UPDATE users SET email='$email', name='$name', pass='$pass', foto='$foto' WHERE id='$id' ";
     $result = $conn->query($sql);
 
 
@@ -71,7 +44,7 @@ if(isset($_POST['updateuserdata'])){
         $erro = "Alteração de dados com sucesso";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-        $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'edit_user', '$erro', '$a')";
+        $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'edit_user', '$erro', '$idUser')";
 
         //LIGAR TABELA LOGS
         if ($conn->query($logs) === TRUE)

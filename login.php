@@ -1,7 +1,7 @@
 <?php
 
 $login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost"; 
-$email = $pass =""; $pagina="indexLogin.php"; $LoginArrayErr=[];
+$email = $pass =""; $pagina="indexLogin.php"; $paginaAdmin="indexAdmin.php"; $LoginArrayErr=[];
 $dateCurrent = 0;
 $erro = "";
 
@@ -76,8 +76,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $pass = md5($pass);
   
         // sql para inserir registos
+        $sqlAdmin = "SELECT * FROM users WHERE email='$email' AND pass='$pass' AND role='admin'";
+        $resultAdmin = $conn->query($sqlAdmin);
+
         $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
         $result = $conn->query($sql);
+
+        if($resultAdmin->num_rows == 1){
+
+            $_SESSION['email'] = $email;
+            $_SESSION['pass'] = $pass;
+
+            header("Location: $paginaAdmin"); //no caso de quererem redirecionar a página para outro sitio
+
+            $erro = "Utilizador Válido";
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+            $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
+
+            //LIGAR TABELA LOGS
+            if ($conn->query($logs) === TRUE)
+                echo "";
+                //echo "Novo log criado com sucesso!!! ";
+            else echo "Erro: " . $logs . "<br>" . $conn->error;
+
+        } else
+
   
         if($result->num_rows == 1){
 

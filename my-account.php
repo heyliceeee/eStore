@@ -2,25 +2,13 @@
     include ("verifica.php"); //verificar a autenticacão
 
     if ($autenticado) {
+
         $idUser = $idUtil;
 
-?>
-    <script>
-       '<?php $a ?>' = localStorage.getItem('idUser');
-    </script>
-
-<?php
         include ("logout.php");
 
 } else {
 
-?>
-
-<script>
-    localStorage.removeItem('idUser');
-</script>
-
-<?php
 
 }
 
@@ -41,10 +29,10 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products WHERE iduser = $a ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE iduser = $idUser ORDER BY id DESC";
 $result = $conn->query($sql);
 
-$sqlUser = "SELECT * FROM users WHERE id = $a";
+$sqlUser = "SELECT * FROM users WHERE id = 128";
 $resultUser = $conn->query($sqlUser);
 ?>
 
@@ -178,7 +166,7 @@ $resultUser = $conn->query($sqlUser);
         </div>
     </div>
 
-    <div class="modal fade" id="editusermodal" tabindex="-1" role="dialog">
+    <!-- <div class="modal fade" id="editusermodal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -221,7 +209,7 @@ $resultUser = $conn->query($sqlUser);
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Top bar Start -->
     <div class="top-bar">
@@ -471,8 +459,8 @@ $resultUser = $conn->query($sqlUser);
                         </div>
                         <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
                             <h4>Alterar dados</h4>
-                            
-                            <div class="table-responsive">
+
+                            <!-- <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
@@ -484,32 +472,32 @@ $resultUser = $conn->query($sqlUser);
                                             <th>Ação</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> -->
 
-                                    <?php
+                                    <!-- <?php
 
                                     if($resultUser->num_rows > 0){
                                         while($row = $resultUser->fetch_assoc()){
 
-                                        $id = $idUser;
+                                        $id = 128;
                                         $email = $row["email"];
                                         $name = $row["name"];
                                         $pass = $row["pass"];
                                         $foto = $row["foto"];
                                     ?>
-
-                                        <tr>
+ -->
+                                        <!-- <tr>
                                         <td hidden><?php echo $id ?></td>
                                             <td><?php echo $email ?></td>
                                             <td><?php echo $name ?></td>
                                             <td hidden><?php echo $pass ?></td>
                                             <td></td>
                                             <td><?php echo $foto ?></td>
-                                            <td>
+                                            <td> -->
                                                 <!-- editar dados -->
-                                                <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>
+                                                <!-- <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>
                                             </td>
-                                        </tr>
+                                        </tr> -->
 
                                         <?php 
                                             }
@@ -673,14 +661,13 @@ $resultUser = $conn->query($sqlUser);
         });
 </script>
 
-<script>
+<!-- <script>
         $(document).ready(function (){
             $('.edituserbtn').on('click', function(){
                 $('#editusermodal').modal('show');
 
-                var a = '<?php echo $idUser ?>';
                 
-                localStorage.setItem('idUser', a);
+                //localStorage.setItem('idUser', a);
                 //localStorage.removeItem('idUser');
 
                 $tr = $(this).closest('tr');
@@ -698,7 +685,6 @@ $resultUser = $conn->query($sqlUser);
                 $('#foto').val(data[5]);
             });
         });
-    </script>
+    </script> -->
 </body>
-
 </html>

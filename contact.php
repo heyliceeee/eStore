@@ -73,8 +73,8 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Conta de Utilizador</a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Iniciar Sessão</a>
-                                <a href="#" class="dropdown-item">Criar Conta</a>
+                            <a href="login.php" class="dropdown-item">Iniciar Sessão</a>
+                                <a href="register.php" class="dropdown-item">Criar Conta</a>
                             </div>
                         </div>
                     </div>

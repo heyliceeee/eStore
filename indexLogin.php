@@ -36,22 +36,22 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 $query3products = "SELECT * FROM products ORDER BY id DESC LIMIT 3";
 $resultQuery3products = $conn->query($query3products);
 
-$query2productsEletronicos = "SELECT * FROM products WHERE categoria='Eletrônicos &amp; Acessórios' ORDER BY id DESC LIMIT 2;";
+$query2productsEletronicos = "SELECT * FROM products WHERE categoria='Eletrônicos &amp; Acessórios' OR categoria='Eletrônicos & Acessórios' ORDER BY id DESC LIMIT 2;";
 $resultQuery2productsEletronicos = $conn->query($query2productsEletronicos);
 
-$query1productModa = "SELECT * FROM products WHERE categoria='Moda &amp; Beleza' ORDER BY id DESC LIMIT 1;";
+$query1productModa = "SELECT * FROM products WHERE categoria='Moda &amp; Beleza' OR categoria='Moda & Beleza' ORDER BY id DESC LIMIT 1;";
 $resultQuery1productModa = $conn->query($query1productModa);
 
-$query1productCrianca = "SELECT * FROM products WHERE categoria='Roupas Criança &amp; Bebé' ORDER BY id DESC LIMIT 1;";
+$query1productCrianca = "SELECT * FROM products WHERE categoria='Roupas Criança &amp; Bebé' OR categoria='Roupas Criança & Bebé' ORDER BY id DESC LIMIT 1;";
 $resultQuery1productCrianca = $conn->query($query1productCrianca);
 
-$query1productHomem = "SELECT * FROM products WHERE categoria='Roupas Homem &amp; Mulher' ORDER BY id DESC LIMIT 1;";
+$query1productHomem = "SELECT * FROM products WHERE categoria='Roupas Homem &amp; Mulher' OR categoria='Roupas Homem & Mulher' ORDER BY id DESC LIMIT 1;";
 $resultQuery1productHomem = $conn->query($query1productHomem);
 
-$query1productGadgets = "SELECT * FROM products WHERE categoria='Gadgets &amp; Acessórios' ORDER BY id DESC LIMIT 1;";
+$query1productGadgets = "SELECT * FROM products WHERE categoria='Gadgets &amp; Acessórios' OR categoria='Gadgets & Acessórios' ORDER BY id DESC LIMIT 1;";
 $resultQuery1productGadgets = $conn->query($query1productGadgets);
 
-$query1productEletronicos = "SELECT * FROM products WHERE categoria='Eletrônicos &amp; Acessórios' ORDER BY id DESC LIMIT 1;";
+$query1productEletronicos = "SELECT * FROM products WHERE categoria='Eletrônicos &amp; Acessórios' OR categoria='Eletrônicos & Acessórios' ORDER BY id DESC LIMIT 1;";
 $resultQuery1productEletronicos = $conn->query($query1productEletronicos);
 
 $query1productRecent = "SELECT * FROM products ORDER BY id DESC LIMIT 1;";
