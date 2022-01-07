@@ -2,22 +2,28 @@
     include ("verifica.php"); //verificar a autenticacão
 
     if ($autenticado) {
-        //codigo a executar se o user estiver autenticado
-        //echo "Utilizador autenticado!!!<br />";
-        //echo "Nome: $nomeUtil";
         $idUser = $idUtil;
 
-        //linha de exemplo
+?>
+    <script>
+       '<?php $a ?>' = localStorage.getItem('idUser');
+    </script>
+
+<?php
         include ("logout.php");
 
-    } else {
-        //codigo a executar se o user não estiver autenticado
+} else {
 
-        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
+?>
 
-        //linha de exemplo
-        //include ("login.php");
+<script>
+    localStorage.removeItem('idUser');
+</script>
+
+<?php
+
 }
+
 ?>
 
 <?php
@@ -35,8 +41,11 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products WHERE iduser = $idUser ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE iduser = $a ORDER BY id DESC";
 $result = $conn->query($sql);
+
+$sqlUser = "SELECT * FROM users WHERE id = $a";
+$resultUser = $conn->query($sqlUser);
 ?>
 
 <!DOCTYPE html>
@@ -169,6 +178,50 @@ $result = $conn->query($sql);
         </div>
     </div>
 
+    <div class="modal fade" id="editusermodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Alterar dados</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="updateuser.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="updateuser_id" id="updateuser_id">
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" id="email" type="text" placeholder="Introduza o seu Email" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input class="form-control" id="name" type="text" placeholder="Introduza o seu Nome" name="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input class="form-control" id="pass" type="text" placeholder="Introduza o seu Password" name="pass">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Foto</label>
+                            <input class="form-control" id="foto" name="foto" type="file" placeholder="Nova Foto">
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn" name="updateuserdata">Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Top bar Start -->
     <div class="top-bar">
@@ -417,33 +470,56 @@ $result = $conn->query($sql);
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
-                            <h4>Mudar Palavra Passe</h4>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input class="form-control" type="password" placeholder="Atual Palavra Passe">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Nova Palavra Passe">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Confirmar Palavra Passe">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn">Guardar alterações</button>
-                                </div>
-                            </div>
+                            <h4>Alterar dados</h4>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th hidden>ID</th>
+                                            <th>Email</th>
+                                            <th>Nome</th>
+                                            <th>Password</th>
+                                            <th>Foto</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                            <br>
-                            <br>
+                                    <?php
 
-                            <h4>Mudar Foto</h4>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input class="form-control" type="file" placeholder="Nova Foto">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn">Guardar alterações</button>
-                                </div>
+                                    if($resultUser->num_rows > 0){
+                                        while($row = $resultUser->fetch_assoc()){
+
+                                        $id = $idUser;
+                                        $email = $row["email"];
+                                        $name = $row["name"];
+                                        $pass = $row["pass"];
+                                        $foto = $row["foto"];
+                                    ?>
+
+                                        <tr>
+                                        <td hidden><?php echo $id ?></td>
+                                            <td><?php echo $email ?></td>
+                                            <td><?php echo $name ?></td>
+                                            <td hidden><?php echo $pass ?></td>
+                                            <td></td>
+                                            <td><?php echo $foto ?></td>
+                                            <td>
+                                                <!-- editar dados -->
+                                                <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>
+                                            </td>
+                                        </tr>
+
+                                        <?php 
+                                            }
+                                            } else {
+
+                                                echo "No user exist.";
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -593,6 +669,33 @@ $result = $conn->query($sql);
                 console.log(data);
 
                 $('#delete_id').val(data[0]);
+            });
+        });
+</script>
+
+<script>
+        $(document).ready(function (){
+            $('.edituserbtn').on('click', function(){
+                $('#editusermodal').modal('show');
+
+                var a = '<?php echo $idUser ?>';
+                
+                localStorage.setItem('idUser', a);
+                //localStorage.removeItem('idUser');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#updateuser_id').val(data[0]);
+                $('#email').val(data[1]);
+                $('#name').val(data[2]);
+                $('#pass').val(data[3]);
+                $('#foto').val(data[5]);
             });
         });
     </script>
