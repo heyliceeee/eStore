@@ -1,18 +1,21 @@
 <?php
-    include ("verifica.php"); //verificar a autenticacão
+include("verifica.php"); //verificar a autenticacão
 
-    if ($autenticado) {
+if ($autenticado) {
 
-        $idUser = $idUtil;
-
-    } else {
-        
+    $idUser = $idUtil;
+} else {
 }
 ?>
 
 <?php
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root";
+$password = "!AdBp2601!";
+$bd = "bd";
+$host = "localhost";
+
+global $idUser;
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -21,7 +24,7 @@ $conn = new mysqli($host, $login, $password, $bd);
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 
-if(isset($_POST['updatedata'])){
+if (isset($_POST['updatedata'])) {
 
     $id = $_POST['update_id'];
     $titulo = $_POST['titulo'];
@@ -37,23 +40,24 @@ if(isset($_POST['updatedata'])){
     $result = $conn->query($sql);
 
 
-    if($result){
+    if ($result) {
+
 
         $erro = "Produto editado com sucesso";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
         $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'edit_product', '$erro', '$idUser')";
 
+
         //LIGAR TABELA LOGS
         if ($conn->query($logs) === TRUE)
-         echo "";
+            echo "";
         //echo "Novo log criado com sucesso";
         else echo "Erro: " . $logs . "<br>" . $conn->error;
 
         sleep(1);
 
         header("location:my-account.php");
-    
     } else {
 
         $erro = "Produto editado sem sucesso";
@@ -62,7 +66,4 @@ if(isset($_POST['updatedata'])){
         $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'edit_product', '$erro', '$idUser')";
     }
 }
-
-
-
 ?>

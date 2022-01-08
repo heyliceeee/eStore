@@ -1,4 +1,5 @@
 <?php
+
 include("verifica.php"); //verificar a autenticacão
 
 if ($autenticado) {
@@ -650,9 +651,6 @@ $resultUser = $conn->query($sqlUser);
             $('.edituserbtn').on('click', function() {
                 $('#editusermodal').modal('show');
 
-
-                //localStorage.setItem('idUser', a);
-                //localStorage.removeItem('idUser');
 
                 $tr = $(this).closest('tr');
 
