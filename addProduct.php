@@ -47,13 +47,7 @@ if ($autenticado) {
         $headers .= "From: eStore <estore.website.2021@gmail.com>" . "\r\n";
 
         //Enviar
-        if (mail($to, $subject, $message, $headers)) {
-
-            echo 'mandou crlh';
-        } else {
-
-            echo 'n mandou essa porra';
-        }
+        mail($to, $subject, $message, $headers);
 
         //echo "<meta http-equiv='refresh' content='10;URL=../addProduct.php'>";
     }

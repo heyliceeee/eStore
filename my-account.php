@@ -23,16 +23,18 @@ $password = "!AdBp2601!";
 $bd = "bd";
 $host = "localhost";
 
+global $idUser;
+
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
 
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products WHERE iduser = 149 AND preco != 0 ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE iduser = $idUser AND preco != 0 ORDER BY id DESC";
 $result = $conn->query($sql);
 
-$sqlUser = "SELECT * FROM users WHERE id = 149";
+$sqlUser = "SELECT * FROM users WHERE id = $idUser";
 $resultUser = $conn->query($sqlUser);
 ?>
 
