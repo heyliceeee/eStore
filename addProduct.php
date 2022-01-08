@@ -1,35 +1,79 @@
 <?php
-    include ("verifica.php"); //verificar a autenticacão
 
-    if ($autenticado) {
-        //codigo a executar se o user estiver autenticado
-        //echo "Utilizador autenticado!!!<br />";
-        //echo "Nome: $nomeUtil";
-        $idUser = $idUtil;
-        $emailUser = $emailUser;
+ini_set('display_errors', 1);
 
-        //linha de exemplo
-        //include ("logout.php");
+include("verifica.php"); //verificar a autenticacão
 
-    } else {
-        //codigo a executar se o user não estiver autenticado
+if ($autenticado) {
+    //codigo a executar se o user estiver autenticado
+    //echo "Utilizador autenticado!!!<br />";
+    $email = $emailUtil;
+    $name = $nomeUtil;
+    $id = $idUtil;
 
-        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
 
-        //linha de exemplo
-        //include ("login.php");
+    //linha de exemplo
+    //include("logout.php");
+
+
+    function sendMail()
+    {
+
+
+        global $email, $name;
+
+        $to =  $email;
+
+        //echo $to;
+
+        //Corpo E-mail
+        $message = "
+        <html>
+        <p>Estimado(a) $name</p>
+        <p>Temos o gosto de informar que o seu produto foi publicado.</p>
+        <br>
+        <br>
+        <p>Obrigada e Boas Vendas!</p>
+        <p><b>eStore</b></p>
+        </html>";
+
+        //Emails para quem será enviado o formulário
+        //$destino = echo $email;
+        $subject = "Notificação - Novo produto publicado";
+
+        //Este sempre deverá existir para garantir a exibição correta dos caracteres
+        $headers  = "MIME-Version: 1.0\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\n";
+        $headers .= "From: eStore <estore.website.2021@gmail.com>" . "\r\n";
+
+        //Enviar
+        if (mail($to, $subject, $message, $headers)) {
+
+            echo 'mandou crlh';
+        } else {
+
+            echo 'n mandou essa porra';
+        }
+
+        //echo "<meta http-equiv='refresh' content='10;URL=../addProduct.php'>";
+    }
+} else {
 }
 ?>
 
+
 <?php
-    
+
 $foto = $titulo = $marca = $categoria = $estado = $descricao = $localizacao = "";
 $preco = 0.00;
 $dateCurrent = 0;
 $erro = "";
 $ProductArrayErr = [];
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root";
+$password = "!AdBp2601!";
+$bd = "bd";
+$host = "localhost";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -39,153 +83,149 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if(empty($_POST["foto"])){
+    if (empty($_POST["foto"])) {
 
         $ProductArrayErr['fotoErr'] = "Insira a foto do produto";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-
     } else {
 
         $foto = product_input($_POST["foto"]);
     }
 
 
-    if(empty($_POST["titulo"])){
+    if (empty($_POST["titulo"])) {
 
         $ProductArrayErr['tituloErr'] = "Insira o titulo do produto";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-
     } else {
 
         $titulo = product_input($_POST["titulo"]);
     }
 
 
-    if(empty($_POST["preco"])){
+    if (empty($_POST["preco"])) {
 
         $ProductArrayErr['precoErr'] = "Insira o preço do produto";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-
     } else {
 
         $preco = product_input($_POST["preco"]);
     }
 
 
-    if(empty($_POST["marca"])){
-
+    if (empty($_POST["marca"])) {
     } else {
 
         $marca = product_input($_POST["marca"]);
     }
 
 
-    if(empty($_POST["categoria"])){
-
+    if (empty($_POST["categoria"])) {
     } else {
 
         $categoria = product_input($_POST["categoria"]);
     }
 
 
-    if(empty($_POST["estado"])){
-
+    if (empty($_POST["estado"])) {
     } else {
 
         $estado = product_input($_POST["estado"]);
     }
 
 
-    if(empty($_POST["descricao"])){
-
+    if (empty($_POST["descricao"])) {
     } else {
 
         $descricao = product_input($_POST["descricao"]);
     }
 
 
-    if(empty($_POST["localizacao"])){
-
+    if (empty($_POST["localizacao"])) {
     } else {
 
         $localizacao = product_input($_POST["localizacao"]);
     }
 
 
-    if(isset($_POST['submit'])){
-        if(!empty($_POST['checkArr'])){
-          foreach($_POST['checkArr'] as $checked){
-            echo $checked, "</br>";
-          }
+    if (isset($_POST['submit'])) {
+        if (!empty($_POST['checkArr'])) {
+            foreach ($_POST['checkArr'] as $checked) {
+                echo $checked, "</br>";
+            }
         }
     }
 }
 
 
-    function product_input($data) {
-        if(is_array($data)) {
-            return array_map('product_input', $data);
-        }
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+function product_input($data)
+{
+    if (is_array($data)) {
+        return array_map('product_input', $data);
     }
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 
 
-    if(empty($ProductArrayErr)){
+if (empty($ProductArrayErr)) {
 
-        // sql para inserir registos
-        $sql = "INSERT INTO products (iduser, nameuser, foto, titulo, preco, marca, categoria, estado, descricao, localizacao) 
-        VALUES ($idUtil, '$nomeUtil', '$foto', '$titulo', '$preco', '$marca', '$categoria', '$estado', '$descricao', '$localizacao')";
+    // sql para inserir registos
+    $sql = "INSERT INTO products (iduser, nameuser, foto, titulo, preco, marca, categoria, estado, descricao, localizacao) 
+        VALUES ($id, '$name', '$foto', '$titulo', '$preco', '$marca', '$categoria', '$estado', '$descricao', '$localizacao')";
 
 
-        if ($conn->query($sql) === TRUE) 
+    if ($conn->query($sql) === TRUE)
         //header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
-        echo "Novo produto criado com sucesso";
-        else echo "Erro: " . $sql . "<br>" . $conn->error;
+        if ($preco != 0) {
+            sendMail();
+            //echo $preco;
+            echo "Novo produto criado com sucesso";
+        } else echo "Erro: " . $sql . "<br>" . $conn->error;
 
+    echo "";
+
+
+
+
+    $erro = "Novo produto criado com sucesso";
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+    $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'add_product', '$erro', '$id')";
+
+    //LIGAR TABELA LOGS
+    if ($conn->query($logs) === TRUE)
         echo "";
+    //echo "Novo log criado com sucesso";
+    else echo "Erro: " . $logs . "<br>" . $conn->error;
+} else {
+
+    echo "Erro: ";
 
 
-        $erro = "Novo produto criado com sucesso";
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
-        $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'add_product', '$erro', '$idUser')";
-  
+    foreach ($ProductArrayErr as $producterro => $erro) {
+
+        echo $erro, "; ";
+
+        $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'add_product', '$erro', '$id')";
+
+
         //LIGAR TABELA LOGS
-        if ($conn->query($logs) === TRUE)
+        if ($conn->query($logs) === TRUE) {
+
+            //echo "Novo log criado com sucesso!!! ";
             echo "";
-            //echo "Novo log criado com sucesso";
-        else echo "Erro: " . $logs . "<br>" . $conn->error;
-    
-    } else {
+        } else {
 
-        echo "Erro: ";
-
-
-        foreach($ProductArrayErr as $producterro => $erro){
-
-            echo $erro, "; ";
-
-            $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'add_product', '$erro', '$idUser')";
-
-
-            //LIGAR TABELA LOGS
-            if ($conn->query($logs) === TRUE){
-    
-                //echo "Novo log criado com sucesso!!! ";
-                echo "";
-                
-            } else {
-        
-                echo "Erro: " . $logs . "<br>" . $conn->error;
-            }
+            echo "Erro: " . $logs . "<br>" . $conn->error;
         }
+    }
 }
 
 ?>
@@ -204,8 +244,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -288,7 +327,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Login Start -->
     <!-- Login Start -->
-    <form class="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <form class="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -347,9 +386,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for="exampleFormControlTextarea1">Descrição</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descricao"></textarea>
                             </div>
-                            
+
                             <div class="col-6">
-                                <input class="form-control" type="hidden" name="pagina" value="<?php echo basename($_SERVER['PHP_SELF']);?>">
+                                <input class="form-control" type="hidden" name="pagina" value="<?php echo basename($_SERVER['PHP_SELF']); ?>">
                             </div>
 
 
@@ -359,13 +398,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
-            
+        </div>
+
         </div>
     </form>
-</div>
+    </div>
     <!-- Login End -->
     <!-- Login End -->
 
@@ -485,4 +524,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
+
 </html>

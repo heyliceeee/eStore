@@ -1,14 +1,12 @@
 <?php
-    include ("verifica.php"); //verificar a autenticacão
+include("verifica.php"); //verificar a autenticacão
 
-    if ($autenticado) {
+if ($autenticado) {
 
-        $idUser = $idUtil;
+    $idUser = $idUtil;
 
-        include ("logout.php");
-
-    } else {
-
+    include("logout.php");
+} else {
 }
 
 ?>
@@ -20,7 +18,10 @@ $dateCurrent = 0;
 $erro = "";
 $ProductArrayErr = [];
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root";
+$password = "!AdBp2601!";
+$bd = "bd";
+$host = "localhost";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -28,10 +29,10 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$sql = "SELECT * FROM products WHERE iduser = 143 ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE iduser = 149 AND preco != 0 ORDER BY id DESC";
 $result = $conn->query($sql);
 
-$sqlUser = "SELECT * FROM users WHERE id = 143";
+$sqlUser = "SELECT * FROM users WHERE id = 149";
 $resultUser = $conn->query($sqlUser);
 ?>
 
@@ -49,8 +50,7 @@ $resultUser = $conn->query($sqlUser);
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -96,13 +96,13 @@ $resultUser = $conn->query($sqlUser);
                             <label>Categoria</label>
 
                             <select id="categoria" class="form-control" name="categoria">
-                                    <option selected>Escolha...</option>
-                                    <option>Moda & Beleza</option>
-                                    <option>Roupas Criança & Bebé</option>
-                                    <option>Roupas Homem & Mulher</option>
-                                    <option>Gadgets & Acessórios</option>
-                                    <option>Eletrônicos & Acessórios</option>
-                                    <option>Outro</option>
+                                <option selected>Escolha...</option>
+                                <option>Moda & Beleza</option>
+                                <option>Roupas Criança & Bebé</option>
+                                <option>Roupas Homem & Mulher</option>
+                                <option>Gadgets & Acessórios</option>
+                                <option>Eletrônicos & Acessórios</option>
+                                <option>Outro</option>
                             </select>
                         </div>
 
@@ -261,12 +261,12 @@ $resultUser = $conn->query($sqlUser);
                 <div class="col-md-6">
                     <form name="form" class="search" action="search-listLogin.php" method="get">
 
-                    <?php
-                    // Turn off all error reporting
-                    error_reporting(0);
-                    ?>
+                        <?php
+                        // Turn off all error reporting
+                        error_reporting(0);
+                        ?>
 
-                    <?php $search = $_GET['search']; ?>
+                        <?php $search = $_GET['search']; ?>
 
                         <input type="text" placeholder="Pesquisar" id="search" name="search">
                         <a href="search-listLogin.php?search=<?php echo $search; ?>">
@@ -307,30 +307,22 @@ $resultUser = $conn->query($sqlUser);
             <div class="row">
                 <div class="col-md-3">
                     <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab"
-                            role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
-                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
-                                class="fa fa-shopping-bag"></i>Pedidos</a>
-                        <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i
-                                class="fa fa-map-marker-alt"></i>Morada</a>
-                        <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i
-                                class="fa fa-user"></i>Detalhes da Conta</a>
+                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Pedidos</a>
+                        <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>Morada</a>
+                        <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Detalhes da Conta</a>
                     </div>
 
                     <div class="nav flex-column nav-pills invisible" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab"
-                            role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
-                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
-                                class="fa fa-shopping-bag"></i>Pedidos</a>
-                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
-                                class="fa fa-shopping-bag"></i>Pedidos</a>
+                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Pedidos</a>
+                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Pedidos</a>
                         <p></p>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel"
-                            aria-labelledby="dashboard-nav">
+                        <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
                             <h4>Meus produtos</h4>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -349,50 +341,50 @@ $resultUser = $conn->query($sqlUser);
                                     </thead>
                                     <tbody>
 
-                                    <?php
+                                        <?php
 
-                                    if($result->num_rows > 0){
-                                        while($row = $result->fetch_assoc()){
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
 
-                                        $id = 143;
-                                        $titulo = $row["titulo"];
-                                        $categoria = $row["categoria"];
-                                        $marca = $row["marca"];
-                                        $descricao = $row["descricao"];
-                                        $estado = $row["estado"];
-                                        $localizacao = $row["localizacao"];
-                                        $preco = $row["preco"];
-                                    ?>
+                                                $id = 149;
+                                                $titulo = $row["titulo"];
+                                                $categoria = $row["categoria"];
+                                                $marca = $row["marca"];
+                                                $descricao = $row["descricao"];
+                                                $estado = $row["estado"];
+                                                $localizacao = $row["localizacao"];
+                                                $preco = $row["preco"];
+                                        ?>
 
-                                        <tr>
-                                        <td hidden><?php echo $id ?></td>
-                                            <td><?php echo $titulo ?></td>
-                                            <td><?php echo $categoria ?></td>
-                                            <td><?php echo $marca ?></td>
-                                            <td><?php echo $descricao ?></td>
-                                            <td><?php echo $estado ?></td>
-                                            <td><?php echo $localizacao ?></td>
-                                            <td><?php echo $preco ?> €</td>
-                                            <td>
-                                                <!-- visualizar produto -->
-                                                <a href="product-detailLogin.php?id=<?php echo $id; ?>">
-                                                    <button class="btn"><i class="fa fa-search"></i></button>
-                                                </a>
+                                                <tr>
+                                                    <td hidden><?php echo $id ?></td>
+                                                    <td><?php echo $titulo ?></td>
+                                                    <td><?php echo $categoria ?></td>
+                                                    <td><?php echo $marca ?></td>
+                                                    <td><?php echo $descricao ?></td>
+                                                    <td><?php echo $estado ?></td>
+                                                    <td><?php echo $localizacao ?></td>
+                                                    <td><?php echo $preco ?> €</td>
+                                                    <td>
+                                                        <!-- visualizar produto -->
+                                                        <a href="product-detailLogin.php?id=<?php echo $id; ?>">
+                                                            <button class="btn"><i class="fa fa-search"></i></button>
+                                                        </a>
 
-                                                <!-- editar produto -->
-                                                <button type="button" class="btn editbtn"><i class="fa fa-pen"></i></button>
+                                                        <!-- editar produto -->
+                                                        <button type="button" class="btn editbtn"><i class="fa fa-pen"></i></button>
 
-                                                <!-- eliminar produto -->
-                                                <button class="btn deletebtn"><i class="fa fa-trash"></i></button>
-                                            </td>
-                                        </tr>
+                                                        <!-- eliminar produto -->
+                                                        <button class="btn deletebtn"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
 
-                                        <?php 
+                                        <?php
                                             }
-                                            } else {
+                                        } else {
 
-                                                echo "No products exist.";
-                                            }
+                                            echo "No products exist.";
+                                        }
                                         ?>
                                     </tbody>
                                 </table>
@@ -467,34 +459,34 @@ $resultUser = $conn->query($sqlUser);
                                     </thead>
                                     <tbody>
 
-                                    <?php
+                                        <?php
 
-                                    if($resultUser->num_rows > 0){
-                                        while($row = $resultUser->fetch_assoc()){
+                                        if ($resultUser->num_rows > 0) {
+                                            while ($row = $resultUser->fetch_assoc()) {
 
-                                        $id = $row["id"];
-                                        $email = $row["email"];
-                                        $name = $row["name"];
-                                        $foto = $row["foto"];
-                                    ?>
+                                                $id = $row["id"];
+                                                $email = $row["email"];
+                                                $name = $row["name"];
+                                                $foto = $row["foto"];
+                                        ?>
 
-                                        <tr>
-                                        <td hidden><?php echo $id ?></td>
-                                            <td><?php echo $email ?></td>
-                                            <td><?php echo $name ?></td>
-                                            <td><img src="img/<?php echo $foto; ?>" alt="Product Image"></td>
-                                            <td>
-                                                <!-- editar dados -->
-                                                 <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>
-                                            </td>
-                                        </tr>
+                                                <tr>
+                                                    <td hidden><?php echo $id ?></td>
+                                                    <td><?php echo $email ?></td>
+                                                    <td><?php echo $name ?></td>
+                                                    <td><img src="img/<?php echo $foto; ?>" alt="Product Image"></td>
+                                                    <td>
+                                                        <!-- editar dados -->
+                                                        <button type="button" class="btn edituserbtn"><i class="fa fa-pen"></i></button>
+                                                    </td>
+                                                </tr>
 
-                                        <?php 
+                                        <?php
                                             }
-                                            } else {
+                                        } else {
 
-                                                echo "No user exist.";
-                                            }
+                                            echo "No user exist.";
+                                        }
                                         ?>
                                     </tbody>
                                 </table>
@@ -609,13 +601,13 @@ $resultUser = $conn->query($sqlUser);
     <script src="js/main.js"></script>
 
     <script>
-        $(document).ready(function (){
-            $('.editbtn').on('click', function(){
+        $(document).ready(function() {
+            $('.editbtn').on('click', function() {
                 $('#editmodal').modal('show');
 
                 $tr = $(this).closest('tr');
 
-                var data = $tr.children("td").map(function(){
+                var data = $tr.children("td").map(function() {
                     return $(this).text();
                 }).get();
 
@@ -633,14 +625,14 @@ $resultUser = $conn->query($sqlUser);
         });
     </script>
 
-<script>
-        $(document).ready(function (){
-            $('.deletebtn').on('click', function(){
+    <script>
+        $(document).ready(function() {
+            $('.deletebtn').on('click', function() {
                 $('#deletemodal').modal('show');
 
-               $tr = $(this).closest('tr');
+                $tr = $(this).closest('tr');
 
-                var data = $tr.children("td").map(function(){
+                var data = $tr.children("td").map(function() {
                     return $(this).text();
                 }).get();
 
@@ -649,20 +641,20 @@ $resultUser = $conn->query($sqlUser);
                 $('#delete_id').val(data[0]);
             });
         });
-</script>
+    </script>
 
-<script>
-        $(document).ready(function (){
-            $('.edituserbtn').on('click', function(){
+    <script>
+        $(document).ready(function() {
+            $('.edituserbtn').on('click', function() {
                 $('#editusermodal').modal('show');
 
-                
+
                 //localStorage.setItem('idUser', a);
                 //localStorage.removeItem('idUser');
 
                 $tr = $(this).closest('tr');
 
-                var data = $tr.children("td").map(function(){
+                var data = $tr.children("td").map(function() {
                     return $(this).text();
                 }).get();
 
@@ -676,4 +668,5 @@ $resultUser = $conn->query($sqlUser);
         });
     </script>
 </body>
+
 </html>
