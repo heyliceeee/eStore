@@ -4,174 +4,98 @@ $login = "root";
 $password = "!AdBp2601!";
 $bd = "bd";
 $host = "localhost";
-$email = $pass = "";
-$pagina = "indexLogin.php";
-$paginaAdmin = "indexAdmin.php";
-$LoginArrayErr = [];
-$dateCurrent = 0;
-$erro = "";
+$email = "";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
 
-if (!isset($_SESSION)) session_start();
-
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$email = $_POST['email'];
 
-    //email verificações
-    if (empty($_POST["email"])) {
+$sql = "SELECT * FROM users WHERE email='$email'";
+$result = $conn->query($sql);
 
-        $LoginArrayErr['emailErr'] = "Insira o email do utilizador";
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-    } else {
+if ($result->num_rows == 1) {
 
-        $email = login_input($_POST["email"]);
+    //forget password
+    $expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d") + 1, date("Y"));
+    $expDate = date("Y-m-d H:i:s", $expFormat);
+    $key = md5(time());
+    $addKey = substr(md5(uniqid(rand(), 1)), 3, 10);
+    $key = $key . $addKey;
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    //insert Temp Table
+    $insertTemp = "INSERT INTO password_reset_temp (email, key, expDate) VALUES ('$email', '$key' '$expDate')";
+    $resultInsertTemp = $conn->query($insertTemp);
 
-            $emailErr = "Formato de email inválido";
-            $LoginArrayErr['emailErr'] = $emailErr;
-            $d = strtotime("now");
-            $dateCurrent = date("Y-m-d h:i:sa", $d);
-        }
+
+
+    if ($resultInsertTemp->num_rows == 1) {
+
+        sendMail();
     }
 
 
-    //pass verificações
-    if (empty($_POST["pass"])) {
+    function sendMail()
+    {
 
-        $LoginArrayErr['passErr'] = "Insira uma password";
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-    } else {
+        global $email, $key;
 
-        $pass = login_input($_POST["pass"]);
+        $to = $email;
+
+        $subject = "Notificação - Alterar Palavra Passe";
+
+        //Este sempre deverá existir para garantir a exibição correta dos caracteres
+        $headers  = "MIME-Version: 1.0\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\n";
+        $headers .= "From: eStore <estore.website.2021@gmail.com>" . "\r\n";
+
+        //Corpo E-mail
+        $output = '';
+
+        $output .= '<html>
+        <p> Por favor clique no link abaixo para puder alterar a sua Palavra Passe.</p>
+        <br>';
+
+        $output .= '<p><a href="https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&email=' . $email . '&action=reset" target="_blank">https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&email=' . $email . '&action=reset</a></p>';
+
+        $output .= '<br>
+        <br>
+        <p>Obrigada e Boas Vendas!</p>
+        <p><b>eStore</b></p>
+        </html>';
+
+        $message = $output;
+
+        //Enviar
+        mail($to, $subject, $message, $headers);
     }
 
 
-    if (isset($_POST['submit'])) {
-        if (!empty($_POST['checkArr'])) {
-            foreach ($_POST['checkArr'] as $checked) {
-                echo $checked, "</br>";
-            }
-        }
-    }
-}
+    $erro = "Email Válido";
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
 
-function login_input($data)
-{
-    if (is_array($data)) {
-        return array_map('login_input', $data);
-    }
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+    $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'forget_password', '$erro')";
 
-
-
-
-if (empty(($LoginArrayErr))) {
-
-    //converter password em md5
-    $pass = md5($pass);
-
-    //remember me
-    if (!empty($_POST["remember"])) {
-
-        setcookie("member_login", $_POST["email"], time() + (24 * 60 * 60)); //24horas
-
-    } else {
-        if (isset($_COOKIE["member_login"])) {
-            setcookie("member_login", "");
-        }
-    }
-
-
-
-
-    // sql para inserir registos
-    $sqlAdmin = "SELECT * FROM users WHERE email='$email' AND pass='$pass' AND role='admin'";
-    $resultAdmin = $conn->query($sqlAdmin);
-
-    $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
-    $result = $conn->query($sql);
-
-    if ($resultAdmin->num_rows == 1) {
-
-        $_SESSION['email'] = $email;
-        $_SESSION['pass'] = $pass;
-
-        header("Location: $paginaAdmin"); //no caso de quererem redirecionar a página para outro sitio
-
-        $erro = "Utilizador Válido";
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-
-        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
-
-        //LIGAR TABELA LOGS
-        if ($conn->query($logs) === TRUE)
-            echo "";
-        //echo "Novo log criado com sucesso!!! ";
-        else echo "Erro: " . $logs . "<br>" . $conn->error;
-    } else
-
-  
-        if ($result->num_rows == 1) {
-
-        $_SESSION['email'] = $email;
-        $_SESSION['pass'] = $pass;
-
-        header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
-
-        $erro = "Utilizador Válido";
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-
-        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
-
-        //LIGAR TABELA LOGS
-        if ($conn->query($logs) === TRUE)
-            echo "";
-        //echo "Novo log criado com sucesso!!! ";
-        else echo "Erro: " . $logs . "<br>" . $conn->error;
-    } else {
-
-        $erro = "Utilizador Inválido";
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-
-        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
-    }
+    //LIGAR TABELA LOGS
+    if ($conn->query($logs) === TRUE)
+        echo "";
+    //echo "Novo log criado com sucesso!!! ";
+    else echo "Erro: " . $logs . "<br>" . $conn->error;
 } else {
 
-    echo "Erro: ";
+    $erro = "Email Inválido";
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
 
-
-
-    foreach ($LoginArrayErr as $loginerro => $erro) {
-        echo  $erro, "; ";
-
-        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
-
-
-        //LIGAR TABELA LOGS
-        if ($conn->query($logs) === TRUE) {
-
-            //echo "Novo log criado com sucesso!!! ";
-            echo "";
-        } else {
-
-            echo "Erro: " . $logs . "<br>" . $conn->error;
-        }
-    }
+    $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'forget_password', '$erro')";
 }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -266,14 +190,14 @@ if (empty(($LoginArrayErr))) {
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item active">INICIAR SESSÃO</li>
+                <li class="breadcrumb-item active">ESQUECI-ME DA PALAVRA PASSE</li>
             </ul>
         </div>
     </div>
     <!-- Breadcrumb End -->
 
     <!-- Login Start -->
-    <form class="login" method="post" action="login.php">
+    <form class="login" method="post" action="forgetPassword.php">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -281,38 +205,11 @@ if (empty(($LoginArrayErr))) {
                         <div class="row">
                             <div class="col-6">
                                 <label>E-mail</label>
-                                <input class="form-control" type="email" placeholder="E-mail" name="email" value="<?php if (isset($_COOKIE["member_login"])) {
-                                                                                                                        echo $_COOKIE["member_login"];
-                                                                                                                    } ?>">
+                                <input class="form-control" type="email" placeholder="E-mail" name="email">
                             </div>
-
-
-                            <div class="col-6">
-                                <label>Palavra Passe</label>
-                                <input class="form-control" type="password" placeholder="Palavra Passe" name="pass">
-                            </div>
-
-                            <div class="col-6">
-                                <input class="form-control" type="hidden" name="pagina" value="<?php echo basename($_SERVER['PHP_SELF']); ?>">
-                            </div>
-
 
                             <div class="col-12">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="remember" id="remember" <?php if (isset($_COOKIE["member_login"])) { ?> checked <?php } ?>>
-                                    <label class="custom-control-label" for="remember">Lembrar de mim</label>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <a href="forgetPassword.php"><label>Esqueci da Palavra Passe</label></a>
-                            </div>
-
-                            <br>
-                            <br>
-
-                            <div class="col-12">
-                                <button class="btn" name="submit" type="submit" value="submit_button">Iniciar Sessão</button>
+                                <button class="btn" name="submit" type="submit" value="submit_button">Enviar</button>
                             </div>
                         </div>
                     </div>
@@ -322,6 +219,22 @@ if (empty(($LoginArrayErr))) {
     </form>
     <!-- Login End -->
 
+    <!-- INVISIBLE -->
+    <div class="login invisible">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="login-form">
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- INVISIBLE -->
     <div class="login invisible">
         <div class="container-fluid">
