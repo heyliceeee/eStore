@@ -349,7 +349,7 @@ $resultUser = $conn->query($sqlUser);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
 
-                                                $id = 149;
+                                                $id = $row["id"];;
                                                 $titulo = $row["titulo"];
                                                 $categoria = $row["categoria"];
                                                 $marca = $row["marca"];

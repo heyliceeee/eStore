@@ -1,22 +1,21 @@
 <?php
-    include ("verifica.php"); //verificar a autenticacão
+include("verifica.php"); //verificar a autenticacão
 
-    if ($autenticado) {
-        //codigo a executar se o user estiver autenticado
-        //echo "Utilizador autenticado!!!<br />";
-        //echo "Nome: $nomeUtil";
-        $idUser = $idUtil;
+if ($autenticado) {
+    //codigo a executar se o user estiver autenticado
+    //echo "Utilizador autenticado!!!<br />";
+    //echo "Nome: $nomeUtil";
+    $idUser = $idUtil;
 
-        //linha de exemplo
-        include ("logout.php");
+    //linha de exemplo
+    include("logout.php");
+} else {
+    //codigo a executar se o user não estiver autenticado
 
-    } else {
-        //codigo a executar se o user não estiver autenticado
+    //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
 
-        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
-
-        //linha de exemplo
-        //include ("login.php");
+    //linha de exemplo
+    //include ("login.php");
 }
 ?>
 
@@ -25,7 +24,10 @@
 $foto = $titulo = $marca = $categoria = $estado = $descricao = $nameuser = $localizacao = "";
 $preco = 0.00;
 
-$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+$login = "root";
+$password = "!AdBp2601!";
+$bd = "bd";
+$host = "localhost";
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -53,8 +55,7 @@ $resultQuery = $conn->query($query);
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -95,7 +96,7 @@ $resultQuery = $conn->query($query);
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                    <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
+                        <a href="indexLogin.php" class="nav-item nav-link">PÁGINA INICIAL</a>
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
@@ -141,10 +142,10 @@ $resultQuery = $conn->query($query);
             <div class="row">
                 <div class="col-lg-8">
 
-                <?php
+                    <?php
 
-                    if($resultQuery->num_rows > 0){
-                        while($row = $resultQuery->fetch_assoc()){
+                    if ($resultQuery->num_rows > 0) {
+                        while ($row = $resultQuery->fetch_assoc()) {
 
                             $foto = $row["foto"];
                             $titulo = $row["titulo"];
@@ -155,134 +156,156 @@ $resultQuery = $conn->query($query);
                             $descricao = $row["descricao"];
                             $nameuser = $row["nameuser"];
                             $localizacao = $row["localizacao"];
-                ?>
+                    ?>
 
-                    <div class="product-detail-top">
-                        <div class="row align-items-center">
-                            <div class="col-md-5">
-                                <div class="product-slider-single normal-slider">
-                                    <img src="img/<?php echo $foto; ?>" alt="Product Image">
+                            <div class="product-detail-top">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="product-slider-single normal-slider">
+                                            <img src="img/<?php echo $foto; ?>" alt="Product Image">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="product-content">
+                                            <div class="title">
+                                                <h2><?php echo $titulo; ?></h2>
+                                            </div>
+                                            <div class="price">
+                                                <h4>Preço:</h4>
+                                                <p><?php echo $preco; ?>€</p>
+                                            </div>
+                                            <div class="p-color">
+                                                <h4>Tipo:</h4>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button type="button" class="btn"><?php echo $categoria; ?></button>
+                                                </div>
+                                            </div>
+                                            <div class="p-color">
+                                                <h4>Marca:</h4>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button type="button" class="btn"><?php echo $marca; ?></button>
+                                                </div>
+                                            </div>
+                                            <div class="p-color">
+                                                <h4>Estado:</h4>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button type="button" class="btn"><?php echo $estado; ?></button>
+                                                </div>
+                                            </div>
+
+                                            <div class="action">
+                                                <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Adicionar ao Carrinho
+                                                    de Compras</a>
+                                                <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Compre Agora</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="product-content">
-                                    <div class="title">
-                                        <h2><?php echo $titulo; ?></h2>
-                                    </div>
-                                    <div class="price">
-                                        <h4>Preço:</h4>
-                                        <p><?php echo $preco; ?>€</p>
-                                    </div>
-                                    <div class="p-color">
-                                        <h4>Tipo:</h4>
-                                        <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn"><?php echo $categoria; ?></button>
-                                        </div>
-                                    </div>
-                                    <div class="p-color">
-                                        <h4>Marca:</h4>
-                                        <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn"><?php echo $marca; ?></button>
-                                        </div>
-                                    </div>
-                                    <div class="p-color">
-                                        <h4>Estado:</h4>
-                                        <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn"><?php echo $estado; ?></button>
-                                        </div>
-                                    </div>
 
-                                    <div class="action">
-                                        <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Adicionar ao Carrinho
-                                            de Compras</a>
-                                        <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Compre Agora</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php 
+                        <?php
                         }
-                        } else {
+                    } else {
 
-                            echo "No products exist.";
-                        }
-                    ?>  
-                    </div>
+                        echo "No products exist.";
+                    }
+                        ?>
+                            </div>
 
-                    <div class="row product-detail-bottom">
-                        <div class="col-lg-12">
-                            <ul class="nav nav-pills nav-justified">
-                                <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="pill" href="#description">Descrição</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#reviews">Opiniões</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill" href="#user">Vendedor</a>
-                                </li>
-                            </ul>
+                            <div class="row product-detail-bottom">
+                                <div class="col-lg-12">
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="pill" href="#description">Descrição</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="pill" href="#reviews">Opiniões</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="pill" href="#user">Vendedor</a>
+                                        </li>
+                                    </ul>
 
-                            <div class="tab-content">
-                                <div id="description" class="container tab-pane active">
-                                    <h4>Descrição do produto</h4>
-                                    <p><?php echo $descricao; ?></p>
-                                </div>
-                                <div id="reviews" class="container tab-pane fade">
-                                    <div class="reviews-submitted">
-                                        <div class="reviewer">Nuno Oliveira - <span>01 Jan 2020</span></div>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                    <div class="tab-content">
+                                        <div id="description" class="container tab-pane active">
+                                            <h4>Descrição do produto</h4>
+                                            <p><?php echo $descricao; ?></p>
                                         </div>
-                                        <p>
-                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                            doloremque laudantium, totam rem aperiam.
-                                        </p>
-                                    </div>
-                                    <div class="reviews-submit">
-                                        <h4>Dê a sua opinião:</h4>
-                                        <div class="ratting">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
+                                        <div id="reviews" class="container tab-pane fade">
+                                            <div class="reviews-submitted">
+                                                <div class="reviewer">Nuno Oliveira - <span>01 Jan 2020</span></div>
+                                                <div class="ratting">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <p>
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                                                    doloremque laudantium, totam rem aperiam.
+                                                </p>
+                                            </div>
+                                            <div class="reviews-submit">
+                                                <h4>Dê a sua opinião:</h4>
+                                                <div class="ratting">
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                                <div class="row form">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" placeholder="Nome">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="email" placeholder="Email">
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <textarea placeholder="Opinião"></textarea>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <button>Comentar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="row form">
-                                            <div class="col-sm-6">
-                                                <input type="text" placeholder="Nome">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <input type="email" placeholder="Email">
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <textarea placeholder="Opinião"></textarea>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <button>Comentar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div id="user" class="container tab-pane fade">
-                                    <div class="reviews-submitted">
-                                        <div class="reviewer"><?php echo $nameuser; ?></div>
-                                    </div>
+                                        <?php
+                                        $queryFoto = "SELECT foto FROM users WHERE name = '$nameuser' ";
+                                        $resultQueryFoto = $conn->query($queryFoto);
 
-                                    <div class="reviews-submitted">
-                                        <div class="reviewer">Localização</div>
-                                        <p><?php echo $localizacao; ?></p>
+                                        if ($resultQueryFoto->num_rows > 0) {
+                                            while ($row = $resultQueryFoto->fetch_assoc()) {
+
+                                                $foto = $row["foto"];
+                                        ?>
+
+                                                <div id="user" class="container tab-pane fade">
+                                                    <div class="reviews-submitted">
+                                                        <div class="reviewer">
+                                                            <img src="img/<?php echo $foto; ?>" alt="Foto de perfil" style="width: 100px;" />
+                                                            <?php echo $nameuser; ?>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="reviews-submitted">
+                                                        <div class="reviewer">Localização</div>
+                                                        <p><?php echo $localizacao; ?></p>
+                                                    </div>
+                                                </div>
+
+                                        <?php
+                                            }
+                                        } else {
+
+                                            echo "Não tem foto.";
+                                        }
+                                        ?>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Side Bar Start -->

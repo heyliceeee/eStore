@@ -8,13 +8,13 @@ if ($autenticado) {
 }
 ?>
 
+
 <?php
 
 $login = "root";
 $password = "!AdBp2601!";
 $bd = "bd";
 $host = "localhost";
-
 global $idUser;
 
 // Create connection
@@ -42,12 +42,10 @@ if (isset($_POST['updatedata'])) {
 
     if ($result) {
 
-
         $erro = "Produto editado com sucesso";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
         $logs = "INSERT INTO logs (data, ecra, erro, idUser) VALUES ('$dateCurrent', 'edit_product', '$erro', '$idUser')";
-
 
         //LIGAR TABELA LOGS
         if ($conn->query($logs) === TRUE)
@@ -60,6 +58,7 @@ if (isset($_POST['updatedata'])) {
         header("location:my-account.php");
     } else {
 
+        echo "Produto editado sem sucesso";
         $erro = "Produto editado sem sucesso";
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
