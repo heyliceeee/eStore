@@ -17,6 +17,7 @@ $email = $_POST['email'];
 $sql = "SELECT * FROM users WHERE email='$email'";
 $result = $conn->query($sql);
 
+
 if ($result->num_rows == 1) {
 
     //forget password
@@ -27,15 +28,8 @@ if ($result->num_rows == 1) {
     $key = $key . $addKey;
 
     //insert Temp Table
-    $insertTemp = "INSERT INTO password_reset_temp (email, key, expDate) VALUES ('$email', '$key' '$expDate')";
-    $resultInsertTemp = $conn->query($insertTemp);
-
-
-
-    if ($resultInsertTemp->num_rows == 1) {
-
-        sendMail();
-    }
+    $insertTemp = "INSERT INTO password_reset_temp (email, keyValue, expDate) VALUES ('$email', '$key', '$expDate')";
+    //$resultInsertTemp = $conn->query($insertTemp);
 
 
     function sendMail()
@@ -73,6 +67,17 @@ if ($result->num_rows == 1) {
         mail($to, $subject, $message, $headers);
     }
 
+
+    if ($conn->query($insertTemp) === TRUE)
+
+        sendMail();
+    else echo "Erro: " . $insertTemp . "<br>" . $conn->error;
+
+    if (sendMail()) {
+        echo "Notificação enviada. Verifique o seu email.";
+    }
+
+    echo "Notificação enviada. Verifique o seu email.";
 
     $erro = "Email Válido";
     $d = strtotime("now");
