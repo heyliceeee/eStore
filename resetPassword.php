@@ -12,14 +12,14 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"])) {
+if (isset($_GET["key"]) && isset($_GET["action"])) {
 
     //$key = $_GET["key"];
     $key = $_GET["key"];
     $email = $_GET["email"];
     //$email = $_GET["email"];
     $curDate = date("Y-m-d H:i:s");
-    $query = "SELECT * FROM password_reset_temp WHERE keyValue = '$key' and email = '$email'";
+    $query = "SELECT * FROM password_reset_temp WHERE keyValue = '$key'";
     $result = $conn->query($query);
 
     //echo $query;
@@ -30,104 +30,92 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"])) {
             $expDate = $row['expDate'];
             //echo 'expdate';
 
-            if ($expDate >= $curDate) { } else {
-                $error .= "Link Expirado";
-                echo 'link expirado';
-            }
-        }
+            if ($expDate >= $curDate) {
+
+                ?>
+
+                <script>
+                    alert("Hello 1");
+
+                    $("#resetPasswordForm").removeClass('d-none');
+                </script>
+
+                <?php
+
+                                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+                                    //echo $_POST["pass"];
+
+                                    if (empty($_POST["email"])) {
+                                        $RegisterArrayErr['$EmailErr'] = "Insira um email";
+                                    } else {
+                                        $email = register_input($_POST["Email"]);
+                                    }
+
+                                    if (empty($_POST["pass"])) {
+                                        $RegisterArrayErr['$PassErr'] = "Insira uma password";
+                                    } else {
+                                        $pass = register_input($_POST["Password"]);
+                                    }
+
+                                    if (empty($_POST["pass2"])) {
+                                        $RegisterArrayErr['$PassErr'] = "Insira uma password";
+                                    } else {
+                                        $pass2 = register_input($_POST["Password"]);
+                                    }
+                                }
+
+                                if (isset($_POST['submit'])) {
+                                    if (!empty($_POST['checkArr'])) {
+                                        foreach ($_POST['checkArr'] as $checked) {
+                                            echo $checked, "</br>";
+                                        }
+                                    }
+                                }
+
+                                function register_input($data)
+                                {
+                                    if (is_array($data)) {
+                                        return array_map('register_input', $data);
+                                    }
+                                    $data = stripslashes($data);
+                                    $data = htmlspecialchars($data);
+                                    return $data;
+                                }
 
 
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                if (empty($RegisterArrayErr)) {
 
-            echo $_POST["pass"];
+                                    //converter password em md5
+                                    $pass = md5($pass);
 
-            if (empty($_POST["pass"])) {
-                $RegisterArrayErr['$PassErr'] = "Insira uma password";
-            } else {
-                $pass = register_input($_POST["Password"]);
-            }
-        }
+                                    $a = "UPDATE users SET pass = '$pass' WHERE email = '$email' ";
+                                    //echo 'passou no update';
 
+                                    $b = "DELETE FROM password_reset_temp WHERE email = '$email' ";
+                                    //echo 'passou no delete';
 
+                                    if ($conn->query($b) === TRUE)
+                                        echo 'Parabéns! A tua palavra passe foi alterada com sucesso!';
 
-        /* teste();
+                                    else echo "Erro: " . $b . "<br>" . $conn->error;
+                                }
+                            } else {
+                                $error .= "Link Expirado";
+                                echo 'link expirado';
 
-            function teste()
-            {
-                echo "olaaa";
-            } */
-
-
-        /* if ($error != "") {
-                    echo $error;
-                } else {
-
-
-                    //if ($pass != "") {
-
-                    $pass = $_POST["pass"];
-
-                    echo $pass;
-
-                    $pass = md5($pass);
-
-                    $a = "UPDATE users SET pass = '$pass' WHERE email = '$email' ";
-                    echo 'passou no update';
-
-                    $b = "DELETE FROM password_reset_temp WHERE email = '$email' ";
-                    echo 'passou no delete';
-
-                    if ($conn->query($b) === TRUE)
-                        echo 'Parabéns! A tua palavra passe foi alterada com sucesso!';
-
-                    else echo "Erro: " . $b . "<br>" . $conn->error;
-                } */
-        //}
-
-        if (isset($_POST['submit'])) {
-            if (!empty($_POST['checkArr'])) {
-                foreach ($_POST['checkArr'] as $checked) {
-                    echo $checked, "</br>";
+                                ?>
+        <?php
+                    }
                 }
-            }
-        }
+            } else {
 
-        function register_input($data)
-        {
-            if (is_array($data)) {
-                return array_map('register_input', $data);
-            }
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
+                ?>
 
-        //}
-    } else {
-
-        echo "No products exist.";
-    }
-
-
-    if (empty($RegisterArrayErr)) {
-
-        //converter password em md5
-        $pass = md5($pass);
-
-        $a = "UPDATE users SET pass = '$pass' WHERE email = '$email' ";
-        echo 'passou no update';
-
-        $b = "DELETE FROM password_reset_temp WHERE email = '$email' ";
-        echo 'passou no delete';
-
-        if ($conn->query($b) === TRUE)
-            echo 'Parabéns! A tua palavra passe foi alterada com sucesso!';
-
-        else echo "Erro: " . $b . "<br>" . $conn->error;
+<?php
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -234,11 +222,21 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"])) {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="login-form">
+                    <div id="resetPasswordForm" class="login-form d-none">
                         <div class="row">
+                            <div class="col-6">
+                                <label>Email</label>
+                                <input class="form-control" type="email" placeholder="Email" name="email">
+                            </div>
+
                             <div class="col-6">
                                 <label>Nova Palavra Passe</label>
                                 <input class="form-control" type="password" placeholder="Palavra Passe" name="pass">
+                            </div>
+
+                            <div class="col-6">
+                                <label>Confirmar Palavra Passe</label>
+                                <input class="form-control" type="password" placeholder="Palavra Passe" name="pass2">
                             </div>
 
                             <div class="col-12">

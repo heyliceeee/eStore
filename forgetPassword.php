@@ -53,7 +53,7 @@ if ($result->num_rows == 1) {
         <p> Por favor clique no link abaixo para puder alterar a sua Palavra Passe.</p>
         <br>';
 
-        $output .= '<p><a href="https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&email=' . $email . '&action=reset" target="_blank">https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&email=' . $email . '&action=reset</a></p>';
+        $output .= '<p><a href="https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&action=reset" target="_blank">https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&action=reset</a></p>';
 
         $output .= '<br>
         <br>
