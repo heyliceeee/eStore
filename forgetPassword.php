@@ -75,17 +75,17 @@ if ($result->num_rows == 1) {
 
     echo "Notificação enviada. Verifique o seu email.";
 
-    $erro = "Email Válido";
-    $d = strtotime("now");
-    $dateCurrent = date("Y-m-d h:i:sa", $d);
+    //$erro = "Email Válido";
+    //$d = strtotime("now");
+    //$dateCurrent = date("Y-m-d h:i:sa", $d);
 
-    $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'forget_password', '$erro')";
+    //$logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'forget_password', '$erro')";
 
     //LIGAR TABELA LOGS
-    if ($conn->query($logs) === TRUE)
-        echo "";
+    //if ($conn->query($logs) === TRUE)
+      //  echo "";
     //echo "Novo log criado com sucesso!!! ";
-    else echo "Erro: " . $logs . "<br>" . $conn->error;
+    //else echo "Erro: " . $logs . "<br>" . $conn->error;
 } else {
 
     $erro = "Email Inválido";
