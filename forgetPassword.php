@@ -17,6 +17,41 @@ $email = $_POST['email'];
 $sql = "SELECT * FROM users WHERE email='$email'";
 $result = $conn->query($sql);
 
+function sendMail()
+{
+
+    global $email, $key;
+
+    $to = $email;
+
+    $subject = "Notificação - Alterar Palavra Passe";
+
+    //Este sempre deverá existir para garantir a exibição correta dos caracteres
+    $headers  = "MIME-Version: 1.0\n";
+    $headers .= "Content-type: text/html; charset=iso-8859-1\n";
+    $headers .= "From: eStore <estore.website.2021@gmail.com>" . "\r\n";
+
+    //Corpo E-mail
+    $output = '';
+
+    $output .= '<html>
+        <p> Por favor clique no link abaixo para puder alterar a sua Palavra Passe.</p>
+        <br>';
+
+    $output .= '<p><a href="https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&email=' . $email . '&action=reset" target="_blank">https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&action=reset</a></p>';
+
+    $output .= '<br>
+        <br>
+        <p>Obrigada e Boas Vendas!</p>
+        <p><b>eStore</b></p>
+        </html>';
+
+    $message = $output;
+
+    //Enviar
+    mail($to, $subject, $message, $headers);
+}
+
 
 if ($result->num_rows == 1) {
 
@@ -32,50 +67,11 @@ if ($result->num_rows == 1) {
     //$resultInsertTemp = $conn->query($insertTemp);
 
 
-    function sendMail()
-    {
-
-        global $email, $key;
-
-        $to = $email;
-
-        $subject = "Notificação - Alterar Palavra Passe";
-
-        //Este sempre deverá existir para garantir a exibição correta dos caracteres
-        $headers  = "MIME-Version: 1.0\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1\n";
-        $headers .= "From: eStore <estore.website.2021@gmail.com>" . "\r\n";
-
-        //Corpo E-mail
-        $output = '';
-
-        $output .= '<html>
-        <p> Por favor clique no link abaixo para puder alterar a sua Palavra Passe.</p>
-        <br>';
-
-        $output .= '<p><a href="https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&action=reset" target="_blank">https://saw.pt/trabalho/trabalho/eStore/resetPassword.php?key=' . $key . '&action=reset</a></p>';
-
-        $output .= '<br>
-        <br>
-        <p>Obrigada e Boas Vendas!</p>
-        <p><b>eStore</b></p>
-        </html>';
-
-        $message = $output;
-
-        //Enviar
-        mail($to, $subject, $message, $headers);
-    }
-
-
     if ($conn->query($insertTemp) === TRUE)
 
         sendMail();
     else echo "Erro: " . $insertTemp . "<br>" . $conn->error;
 
-    if (sendMail()) {
-        echo "Notificação enviada. Verifique o seu email.";
-    }
 
     echo "Notificação enviada. Verifique o seu email.";
 
@@ -214,7 +210,7 @@ if ($result->num_rows == 1) {
                             </div>
 
                             <div class="col-12">
-                                <button class="btn" name="submit" type="submit" value="submit_button">Enviar</button>
+                                <button class="btn" name="submit" type="submit" value="submit_button">Enviar Email</button>
                             </div>
                         </div>
                     </div>

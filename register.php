@@ -5,10 +5,12 @@ $dateCurrent = 0;
 $erro = "";
 $RegisterArrayErr = [];
 
-$login = "root"; 
+$login = "root";
 //$pagina="index.php"; 
-$password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
-  
+$password = "!AdBp2601!";
+$bd = "bd";
+$host = "localhost";
+
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
 
@@ -18,185 +20,179 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($_POST["Utilizador"])) {
-      $RegisterArrayErr['UtilizadorErr'] = "Insira o nome do utilizador";
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
-    } else {
-      
-      $Utilizador = register_input($_POST["Utilizador"]);
-  
-      if (!preg_match('/^[A-Z-a-z]{3,}+$/',$Utilizador)) {
         $RegisterArrayErr['UtilizadorErr'] = "Insira o nome do utilizador";
-  
+
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
+    } else {
+
+        $Utilizador = register_input($_POST["Utilizador"]);
+
+        if (!preg_match('/^[A-Z-a-z]{3,}+$/', $Utilizador)) {
+            $RegisterArrayErr['UtilizadorErr'] = "Insira o nome do utilizador";
+
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+        }
     }
-  
-  
+
+
     if (empty($_POST["Email"])) {
 
-      $RegisterArrayErr['EmailErr'] = "Insira o email do utilizador";
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
+        $RegisterArrayErr['EmailErr'] = "Insira o email do utilizador";
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
     } else {
-  
-      $Email = register_input($_POST["Email"]);
-  
-      if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
 
-        $EmailErr = "Formato de email inválido";
-        $RegisterArrayErr['EmailErr'] = $EmailErr;
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
-  
-      $queryEmailExists = mysqli_query($conn, "SELECT * FROM users WHERE email = '$Email'");
-  
-      if(mysqli_num_rows($queryEmailExists) > 0){
-        $EmailErr = "Email já usado";
-        $RegisterArrayErr['EmailErr'] = $EmailErr;
-  
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
+        $Email = register_input($_POST["Email"]);
+
+        if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+
+            $EmailErr = "Formato de email inválido";
+            $RegisterArrayErr['EmailErr'] = $EmailErr;
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+        }
+
+        $queryEmailExists = mysqli_query($conn, "SELECT * FROM users WHERE email = '$Email'");
+
+        if (mysqli_num_rows($queryEmailExists) > 0) {
+            $EmailErr = "Email já usado";
+            $RegisterArrayErr['EmailErr'] = $EmailErr;
+
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+        }
     }
     //verificaçao de email
     $Email = filter_var($Email, FILTER_SANITIZE_EMAIL);
-      if (filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+    if (filter_var($Email, FILTER_VALIDATE_EMAIL)) {
         //echo('Email válido!!!');
-  
-      } else {
-  
+
+    } else {
+
         $EmailErr = 'Email não válido';
-      $RegisterArrayErr['EmailErr'] = $EmailErr;
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  }
-  
-    
+        $RegisterArrayErr['EmailErr'] = $EmailErr;
+
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
+    }
+
+
     if (empty($_POST["Password"])) {
-      $RegisterArrayErr['$PassErr'] = "Insira uma password";
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
-    } else {
-      $pass = register_input($_POST["Password"]);
-  
-  
-      if (!preg_match("/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,20}$/",$pass)) {
-        $RegisterArrayErr['$PassErr'] = "A password inserida não é segura";
-  
+        $RegisterArrayErr['$PassErr'] = "Insira uma password";
+
         $d = strtotime("now");
         $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
-    }
-      
-    if (empty($_POST["VeriPassword"])) {
-      $RegisterArrayErr['PassVeriErr'] = "Insira a repetição da password";
-  
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
     } else {
-      $veriPass = register_input($_POST["VeriPassword"]);
-  
-      if (!strcasecmp($pass, $veriPass) == 0 ) {
-        $RegisterArrayErr['PassVeriErr'] = "A password inserida não é igual a anterior";
-  
-        $d = strtotime("now");
-        $dateCurrent = date("Y-m-d h:i:sa", $d);
-      }
-    }
-  
-  
-      if(isset($_POST['submit'])){
-        if(!empty($_POST['checkArr'])){
-          foreach($_POST['checkArr'] as $checked){
-            echo $checked, "</br>";
-          }
+        $pass = register_input($_POST["Password"]);
+
+
+        if (!preg_match("/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,20}$/", $pass)) {
+            $RegisterArrayErr['$PassErr'] = "A password inserida não é segura";
+
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
         }
-      }
-  }
-  
-  
-  function register_input($data) {
-    if(is_array($data)) {
+    }
+
+    if (empty($_POST["VeriPassword"])) {
+        $RegisterArrayErr['PassVeriErr'] = "Insira a repetição da password";
+
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
+    } else {
+        $veriPass = register_input($_POST["VeriPassword"]);
+
+        if (!strcasecmp($pass, $veriPass) == 0) {
+            $RegisterArrayErr['PassVeriErr'] = "A password inserida não é igual a anterior";
+
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+        }
+    }
+
+
+    if (isset($_POST['submit'])) {
+        if (!empty($_POST['checkArr'])) {
+            foreach ($_POST['checkArr'] as $checked) {
+                echo $checked, "</br>";
+            }
+        }
+    }
+}
+
+
+function register_input($data)
+{
+    if (is_array($data)) {
         return array_map('register_input', $data);
     }
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-  }
+}
 
 
 
-  if (empty($RegisterArrayErr)){
-  
-      
-      //converter password em md5
-      $pass = md5($pass);
-  
-      // sql para inserir registos
-      $sql = "INSERT INTO users (email, name, pass) VALUES ('$Email', '$Utilizador', '$pass')";
-  
-      if ($conn->query($sql) === TRUE) 
+if (empty($RegisterArrayErr)) {
+
+
+    //converter password em md5
+    $pass = md5($pass);
+
+    // sql para inserir registos
+    $sql = "INSERT INTO users (email, name, pass) VALUES ('$Email', '$Utilizador', '$pass')";
+
+    if ($conn->query($sql) === TRUE)
         //header("Location: $pagina"); //no caso de quererem redirecionar a página para outro sitio
         echo "Novo registo criado com sucesso";
-      else echo "Erro: " . $sql . "<br>" . $conn->error;
-  
-      //echo "Sucesso" ;
-      echo "";
-  
-  
-      $erro = "Novo registo criado com sucesso";
-      $d = strtotime("now");
-      $dateCurrent = date("Y-m-d h:i:sa", $d);
-  
-      $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'register', '$erro')";
-  
-      //LIGAR TABELA LOGS
-      if ($conn->query($logs) === TRUE)
+    else echo "Erro: " . $sql . "<br>" . $conn->error;
+
+    //echo "Sucesso" ;
+    echo "";
+
+
+    $erro = "Novo registo criado com sucesso";
+    $d = strtotime("now");
+    $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+    $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'register', '$erro')";
+
+    //LIGAR TABELA LOGS
+    if ($conn->query($logs) === TRUE)
         echo "";
-        //echo "Novo log criado com sucesso";
-      else echo "Erro: " . $logs . "<br>" . $conn->error;
-  
-  
-    } else {
-  
-      echo "Erro: ";
-  
-  
-  
-      foreach($RegisterArrayErr as $registererro => $erro) {
+    //echo "Novo log criado com sucesso";
+    else echo "Erro: " . $logs . "<br>" . $conn->error;
+} else {
+
+    echo "Erro: ";
+
+
+
+    foreach ($RegisterArrayErr as $registererro => $erro) {
         echo  $erro, "; ";
-  
+
         $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'register', '$erro')";
-  
-  
+
+
         //LIGAR TABELA LOGS
-        if ($conn->query($logs) === TRUE){
-  
+        if ($conn->query($logs) === TRUE) {
+
             //echo "Novo log criado com sucesso!!! ";
             echo "";
-            
-          } else {
-    
-             echo "Erro: " . $logs . "<br>" . $conn->error;
-          }
-      }
-  
-  
-      //MOSTRA
-      /* foreach($RegisterArrayErr as $registererro => $valorregister_erro) {
+        } else {
+
+            echo "Erro: " . $logs . "<br>" . $conn->error;
+        }
+    }
+
+
+    //MOSTRA
+    /* foreach($RegisterArrayErr as $registererro => $valorregister_erro) {
          echo  $valorregister_erro, "; ";
       } */
-    } 
+}
 ?>
 
 <!DOCTYPE html>
@@ -213,8 +209,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -301,7 +296,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Login Start -->
     <!-- Login Start -->
-    <form class="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <form class="login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -323,9 +318,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label>Repetir a Palavra Passe</label>
                                 <input class="form-control" type="password" placeholder="Palavra Passe" name="VeriPassword">
                             </div>
-                            
+
                             <div class="col-6">
-                                <input class="form-control" type="hidden" name="pagina" value="<?php echo basename($_SERVER['PHP_SELF']);?>">
+                                <input class="form-control" type="hidden" name="pagina" value="<?php echo basename($_SERVER['PHP_SELF']); ?>">
                             </div>
 
 
@@ -335,13 +330,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
-            
+        </div>
+
         </div>
     </form>
-</div>
+    </div>
     <!-- Login End -->
     <!-- Login End -->
 
@@ -461,4 +456,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
+
 </html>
