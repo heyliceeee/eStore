@@ -224,7 +224,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                             <img src="img/<?php echo $foto; ?>" alt="Slider Image" />
                             <div class="header-slider-caption">
                                 <p><?php echo $titulo; ?></p>
-                                <a class="btn" href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre agora</a>
+                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre agora</a>
                             </div>
                         </div>
 
@@ -254,7 +254,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                         <div class="img-item">
                             <img src="img/<?php echo $foto; ?>" />
-                            <a class="img-text" href="product-detail.php?id=<?php echo $id; ?>">
+                            <a class="img-text" href="">
                                 <p><?php echo $titulo; ?></p>
                             </a>
                         </div>
@@ -326,7 +326,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-400">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="product-detail.php?id=<?php echo $id; ?>">>
+                        <a class="category-name" href="">
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -354,7 +354,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                     <div class="category-item ch-250">
                         <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="product-detail.php?id=<?php echo $id; ?>">
+                        <a class="category-name" href="">
                             <p><?php echo $titulo; ?></p>
                         </a>
                     </div>
@@ -379,7 +379,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                 <div class="category-item ch-150">
                     <img src="img/<?php echo $foto; ?>" />
-                        <a class="category-name" href="product-detail.php?id=<?php echo $id; ?>">
+                        <a class="category-name" href="">
                             <p><?php echo $titulo; ?></p>
                         </a>
                 </div>
@@ -408,7 +408,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                         <div class="category-item ch-150">
                             <img src="img/<?php echo $foto; ?>" />
-                            <a class="category-name" href="product-detail.php?id=<?php echo $id; ?>">
+                            <a class="category-name" href="">
                                 <p><?php echo $titulo; ?></p>
                             </a>
                         </div>
@@ -434,7 +434,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                             <div class="category-item ch-250">
                                 <img src="img/<?php echo $foto; ?>" />
-                                <a class="category-name" href="product-detail.php?id=<?php echo $id; ?>">
+                                <a class="category-name" href="">
                                     <p><?php echo $titulo; ?></p>
                                 </a>
                             </div>
@@ -466,7 +466,7 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
 
                         <div class="category-item ch-400">
                             <img src="img/<?php echo $foto; ?>" />
-                            <a class="category-name" href="product-detail.php?id=<?php echo $id; ?>">
+                            <a class="category-name" href="">
                                 <p><?php echo $titulo; ?></p>
                             </a>
                         </div>
@@ -527,18 +527,18 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                             <a href="#"><?php echo $titulo; ?></a>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.php">
+                            <a href="">
                                 <img src="img/<?php echo $foto; ?>" alt="Product Image">
                             </a>
                             <div class="product-action">
                                 <a href="#"><i class="fa fa-cart-plus"></i></a>
                                 <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
+                                <a href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="product-price">
                             <h3><?php echo $preco; ?><span></span>€</h3>
-                            <a class="btn" href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>
@@ -599,18 +599,18 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                             <a href="#"><?php echo $titulo; ?></a>
                         </div>
                         <div class="product-image">
-                            <a href="product-detail.php">
+                            <a href="">
                                 <img src="img/<?php echo $foto; ?>" alt="Product Image">
                             </a>
                             <div class="product-action">
                                 <a href="#"><i class="fa fa-cart-plus"></i></a>
                                 <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
+                                <a href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="product-price">
                             <h3><?php echo $preco; ?><span></span>€</h3>
-                            <a class="btn" href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                         </div>
                     </div>
                 </div>

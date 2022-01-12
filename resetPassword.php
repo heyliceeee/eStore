@@ -1460,6 +1460,19 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
 
 mysqli_query($conn,"DELETE FROM `password_reset_temp` WHERE `email`='".$email."';");
 
+
+$error= "Palavra passe reset com sucesso.";
+
+        $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+            $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'reset_password', '$error')";
+
+            //LIGAR TABELA LOGS
+            if ($conn->query($logs) === TRUE)
+                echo "";
+            //echo "Novo log criado com sucesso";
+            else echo "Erro: " . $logs . "<br>" . $conn->error;
     ?>
 
 <!DOCTYPE html>

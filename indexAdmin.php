@@ -90,6 +90,33 @@ $resultUser = $conn->query($sqlUser);
         </div>
     </div>
 
+    <div class="modal fade" id="deletelogmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Log</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deletelog.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="deletelog_id" id="deletelog_id">
+
+                        <h4>Tem a certeza que quer eliminar este log?</h4>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Não</button>
+                        <button type="submit" class="btn" name="deletelog">Sim, elimina.</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -190,7 +217,8 @@ $resultUser = $conn->query($sqlUser);
                                             <th>Data</th>
                                             <th>Ecrã</th>
                                             <th>Atividade</th>
-                                            <th>idUser</th>
+                                            <th>ID User</th>
+                                            <th>Ação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -213,13 +241,17 @@ $resultUser = $conn->query($sqlUser);
                                             <td><?php echo $ecra ?></td>
                                             <td><?php echo $erro ?></td>
                                             <td><?php echo $idUser ?></td>
+                                            <td>
+                                                <!-- eliminar log -->
+                                                <button class="btn deletelogbtn"><i class="fa fa-trash"></i></button>
+                                            </td>
                                         </tr>
 
                                         <?php 
                                             }
                                             } else {
 
-                                                echo "No products exist.";
+                                                echo "No logs exist.";
                                             }
                                         ?>
                                     </tbody>
@@ -406,16 +438,12 @@ $resultUser = $conn->query($sqlUser);
         });
 </script>
 
-<!-- <script>
+<script>
         $(document).ready(function (){
-            $('.edituserbtn').on('click', function(){
-                $('#editusermodal').modal('show');
+            $('.deletelogbtn').on('click', function(){
+                $('#deletelogmodal').modal('show');
 
-                
-                //localStorage.setItem('idUser', a);
-                //localStorage.removeItem('idUser');
-
-                $tr = $(this).closest('tr');
+               $tr = $(this).closest('tr');
 
                 var data = $tr.children("td").map(function(){
                     return $(this).text();
@@ -423,13 +451,9 @@ $resultUser = $conn->query($sqlUser);
 
                 console.log(data);
 
-                $('#updateuser_id').val(data[0]);
-                $('#email').val(data[1]);
-                $('#name').val(data[2]);
-                $('#pass').val(data[3]);
-                $('#foto').val(data[5]);
+                $('#deletelog_id').val(data[0]);
             });
         });
-    </script> -->
+</script>
 </body>
 </html>

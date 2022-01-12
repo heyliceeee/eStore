@@ -208,6 +208,36 @@ $resultUser = $conn->query($sqlUser);
         </div>
     </div>
 
+    <div class="modal fade" id="editpassmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Alterar Palavra Passe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="updatepass.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="updatepass_id" id="updatepass_id">
+
+                        <div class="form-group">
+                            <label>Palavra Passe</label>
+                            <input class="form-control" id="pass" type="password" name="pass">
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn" name="updatepassdata">Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -276,18 +306,6 @@ $resultUser = $conn->query($sqlUser);
                             <button><i class="fa fa-search"></i></button>
                         </a>
                     </form>
-                </div>
-                <div class="col-md-3">
-                    <div class="user">
-                        <a href="wishlist.php" class="btn wishlist">
-                            <i class="fa fa-heart"></i>
-                            <span>(0)</span>
-                        </a>
-                        <a href="cart.php" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -471,6 +489,7 @@ $resultUser = $conn->query($sqlUser);
                                                 $email = $row["email"];
                                                 $name = $row["name"];
                                                 $foto = $row["foto"];
+                                                $pass = $row["pass"];
                                         ?>
 
                                                 <tr>
@@ -491,6 +510,31 @@ $resultUser = $conn->query($sqlUser);
                                             echo "No user exist.";
                                         }
                                         ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <br>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th hidden>ID</th>
+                                            <th>Palavra Passe</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td hidden><?php echo $id ?></td>
+                                            <td hidden><?php echo $pass ?></td>
+                                            <td></td>
+                                            <td>
+                                                <!-- editar dados -->
+                                                 <button type="button" class="btn editpassbtn"><i class="fa fa-pen"></i></button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -664,6 +708,26 @@ $resultUser = $conn->query($sqlUser);
                 $('#email').val(data[1]);
                 $('#name').val(data[2]);
                 $('#foto').val(data[5]);
+            });
+        });
+    </script>
+
+<script>
+        $(document).ready(function() {
+            $('.editpassbtn').on('click', function() {
+                $('#editpassmodal').modal('show');
+
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#updatepass_id').val(data[0]);
+                $('#pass').val(data[1]);
             });
         });
     </script>

@@ -169,16 +169,16 @@ if(isset($_POST['search'])){
                                     <a href="#"><?php echo $titulo; ?></a>
                                 </div>
                                 <div class="product-image">
-                                    <a href="product-detail.php">
+                                    <a href="">
                                         <img src="img/<?php echo $foto; ?>" alt="Product Image">
                                     </a>
                                     <div class="product-action">
-                                        <a href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
+                                        <a href=""><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="product-price">
                                     <h3><?php echo $preco ?><span>€</span></h3>
-                                    <a class="btn" href="product-detail.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                                 </div>
                             </div>
                         </div>
