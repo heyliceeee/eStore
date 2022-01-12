@@ -57,16 +57,13 @@ function sendMail()
 
 if ($result->num_rows == 1) {
 
-    //forget password
     $expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d") + 1, date("Y"));
     $expDate = date("Y-m-d H:i:s", $expFormat);
     $key = md5(time());
     $addKey = substr(md5(uniqid(rand(), 1)), 3, 10);
     $key = $key . $addKey;
 
-    //insert Temp Table
     $insertTemp = "INSERT INTO password_reset_temp (email, keyValue, expDate) VALUES ('$email', '$key', '$expDate')";
-    //$resultInsertTemp = $conn->query($insertTemp);
 
 
     if ($conn->query($insertTemp) === TRUE)
@@ -76,18 +73,6 @@ if ($result->num_rows == 1) {
 
 
     echo "Notificação enviada. Verifique o seu email.";
-
-    //$erro = "Email Válido";
-    //$d = strtotime("now");
-    //$dateCurrent = date("Y-m-d h:i:sa", $d);
-
-    //$logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'forget_password', '$erro')";
-
-    //LIGAR TABELA LOGS
-    //if ($conn->query($logs) === TRUE)
-      //  echo "";
-    //echo "Novo log criado com sucesso!!! ";
-    //else echo "Erro: " . $logs . "<br>" . $conn->error;
 } else {
 
     $erro = "Email Inválido";

@@ -290,7 +290,7 @@ $resultUser = $conn->query($sqlUser);
                                         <td hidden><?php echo $id ?></td>
                                             <td><?php echo $email ?></td>
                                             <td><?php echo $name ?></td>
-                                            <td><img src="img/<?php echo $foto; ?>" alt="Product Image"></td>
+                                            <td><img src="img/<?php echo $foto; ?>" alt="Foto Utilizador"></td>
                                             <td>
                                                 <!-- bloquear user -->
                                                 <button class="btn banbtn"><i class="fa fa-ban"></i></button>
