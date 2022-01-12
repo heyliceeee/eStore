@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ERROR | E_PARSE);
+
 $login = "root";
 $password = "!AdBp2601!";
 $bd = "bd";
