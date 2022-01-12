@@ -1,6 +1,7 @@
 <?php
 
-ini_set('display_errors', 1);
+// Turn off all error reporting
+error_reporting(0);
 
 include("verifica.php"); //verificar a autenticacão
 
