@@ -122,7 +122,7 @@ if (empty(($LoginArrayErr))) {
     } else
 
   
-        if ($result->num_rows == 1) {
+    if ($result->num_rows == 1) {
 
         $_SESSION['email'] = $email;
         $_SESSION['pass'] = $pass;

@@ -33,6 +33,9 @@ $result = $conn->query($sql);
 
 $sqlUser = "SELECT * FROM users WHERE email != '' ORDER BY id DESC";
 $resultUser = $conn->query($sqlUser);
+
+$sqlBan = "SELECT * FROM bans WHERE idUser != '' ORDER BY id DESC";
+$resultBan = $conn->query($sqlBan);
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +87,41 @@ $resultUser = $conn->query($sqlUser);
                     <div class="modal-footer">
                         <button type="button" class="btn" data-dismiss="modal">Não</button>
                         <button type="submit" class="btn" name="deletedata">Sim, elimina.</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="banmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Banir Utilizador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="addban.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="idUser" id="idUser">
+
+                        <div class="form-group">
+                            <label>Expira</label>
+                            <input class="form-control" id="expDate" type="date" name="expDate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Razão</label>
+                            <input class="form-control" id="reason" type="text" name="reason">
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn" name="createdata">Banir</button>
                     </div>
                 </form>
             </div>
@@ -188,6 +226,8 @@ $resultUser = $conn->query($sqlUser);
                         <a class="nav-link active" id="logs-nav" data-toggle="pill" href="#logs-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Logs</a>
 
                         <a class="nav-link" id="users-nav" data-toggle="pill" href="#users-tab" role="tab"><i class="fa fa-users"></i>Utilizadores</a>
+
+                        <a class="nav-link" id="bans-nav" data-toggle="pill" href="#bans-tab" role="tab"><i class="fa fa-users"></i>Banimentos</a>
                     </div>
 
                     <div class="nav flex-column nav-pills invisible" role="tablist" aria-orientation="vertical">
@@ -266,7 +306,7 @@ $resultUser = $conn->query($sqlUser);
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th hidden>ID</th>
+                                            <th>ID</th>
                                             <th>Email</th>
                                             <th>Nome</th>
                                             <th>Foto</th>
@@ -287,7 +327,7 @@ $resultUser = $conn->query($sqlUser);
                                     ?>
 
                                         <tr>
-                                        <td hidden><?php echo $id ?></td>
+                                        <td><?php echo $id ?></td>
                                             <td><?php echo $email ?></td>
                                             <td><?php echo $name ?></td>
                                             <td><img src="img/<?php echo $foto; ?>" alt="Foto Utilizador"></td>
@@ -305,6 +345,59 @@ $resultUser = $conn->query($sqlUser);
                                             } else {
 
                                                 echo "No users exist.";
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade show active" id="bans-tab" role="tabpanel"
+                            aria-labelledby="users-nav">
+                            <h4>Banimentos no site</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th hidden>ID</th>
+                                            <th>ID Utilizador</th>
+                                            <th>Expira</th>
+                                            <th>Razão</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php
+
+                                    if($resultBan->num_rows > 0){
+                                        while($row = $resultBan->fetch_assoc()){
+
+                                        $id = $row["id"];
+                                        $idUser = $row["idUser"];
+                                        $expDate = $row["expDate"];
+                                        $razao = $row["reason"];
+                                    ?>
+
+                                        <tr>
+                                        <td hidden><?php echo $id ?></td>
+                                            <td><?php echo $idUser ?></td>
+                                            <td><?php echo $expDate ?></td>
+                                            <td><?php echo $razao ?></td>
+                                            <td>
+                                                <!-- desbloquear user -->
+                                                <button class="btn"><i class="fa fa-ban"></i></button>
+
+                                                <!-- eliminar ban -->
+                                                <button class="btn"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+
+                                        <?php 
+                                            }
+                                            } else {
+
+                                                echo "No bans exist.";
                                             }
                                         ?>
                                     </tbody>
@@ -437,6 +530,25 @@ $resultUser = $conn->query($sqlUser);
             });
         });
 </script>
+
+<script>
+        $(document).ready(function() {
+            $('.banbtn').on('click', function() {
+                $('#banmodal').modal('show');
+
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#idUser').val(data[0]);
+            });
+        });
+    </script>
 
 <script>
         $(document).ready(function (){
