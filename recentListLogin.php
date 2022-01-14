@@ -107,7 +107,6 @@ if(isset($_POST['categoria'])){
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>

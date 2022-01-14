@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
+
     include ("verifica.php"); //verificar a autenticacão
 
     if ($autenticado) {
@@ -11,6 +14,31 @@
 
     } else {
 }
+?>
+
+<?php
+
+$login = "root";
+$password = "!AdBp2601!";
+$bd = "bd";
+$host = "localhost";
+global $idUser;
+
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$iduser = $_GET['iduser'];
+$portes = $_GET['portes'];
+$subtotal = $_GET['subtotal'];
+$total = $_GET['total'];
+
+$morada = $_POST['morada'];
+$pais = $_POST['pais'];
+$cidade = $_POST['cidade'];
+$codpostal = $_POST['codpostal'];
 ?>
 
 
@@ -74,7 +102,6 @@
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.php" class="nav-item nav-link active">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
@@ -135,40 +162,24 @@
                         <div class="billing-address">
                             <h2>Morada</h2>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label>Nome</label>
-                                    <input class="form-control" type="text" placeholder="Nome">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="E-mail">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Nº Telemóvel</label>
-                                    <input class="form-control" type="text" placeholder="Nº Telemóvel">
-                                </div>
                                 <div class="col-md-12">
                                     <label>Morada</label>
-                                    <input class="form-control" type="text" placeholder="Morada">
+                                    <input class="form-control" type="text" name="morada" placeholder="Morada">
                                 </div>
                                 <div class="col-md-6">
                                     <label>País</label>
-                                    <select class="custom-select">
+                                    <select name="pais" class="custom-select">
                                         <option selected>Portugal</option>
                                         <option>Espanha</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Cidade</label>
-                                    <input class="form-control" type="text" placeholder="Cidade">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Estado</label>
-                                    <input class="form-control" type="text" placeholder="Estado">
+                                    <input class="form-control" name="cidade" type="text" placeholder="Cidade">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Código Postal</label>
-                                    <input class="form-control" type="text" placeholder="Código Postal">
+                                    <input class="form-control" name="codpostal" type="text" placeholder="Código Postal">
                                 </div>
                             </div>
                         </div>
@@ -177,11 +188,9 @@
                 <div class="col-lg-4">
                     <div class="checkout-inner">
                         <div class="checkout-summary">
-                            <h1>CARRINHO DE COMPRAS Total</h1>
-                            <p>Nome do Produto<span>€99</span></p>
-                            <p class="sub-total">Sub Total<span>€99</span></p>
-                            <p class="ship-cost">Portes de Envio<span>€1</span></p>
-                            <h2>Total<span>€100</span></h2>
+                            <p class="sub-total">Sub Total<span><?php echo $subtotal ?>€</span></p>
+                            <p class="ship-cost">Portes de Envio<span><?php echo $portes ?>€</span></p>
+                            <h2>Total<span><?php echo $total ?>€</span></h2>
                         </div>
 
                         <div class="checkout-payment">
@@ -220,7 +229,9 @@
                                 </div>
                             </div>
                             <div class="checkout-btn">
-                                <button>Faça a Encomenda</button>
+                                <a href="#">
+                                    <button class="btn">Faça a Encomenda</button>
+                                </a>
                             </div>
                         </div>
                     </div>

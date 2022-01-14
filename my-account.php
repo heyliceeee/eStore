@@ -1,5 +1,6 @@
 <?php
 
+
 include("verifica.php"); //verificar a autenticacão
 
 if ($autenticado) {
@@ -37,6 +38,9 @@ $result = $conn->query($sql);
 
 $sqlUser = "SELECT * FROM users WHERE id = $idUser";
 $resultUser = $conn->query($sqlUser);
+
+$sqlCart = "SELECT * FROM cart WHERE iduser = $idUser";
+$resultCart = $conn->query($sqlCart);
 ?>
 
 <!DOCTYPE html>
@@ -270,7 +274,6 @@ $resultUser = $conn->query($sqlUser);
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link active">MINHA CONTA</a>
                         <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
@@ -416,39 +419,53 @@ $resultUser = $conn->query($sqlUser);
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Nº</th>
-                                            <th>Produto</th>
-                                            <th>Data</th>
+                                            <th hidden>ID</th>
+                                            <th hidden>ID USER</th>
+                                            <th hidden>ID PRODUCT</th>
+                                            <th>Foto</th>
+                                            <th>Título</th>
                                             <th>Preço</th>
-                                            <th>Estado</th>
                                             <th>Ação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Nome do Produto</td>
-                                            <td>01 Jan 2020</td>
-                                            <td>€99</td>
-                                            <td>Aprovado</td>
-                                            <td><button class="btn">Visualizar</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Nome do Produto</td>
-                                            <td>01 Jan 2020</td>
-                                            <td>€99</td>
-                                            <td>Aprovado</td>
-                                            <td><button class="btn">Visualizar</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Nome do Produto</td>
-                                            <td>01 Jan 2020</td>
-                                            <td>€99</td>
-                                            <td>Aprovado</td>
-                                            <td><button class="btn">Visualizar</button></td>
-                                        </tr>
+                                        
+                                    <?php
+
+                                        if ($resultCart->num_rows > 0) {
+                                            while ($row = $resultCart->fetch_assoc()) {
+
+                                                $id = $row["id"];;
+                                                $iduser = $row["iduser"];
+                                                $idproduct = $row["idproduct"];
+                                                $foto = $row["foto"];
+                                                $titulo = $row["titulo"];
+                                                $preco = $row["preco"];
+                                        ?>
+
+                                                <tr>
+                                                    <td hidden><?php echo $id ?></td>
+                                                    <td hidden><?php echo $iduser ?></td>
+                                                    <td hidden><?php echo $idproduct ?></td>
+                                                    <td><img src="img/<?php echo $foto; ?>" alt="Foto Produto" style="width: 150px;"></td>
+                                                    <td><?php echo $titulo ?></td>
+                                                    <td><?php echo $preco ?> €</td>
+                                                    <td>
+                                                        <!-- visualizar produto -->
+                                                        <a href="product-detailLogin.php?id=<?php echo $idproduct; ?>">
+                                                            <button class="btn"><i class="fa fa-search"></i></button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                        <?php
+                                            }
+                                        } else {
+
+                                            echo "Não existe encomendas.";
+                                        }
+                                        ?>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -457,7 +474,6 @@ $resultUser = $conn->query($sqlUser);
                             <h4>Morada</h4>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h5>Morada</h5>
                                     <p>123 Rua da Casa, Santo Tirso, Porto</p>
                                     <p>Telemóvel: +351 961 678</p>
                                     <button class="btn">Editar Morada</button>

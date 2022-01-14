@@ -57,6 +57,31 @@ $result = $conn->query($sql);
 </head>
 
 <body>
+<div class="modal fade" id="deletecartmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar do Carrinho de Compras</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deletecart.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="id">
+
+                        <h4>Tem a certeza que quer eliminar do carrinho de compras este produto?</h4>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn" name="delete_cart_data">Sim, elimina.</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -89,7 +114,6 @@ $result = $conn->query($sql);
                         <a href="product-listLogin.php" class="nav-item nav-link">PRODUTOS</a>
                         <a href="addProduct.php" class="nav-item nav-link">ADICIONAR PRODUTO</a>
                         <a href="cart.php" class="nav-item nav-link active">CARRINHO DE COMPRAS</a>
-                        <a href="checkout.php" class="nav-item nav-link">CHECKOUT</a>
                         <a href=" my-account.php" class="nav-item nav-link">MINHA CONTA</a>
                         <a href="wishlist.php" class="nav-item nav-link">LISTA DE DESEJOS</a>
                     </div>
@@ -223,7 +247,7 @@ $result = $conn->query($sql);
                                         <h2>Total<span><?php echo $total ?>€</span></h2>
                                     </div>
                                     <div class="cart-btn">
-                                        <a href="checkout.php"><button>Checkout</button></a>
+                                        <a href="checkout.php?iduser=<?php echo $iduser ?>&portes=<?php echo $portes ?>&subtotal=<?php echo $subtotal ?>&total=<?php echo $total ?>"><button>Checkout</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -335,6 +359,25 @@ $result = $conn->query($sql);
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.delete_cart_btn').on('click', function() {
+                $('#deletecartmodal').modal('show');
+
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#id').val(data[0]);
+            });
+        });
+    </script>
 </body>
 
 </html>
