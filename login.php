@@ -7,9 +7,12 @@ $host = "localhost";
 $email = $pass = "";
 $pagina = "indexLogin.php";
 $paginaAdmin = "indexAdmin.php";
+$ban = "ban.php";
 $LoginArrayErr = [];
 $dateCurrent = 0;
 $erro = "";
+
+global $idUser, $idUserAdmin;
 
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
@@ -98,8 +101,9 @@ if (empty(($LoginArrayErr))) {
     $sqlAdmin = "SELECT * FROM users WHERE email='$email' AND pass='$pass' AND role='admin'";
     $resultAdmin = $conn->query($sqlAdmin);
 
-    $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
-    $result = $conn->query($sql);
+    $sqlAdminBan = "SELECT * FROM users WHERE email='$email' AND pass='$pass' AND role='admin' AND ban='1'";
+    $resultAdminBan = $conn->query($sqlAdminBan);
+
 
     if ($resultAdmin->num_rows == 1) {
 
@@ -119,9 +123,33 @@ if (empty(($LoginArrayErr))) {
             echo "";
         //echo "Novo log criado com sucesso!!! ";
         else echo "Erro: " . $logs . "<br>" . $conn->error;
+
+        
+        if ($resultAdminBan->num_rows == 1) {
+
+            header("Location: $ban");
+        
+        } else {
+    
+            $erro = "Utilizador Inválido";
+            $d = strtotime("now");
+            $dateCurrent = date("Y-m-d h:i:sa", $d);
+    
+            $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
+        }
+
     } else
 
+
+
+
+    $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass' AND ban='0'";
+    $result = $conn->query($sql);
+
+    $sqlBan = "SELECT * FROM users WHERE email='$email' AND pass='$pass' AND ban='1'";
+    $resultBan = $conn->query($sqlBan);
   
+
     if ($result->num_rows == 1) {
 
         $_SESSION['email'] = $email;
@@ -148,6 +176,21 @@ if (empty(($LoginArrayErr))) {
 
         $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
     }
+
+    if ($resultBan->num_rows == 1) {
+
+        header("Location: $ban");
+    
+    } else {
+
+        $erro = "Utilizador Inválido";
+        $d = strtotime("now");
+        $dateCurrent = date("Y-m-d h:i:sa", $d);
+
+        $logs = "INSERT INTO logs (data, ecra, erro) VALUES ('$dateCurrent', 'login', '$erro')";
+    }
+
+
 } else {
 
     echo "Erro: ";

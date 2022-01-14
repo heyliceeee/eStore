@@ -107,10 +107,6 @@ $resultBan = $conn->query($sqlBan);
                     <div class="modal-body">
                         <input type="hidden" name="idUser" id="idUser">
 
-                        <div class="form-group">
-                            <label>Expira</label>
-                            <input class="form-control" id="expDate" type="date" name="expDate">
-                        </div>
 
                         <div class="form-group">
                             <label>Razão</label>
@@ -149,6 +145,61 @@ $resultBan = $conn->query($sqlBan);
                     <div class="modal-footer">
                         <button type="button" class="btn" data-dismiss="modal">Não</button>
                         <button type="submit" class="btn" name="deletelog">Sim, elimina.</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletebanmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Banimento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deleteban.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="deleteban_id" id="deleteban_id">
+
+                        <h4>Tem a certeza que quer eliminar este banimento?</h4>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Não</button>
+                        <button type="submit" class="btn" name="deleteban">Sim, elimina.</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="unbanmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Desbanimento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="unban.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="unban_id" id="unban_id">
+                        <input type="hidden" name="user_id" id="user_id">
+
+                        <h4>Tem a certeza que quer desbanir este utilizador?</h4>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Não</button>
+                        <button type="submit" class="btn" name="unban">Sim, quero desbanir.</button>
                     </div>
                 </form>
             </div>
@@ -361,7 +412,7 @@ $resultBan = $conn->query($sqlBan);
                                         <tr>
                                             <th hidden>ID</th>
                                             <th>ID Utilizador</th>
-                                            <th>Expira</th>
+                                            <th>Data</th>
                                             <th>Razão</th>
                                             <th>Ação</th>
                                         </tr>
@@ -386,10 +437,10 @@ $resultBan = $conn->query($sqlBan);
                                             <td><?php echo $razao ?></td>
                                             <td>
                                                 <!-- desbloquear user -->
-                                                <button class="btn"><i class="fa fa-ban"></i></button>
+                                                <button class="btn unbanbtn"><i class="fa fa-lock-open"></i></button>
 
                                                 <!-- eliminar ban -->
-                                                <button class="btn"><i class="fa fa-trash"></i></button>
+                                                <button class="btn deletebanbtn"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
 
@@ -564,6 +615,43 @@ $resultBan = $conn->query($sqlBan);
                 console.log(data);
 
                 $('#deletelog_id').val(data[0]);
+            });
+        });
+</script>
+
+<script>
+        $(document).ready(function (){
+            $('.unbanbtn').on('click', function(){
+                $('#unbanmodal').modal('show');
+
+               $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#unban_id').val(data[0]);
+                $('#user_id').val(data[1]);
+            });
+        });
+</script>
+
+<script>
+        $(document).ready(function (){
+            $('.deletebanbtn').on('click', function(){
+                $('#deletebanmodal').modal('show');
+
+               $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#deleteban_id').val(data[0]);
             });
         });
 </script>
