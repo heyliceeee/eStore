@@ -175,9 +175,9 @@ $resultQuery = $conn->query($query);
                                                 <p><?php echo $preco; ?>€</p>
                                             </div>
                                             <div class="p-color">
-                                                <h4>Tipo:</h4>
+                                                <h4>Categoria:</h4>
                                                 <div class="btn-group btn-group-sm">
-                                                    <button type="button" class="btn"><?php echo $categoria; ?></button>
+                                                    <a href="productListCategoryLogin.php?categoria=<?php echo $categoria ?>"><button type="button" class="btn"><?php echo $categoria; ?></button></a>
                                                 </div>
                                             </div>
                                             <div class="p-color">
