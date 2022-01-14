@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ERROR | E_PARSE);
-
-
     include ("verifica.php"); //verificar a autenticacão
 
     if ($autenticado) {
@@ -35,10 +32,10 @@ $portes = $_GET['portes'];
 $subtotal = $_GET['subtotal'];
 $total = $_GET['total'];
 
-$morada = $_POST['morada'];
-$pais = $_POST['pais'];
-$cidade = $_POST['cidade'];
-$codpostal = $_POST['codpostal'];
+//$morada = $_POST['morada'];
+//$pais = $_POST['pais'];
+//$cidade = $_POST['cidade'];
+//$codpostal = $_POST['codpostal'];
 ?>
 
 
@@ -161,7 +158,7 @@ $codpostal = $_POST['codpostal'];
                     <div class="checkout-inner">
                         <div class="billing-address">
                             <h2>Morada</h2>
-                            <div class="row">
+                            <form class="row" method="post" action="">
                                 <div class="col-md-12">
                                     <label>Morada</label>
                                     <input class="form-control" type="text" name="morada" placeholder="Morada">
@@ -181,7 +178,7 @@ $codpostal = $_POST['codpostal'];
                                     <label>Código Postal</label>
                                     <input class="form-control" name="codpostal" type="text" placeholder="Código Postal">
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -229,9 +226,7 @@ $codpostal = $_POST['codpostal'];
                                 </div>
                             </div>
                             <div class="checkout-btn">
-                                <a href="#">
-                                    <button class="btn">Faça a Encomenda</button>
-                                </a>
+                                <button class="btn">Faça a Encomenda</button>
                             </div>
                         </div>
                     </div>
