@@ -177,30 +177,25 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                     <nav class="navbar bg-light">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.php"><i class="fa fa-PÁGINA INICIAL"></i>PÁGINA
-                                    INICIAL</a>
+                                <a class="nav-link" href="recentList.php"><i class="fa fa-plus-square"></i>Acabaram de chegar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Mais Vendidos</a>
+                                <a class="nav-link" href="productListCategory.php?categoria=Moda_&_Beleza"><i class="fa fa-female"></i>Moda & Beleza</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-plus-square"></i>Acabaram de chegar</a>
+                                <a class="nav-link" href="productListCategory.php?categoria=Roupas_Criança_&_Bebé"><i class="fa fa-child"></i>Roupas Criança & Bebé</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-female"></i>Moda & Beleza</a>
+                                <a class="nav-link" href="productListCategory.php?categoria=Roupas_Homem_&_Mulher"><i class="fa fa-tshirt"></i>Roupas Homem & Mulher</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-child"></i>Roupas Criança & Bebé</a>
+                                <a class="nav-link" href="productListCategory.php?categoria=Gadgets_&_Acessórios"><i class="fa fa-mobile-alt"></i>Gadgets & Acessórios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Roupas Homem & Mulher</a>
+                                <a class="nav-link" href="productListCategory.php?categoria=Eletrônicos_&_Acessórios"><i class="fa fa-microchip"></i>Eletrônicos & Acessórios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets & Acessórios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Eletrônicos &
-                                    Acessórios</a>
+                                <a class="nav-link" href="productListCategory.php?categoria=Outro"><i class="fa fa-ellipsis-h"></i>Outro</a>
                             </li>
                         </ul>
                     </nav>

@@ -36,10 +36,14 @@ $conn = new mysqli($host, $login, $password, $bd);
 // Check connection
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$a = $_GET['search']; //get search url param
-
-$sql = "SELECT * FROM products WHERE preco != 0 AND titulo LIKE '$a%' ORDER BY id DESC";
+$sql = "SELECT * FROM products WHERE preco != 0 ORDER BY id DESC";
 $result = $conn->query($sql);
+
+if(isset($_POST['categoria'])){
+    $categoriaKey = $_POST['categoria'];
+    $categoriaSearch = "SELECT * FROM products WHERE preco != 0 AND categoria LIKE '%categoriaKey%";
+
+}
 ?>
 
 
@@ -161,7 +165,6 @@ $result = $conn->query($sql);
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item active">RESULTADO DA PESQUISA</li>
             </ul>
         </div>
     </div>
@@ -179,6 +182,7 @@ $result = $conn->query($sql);
                             if($result->num_rows > 0){
                                 while($row = $result->fetch_assoc()){
 
+                                $id = $row["id"];
                                 $foto = $row["foto"];
                                 $titulo = $row["titulo"];
                                 $preco = $row["preco"];
@@ -196,12 +200,12 @@ $result = $conn->query($sql);
                                     <div class="product-action">
                                         <a href="#"><i class="fa fa-cart-plus"></i></a>
                                         <a href="#"><i class="fa fa-heart"></i></a>
-                                        <a href="#"><i class="fa fa-search"></i></a>
+                                        <a href="product-detailLogin.php?id=<?php echo $id; ?>"<i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="product-price">
                                     <h3><?php echo $preco ?><span>€</span></h3>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                                    <a class="btn" href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
                                 </div>
                             </div>
                         </div>
@@ -243,28 +247,22 @@ $result = $conn->query($sql);
                         <nav class="navbar bg-light">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="recentListLogin.php"><i class="fa fa-plus-square"></i>Acabaram de chegar</a>
+                                    <a class="nav-link" href="#"><i class="fa fa-female"></i>Moda & Beleza</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="productListCategoryLogin.php?categoria=Moda_&_Beleza"><i class="fa fa-female"></i>Moda & Beleza</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="productListCategoryLogin.php?categoria=Roupas_Criança_&_Bebé"><i class="fa fa-child"></i>Roupas Criança &
+                                    <a class="nav-link" href="#"><i class="fa fa-child"></i>Roupas Criança &
                                         Bebé</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="productListCategoryLogin.php?categoria=Roupas_Homem_&_Mulher"><i class="fa fa-tshirt"></i>Roupas Homem & Mulher</a>
+                                    <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Roupas Homem & Mulher</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="productListCategoryLogin.php?categoria=Gadgets_&_Acessórios"><i class="fa fa-mobile-alt"></i>Gadgets &
+                                    <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets &
                                         Acessórios</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="productListCategoryLogin.php?categoria=Eletrônicos_&_Acessórios"><i class="fa fa-microchip"></i>Eletrônicos &
+                                    <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Eletrônicos &
                                         Acessórios</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="productListCategoryLogin.php?categoria=Outro"><i class="fa fa-ellipsis-h"></i>Outro</a>
                                 </li>
                             </ul>
                         </nav>
