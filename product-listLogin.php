@@ -69,6 +69,7 @@ $result = $conn->query($sql);
 </head>
 
 <body>
+
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -138,18 +139,6 @@ $result = $conn->query($sql);
                         </a>
                     </form>
                 </div>
-                <div class="col-md-3">
-                    <div class="user">
-                        <a href="wishlist.php" class="btn wishlist">
-                            <i class="fa fa-heart"></i>
-                            <span>(0)</span>
-                        </a>
-                        <a href="cart.php" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -183,27 +172,28 @@ $result = $conn->query($sql);
                                 $preco = $row["preco"];
                         ?>
 
-                        <div class="col-md-4">
-                            <div class="product-item">
-                                <div class="product-title">
-                                    <a href="#"><?php echo $titulo; ?></a>
-                                </div>
-                                <div class="product-image">
-                                    <a href="product-detailLogin.php">
-                                        <img src="img/<?php echo $foto; ?>" alt="Product Image">
-                                    </a>
-                                    <div class="product-action">
-                                        <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                        <a href="#"><i class="fa fa-heart"></i></a>
-                                        <a href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
+                                <div class="col-md-4">
+                                    <div class="product-item">
+                                        <div class="product-title">
+                                            <a href="#"><?php echo $titulo; ?></a>
+                                        </div>
+                                        <div class="product-image">
+                                            <a href="product-detailLogin.php">
+                                                <img src="img/<?php echo $foto; ?>" alt="Product Image">
+                                            </a>
+                                            <div class="product-action">
+                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                                <a href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="product-price">
+                                            <h3><?php echo $preco ?><span>€</span></h3>
+                                            <a class="btn" href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="product-price">
-                                    <h3><?php echo $preco ?><span>€</span></h3>
-                                    <a class="btn" href="product-detailLogin.php?id=<?php echo $id; ?>"><i class="fa fa-shopping-cart"></i>Compre Agora</a>
-                                </div>
-                            </div>
-                        </div>
+                            <!-- </tr>                
+                        </table> -->
 
                         <?php 
                             }

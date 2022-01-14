@@ -526,8 +526,6 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                                 <img src="img/<?php echo $foto; ?>" alt="Product Image">
                             </a>
                             <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
                                 <a href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>
@@ -598,8 +596,6 @@ $resultQueryproductsRecents = $conn->query($queryproductsRecents);
                                 <img src="img/<?php echo $foto; ?>" alt="Product Image">
                             </a>
                             <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
                                 <a href=""><i class="fa fa-search"></i></a>
                             </div>
                         </div>

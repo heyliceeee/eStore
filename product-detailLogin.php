@@ -29,6 +29,8 @@ $password = "!AdBp2601!";
 $bd = "bd";
 $host = "localhost";
 
+global $idUser;
+
 // Create connection
 $conn = new mysqli($host, $login, $password, $bd);
 
@@ -147,6 +149,7 @@ $resultQuery = $conn->query($query);
                     if ($resultQuery->num_rows > 0) {
                         while ($row = $resultQuery->fetch_assoc()) {
 
+                            $id = $row["id"];
                             $foto = $row["foto"];
                             $titulo = $row["titulo"];
                             $preco = $row["preco"];
@@ -194,9 +197,9 @@ $resultQuery = $conn->query($query);
                                             </div>
 
                                             <div class="action">
-                                                <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Adicionar ao Carrinho
-                                                    de Compras</a>
-                                                <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Compre Agora</a>
+                                                <a name="addWishlist" class="btn" href="addWishlist.php?id=<?php echo $id ?>&titulo=<?php echo $titulo ?>&preco=<?php echo $preco?>&foto=<?php echo $foto ?>"><i class="fa fa-heart"></i>Adicionar á Lista de Desejos</a>
+                                                
+                                                <a name="addCart" class="btn" href="addCart.php?iduser=<?php echo $idUser ?>&idproduct=<?php echo $id ?>&foto=<?php echo $foto ?>&titulo=<?php echo $titulo ?>&preco=<?php echo $preco ?>"><i class="fa fa-cart-plus"></i>Adicionar ao Carrinho de Compras</a>
                                             </div>
                                         </div>
                                     </div>

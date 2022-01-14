@@ -20,6 +20,25 @@
 }
 ?>
 
+<?php
+
+$preco = 0.00;
+$dateCurrent = 0;
+$erro = "";
+$ProductArrayErr = [];
+
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$sql = "SELECT * FROM wishlist WHERE iduser='$idUser' ORDER BY id DESC";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,6 +67,32 @@
 </head>
 
 <body>
+<div class="modal fade" id="deletewishlistmodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar da Lista de Desejos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deletewishlist.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="id">
+
+                        <h4>Tem a certeza que quer eliminar da lista de desejos este produto?</h4>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn" name="delete_wishlist_data">Sim, elimina.</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -117,18 +162,6 @@
                         </a>
                     </form>
                 </div>
-                <div class="col-md-3">
-                    <div class="user">
-                        <a href="wishlist.php" class="btn wishlist">
-                            <i class="fa fa-heart"></i>
-                            <span>(0)</span>
-                        </a>
-                        <a href="cart.php" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -154,104 +187,54 @@
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
+                                        <th hidden>ID</th>
+                                        <th hidden>ID User</th>
+                                        <th hidden>ID Product</th>
+                                        <th>Foto</th>
                                         <th>Produto</th>
                                         <th>Preço</th>
-                                        <th>Quantidade</th>
-                                        <th>Adicionar ao Carrinho de Compras</th>
-                                        <th>Eliminar</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
-                                <tbody class="align-middle">
+                                <tbody>
+                                    
+                                <?php
+
+                                    if($result->num_rows > 0){
+                                        while($row = $result->fetch_assoc()){
+
+                                        $id = $row["id"];
+                                        $iduser = $row["iduser"];
+                                        $idproduct = $row["idproduct"];
+                                        $foto = $row["foto"];
+                                        $titulo = $row["titulo"];
+                                        $preco = $row["preco"];
+                                        
+                                ?>
+
                                     <tr>
+                                        <td hidden><?php echo $id ?></td>
+                                        <td hidden><?php echo $iduser ?></td>
+                                        <td hidden><?php echo $idproduct ?></td>
+                                        <td><img src="img/<?php echo $foto; ?>" alt="Foto Produto" style="width: 150px;"></td>
+                                        <td><?php echo $titulo ?></td>
+                                        <td><?php echo $preco ?> €</td>
                                         <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-6.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
+                                            <!-- add cart -->
+                                            <a name="addCart" class="btn" href="addCart.php?iduser=<?php echo $iduser ?>&idproduct=<?php echo $idproduct ?>&foto=<?php echo $foto ?>&titulo=<?php echo $titulo ?>&preco=<?php echo $preco ?>"><i class="fa fa-cart-plus"></i></a>
+
+                                            <!-- eliminar wishlist -->
+                                            <a class="btn delete_wishlist_btn" href="#"><i class="fa fa-trash"></i></button></a>
                                         </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-7.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-8.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-9.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-10.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn-cart">Adicionar ao Carrinho de Compras</button></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
+
+                                <?php 
+                                    }
+                                    } else {
+
+                                        echo "Não existe produtos na lista de desejos.";
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
@@ -362,6 +345,25 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+<script>
+        $(document).ready(function() {
+            $('.delete_wishlist_btn').on('click', function() {
+                $('#deletewishlistmodal').modal('show');
+
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#id').val(data[0]);
+            });
+        });
+    </script>
 </body>
 
 </html>

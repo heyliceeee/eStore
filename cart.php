@@ -2,22 +2,31 @@
     include ("verifica.php"); //verificar a autenticacão
 
     if ($autenticado) {
-        //codigo a executar se o user estiver autenticado
-        //echo "Utilizador autenticado!!!<br />";
-        //echo "Nome: $nomeUtil";
         $idUser = $idUtil;
 
-        //linha de exemplo
         include ("logout.php");
 
     } else {
-        //codigo a executar se o user não estiver autenticado
-
-        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
-
-        //linha de exemplo
-        //include ("login.php");
 }
+?>
+
+<?php
+
+$preco = 0.00;
+$dateCurrent = 0;
+$erro = "";
+$ProductArrayErr = [];
+
+$login = "root"; $password = "!AdBp2601!"; $bd = "bd"; $host = "localhost";
+
+// Create connection
+$conn = new mysqli($host, $login, $password, $bd);
+
+// Check connection
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$sql = "SELECT * FROM cart WHERE iduser='$idUser' ORDER BY id DESC";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -117,18 +126,6 @@
                         </a>
                     </form>
                 </div>
-                <div class="col-md-3">
-                    <div class="user">
-                        <a href="wishlist.php" class="btn wishlist">
-                            <i class="fa fa-heart"></i>
-                            <span>(0)</span>
-                        </a>
-                        <a href="cart.php" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -154,104 +151,56 @@
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
+                                        <th hidden>ID</th>
+                                        <th hidden>ID User</th>
+                                        <th hidden>ID Product</th>
+                                        <th>Foto</th>
                                         <th>Produto</th>
                                         <th>Preço</th>
-                                        <th>Quantidade</th>
-                                        <th>Total</th>
-                                        <th>Eliminar</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
-                                <tbody class="align-middle">
+                                <tbody>
+                                
+                                <?php
+
+                                    if($result->num_rows > 0){
+                                        while($row = $result->fetch_assoc()){
+
+                                            $portes = 5 * $result->num_rows; //5 * nº de produtos
+                                            $subtotal = $subtotal + $row["preco"];
+                                            $total = $subtotal + $portes;
+
+                                            $id = $row["id"];
+                                            $iduser = $row["iduser"];
+                                            $idproduct = $row["idproduct"];
+                                            $foto = $row["foto"];
+                                            $titulo = $row["titulo"];
+                                            $preco = $row["preco"];
+                                        
+                                ?>
+
                                     <tr>
+                                        <td hidden><?php echo $id ?></td>
+                                        <td hidden><?php echo $iduser ?></td>
+                                        <td hidden><?php echo $idproduct ?></td>
+                                        <td><img src="img/<?php echo $foto; ?>" alt="Foto Produto" style="width: 150px;"></td>
+                                        <td><?php echo $titulo ?></td>
+                                        <td><?php echo $preco ?> €</td>
                                         <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-1.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
+                                            <!-- eliminar cart -->
+                                            <a class="btn delete_cart_btn" href="#"><i class="fa fa-trash"></i></button></a>
                                         </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-2.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-3.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-4.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-5.jpg" alt="Image"></a>
-                                                <p>Nome do Produto</p>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>€99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
+
+                                <?php 
+                                    }
+                                    } else {
+
+                                        echo "Não existe produtos no carrinho de compras.";
+                                    }
+                                ?>
+
                                 </tbody>
                             </table>
                         </div>
@@ -269,13 +218,11 @@
                             <div class="col-md-12">
                                 <div class="cart-summary">
                                     <div class="cart-content">
-                                        <!-- <h1>Resumo do CARRINHO DE COMPRAS</h1> -->
-                                        <p>Sub Total<span>€99</span></p>
-                                        <p>Portes de Envio<span>€1</span></p>
-                                        <h2>Total<span>€100</span></h2>
+                                        <p>Sub Total<span><?php echo $subtotal ?>€</span></p>
+                                        <p>Portes de Envio<span><?php echo $portes ?>€</span></p>
+                                        <h2>Total<span><?php echo $total ?>€</span></h2>
                                     </div>
                                     <div class="cart-btn">
-                                        <a href="cart.php"><button>Atualizar Carrinho de Compras</button></a>
                                         <a href="checkout.php"><button>Checkout</button></a>
                                     </div>
                                 </div>

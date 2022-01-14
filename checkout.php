@@ -2,21 +2,14 @@
     include ("verifica.php"); //verificar a autenticacão
 
     if ($autenticado) {
-        //codigo a executar se o user estiver autenticado
-        //echo "Utilizador autenticado!!!<br />";
-        //echo "Nome: $nomeUtil";
         $idUser = $idUtil;
+        $emailUser = $emailUtil;
+        $nameUser = $nomeUtil;
 
         //linha de exemplo
         include ("logout.php");
 
     } else {
-        //codigo a executar se o user não estiver autenticado
-
-        //echo "<h1>Para aceder a esta página tem de se autenticar!!!</h1><br /><br />";
-
-        //linha de exemplo
-        //include ("login.php");
 }
 ?>
 
@@ -117,18 +110,6 @@
                             <button><i class="fa fa-search"></i></button>
                         </a>
                     </form>
-                </div>
-                <div class="col-md-3">
-                    <div class="user">
-                        <a href="wishlist.php" class="btn wishlist">
-                            <i class="fa fa-heart"></i>
-                            <span>(0)</span>
-                        </a>
-                        <a href="cart.php" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

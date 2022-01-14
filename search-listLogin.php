@@ -140,18 +140,6 @@ $result = $conn->query($sql);
                         </a>
                     </form>
                 </div>
-                <div class="col-md-3">
-                    <div class="user">
-                        <a href="wishlist.php" class="btn wishlist">
-                            <i class="fa fa-heart"></i>
-                            <span>(0)</span>
-                        </a>
-                        <a href="cart.php" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -195,7 +183,6 @@ $result = $conn->query($sql);
                                     </a>
                                     <div class="product-action">
                                         <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                        <a href="#"><i class="fa fa-heart"></i></a>
                                         <a href="#"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
