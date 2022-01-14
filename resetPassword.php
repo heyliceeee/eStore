@@ -196,7 +196,7 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) && ($
                             <h2>Entrar em Contato</h2>
                             <div class="contact-info">
                                 <p><i class="fa fa-map-marker"></i>123 E Store, Santo Tirso, Porto, Portugal</p>
-                                <p><i class="fa fa-envelope"></i>email@example.com</p>
+                                <p><i class="fa fa-envelope"></i>estore.website.2021@gmail.com</p>
                                 <p><i class="fa fa-phone"></i>+351-961-678</p>
                             </div>
                         </div>
@@ -475,7 +475,7 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) && ($
                         <h2>Entrar em Contato</h2>
                         <div class="contact-info">
                             <p><i class="fa fa-map-marker"></i>123 E Store, Santo Tirso, Porto, Portugal</p>
-                            <p><i class="fa fa-envelope"></i>email@example.com</p>
+                            <p><i class="fa fa-envelope"></i>estore.website.2021@gmail.com</p>
                             <p><i class="fa fa-phone"></i>+351-961-678</p>
                         </div>
                     </div>
@@ -749,7 +749,7 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) && ($
                             <h2>Entrar em Contato</h2>
                             <div class="contact-info">
                                 <p><i class="fa fa-map-marker"></i>123 E Store, Santo Tirso, Porto, Portugal</p>
-                                <p><i class="fa fa-envelope"></i>email@example.com</p>
+                                <p><i class="fa fa-envelope"></i>estore.website.2021@gmail.com</p>
                                 <p><i class="fa fa-phone"></i>+351-961-678</p>
                             </div>
                         </div>
@@ -1056,7 +1056,7 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
                         <h2>Entrar em Contato</h2>
                         <div class="contact-info">
                             <p><i class="fa fa-map-marker"></i>123 E Store, Santo Tirso, Porto, Portugal</p>
-                            <p><i class="fa fa-envelope"></i>email@example.com</p>
+                            <p><i class="fa fa-envelope"></i>estore.website.2021@gmail.com</p>
                             <p><i class="fa fa-phone"></i>+351-961-678</p>
                         </div>
                     </div>
@@ -1349,7 +1349,7 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
                         <h2>Entrar em Contato</h2>
                         <div class="contact-info">
                             <p><i class="fa fa-map-marker"></i>123 E Store, Santo Tirso, Porto, Portugal</p>
-                            <p><i class="fa fa-envelope"></i>email@example.com</p>
+                            <p><i class="fa fa-envelope"></i>estore.website.2021@gmail.com</p>
                             <p><i class="fa fa-phone"></i>+351-961-678</p>
                         </div>
                     </div>
@@ -1632,7 +1632,7 @@ $error= "Palavra passe reset com sucesso.";
                         <h2>Entrar em Contato</h2>
                         <div class="contact-info">
                             <p><i class="fa fa-map-marker"></i>123 E Store, Santo Tirso, Porto, Portugal</p>
-                            <p><i class="fa fa-envelope"></i>email@example.com</p>
+                            <p><i class="fa fa-envelope"></i>estore.website.2021@gmail.com</p>
                             <p><i class="fa fa-phone"></i>+351-961-678</p>
                         </div>
                     </div>
